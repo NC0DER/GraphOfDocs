@@ -1,0 +1,71 @@
+Darla Washington
+8901 Meadow Way, #389
+Sometown, NJ 08094
+555-555-5555
+dw@somedomain.com
+Available for Extensive Travel
+Able to Relocate
+
+JUNIOR SOFTWARE QA TESTER
+
+Experience in Manual & Automated Testing for Software Quality Assurance (SQA)
+Knowledgeable in Open-Source Automation Tools (Selenium, Agile, soapUI)
+Familiar with Object-Oriented Programming in .Net and Java
+
+Key Skills
+
+SQA Tools & Best Practices
+
+Test Cases, Plans & Scripts
+
+Defect & Bug Discovery
+
+Technical Specification Analysis
+
+System & Unit Testing
+
+Acceptance Testing
+
+Regression Testing
+
+Load Testing
+
+Tracking, Logging & Reporting
+
+Program Logic & Optimization
+
+Software Architecture Technologies
+
+Issue Identification
+
+Professional Experience
+
+ABC COMPANY — Sometown, NJ
+
+Junior QA Tester, 6/2016 to Present
+
+Perform system, unit, acceptance, regression, load and functional/performance testing on dozens of applications using both automated and manual testing methods. Validate, verify, communicate and resolve software issues through careful, thoroughly documented testing to maximize return on investment (ROI) for IT initiatives.
+
+Contributions:
+
+Identified, documented and reported bugs, errors, interoperability flaws and other issues within proprietary software applications developed for ABC Company’s global user base.
+Demonstrated methodical, detail-oriented and thorough approach to all assignments while adhering to compressed timelines. Complete all assignments on or ahead of schedule.
+Consistently recognized for excellent problem-solving and analytical skills by programmers, project managers and supervisors.
+Worked collaboratively with QA, development and business groups to complete comprehensive testing on 2 major new releases.
+“…Despite her junior status, Darla is one of the leaders on my QA team…Many programmers personally request Darla for their QA efforts due to her technical knowledge and ability to complete jobs quickly and accurately…” — Performance Review Excerpts, ABC Company
+
+Education & Certifications
+
+AS in Computer Science, 6/2016 XYZ TECHNICAL COLLEGE — Sometown, NJ
+
+Certifications: ICAgile Certified Professional (ICP) Certified Software Test Professional (CSTP)
+
+Technology Summary
+
+Testing Tools:
+
+soapUI, Selenium Suite (Selenium IDE, Selenium Server, Selenium Remote Control, Selenium Grid, Selenium Java Client Driver); Agile; Silk Test; HPE Unified Functional Testing (UFT), HP LoadRunner, HP Performance Center
+
+Languages:
+
+Strong foundation in .Net and Java; basic familiarity with C# and XML

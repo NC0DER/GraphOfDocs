@@ -1,0 +1,76 @@
+SYLVIA JANOWITZ, PMP
+Sometown, FL 32256
+Phone: 555.555.5555 | sj@somedomain.com
+LinkedIn Profile | BeKnown Profile | Twitter Handle
+
+SENIOR SOFTWARE QA TESTER
+
+Automated Test Systems | Quality Methodologies | QA Team Leadership
+
+Senior software QA tester with full system development lifecycle experience, including designing, developing and implementing test plans, test cases and test processes fueling swift corrective actions, significant cost savings and fault-free audits.
+Hands-on technology professional accustomed to working in complex, project-based environments. Multifaceted experience in QA software testing, software development and user-acceptance testing.
+Backed by strong credentials including a computer science degree, PMP certification, Six Sigma Green Belt and computer analytics certificate; advanced command of various testing suites, agile methodologies and monitoring tools; and cross-platform skills in Windows, Linux and Unix.
+Skills Summary
+SQA Testing & Methodologies
+Test Plans, Cases & Processes
+Functional Requirements
+Scripting & Documentation
+Regression & Negative Testing
+UI & Compatibility Testing
+Data Interface & Migration Testing
+Performance/Load/Stress Testing
+Testing Automation
+Defect/Bug Tracking
+Test Strategies & Coverages
+QA & QC Standards
+PROFESSIONAL EXPERIENCE
+
+ABC COMPANY — Sometown, FL
+Software developer specializing in transportation, airline and defense sector solutions.
+
+Senior Software Quality Assurance Tester, 4/12 to Present
+Serve as a key member of software development team as the lead QA tester on development projects for government, DoD and transportation industry clients. Supervise a five-member software QA testing team in developing and implementing quality-assurance and quality-control methodologies to ensure compliance with QA standards, federal regulations and customer specifications. Results:
+
+Created and executed automated software test plans, cases and scripts to uncover, identify and document software problems and their causes. Led QA testing that:
+Prevented hundreds of thousands of dollars in erroneous charges to Florida Turnpike drivers by identifying software bug in automated toll-collection system.
+Pinpointed previously undiscovered flaw in new DoD missile-detection system prototype, resulting in formal commendation letter from the DoD.
+Identified the root cause of intermittent interoperability glitch in air-traffic control software, leading to a no-fault audit finding.
+Transitioned software development efforts to a test-driven development (TDD) process, which brought QA testing in on the front-end of the development cycle for gains in code quality, software functionality and programmer productivity.
+Conducted formal and informal product design reviews throughout the software development lifecycle to provide input on functional requirements, product designs, schedules and potential issues. Leveraged developer background to communicate effectively with software design team, quickly gaining their respect and becoming a valued, “go-to” team member on challenging test cases.
+XYZ GROUP — Sometown, GA
+External testing group providing quality-assurance assessment of software, hardware and systems.
+
+Lead QA Tester, Software & Systems Group, 8/08 to 3/12
+QA Tester, Software Solutions Group, 8/04 to 8/08
+Promoted to serve as lead QA tester, overseeing quality-assurance testing and teams for client software and systems development projects. Performed system, unit, performance, load, regression, stress and data interface testing. Provided client developer teams with detailed reports on quality metrics, identified bugs/flaws and recommended fixes. Results:
+
+Created company’s first comprehensive database of documented test defects and procedures to enable accurate replication and ensure compliance with standards. Accelerated average QA testing turn-around time by 25% or more, allowing company to accept more testing projects without increasing staff.
+Designed and implemented automated testing tools and programs addressing areas including database impacts, software scenarios, regression testing, negative testing, error/bug retests and usability.
+Documented software defects using bug tracking system and reported defects involving program functionality, output, online screen and content to software developers.
+Delivered thorough QA testing reports that determined product quality and release readiness.
+DEF COMPANY— Sometown, GA
+Software solutions provider specializing in mobile technologies.
+
+Software Developer, 8/02 to 8/04
+Worked on teams developing state-of-the-art software for mobile devices, including the #3 selling GPS solution in the US (2003). Analyzed business requirements, conducted gap analysis, estimated project scope and worked closely with fellow developers to deliver high-quality software solutions using Java, C#, VBScript, SQL and other technologies.
+
+123 COMPANY — Sometown, WA
+Nationwide software development company.
+
+User-Acceptance Testing Specialist (contract/part time), 6/00 to 6/02
+Assisted with user-acceptance testing and defect tracking for three new software releases. Offered full-time UAT position after graduating from college (respectfully declined to accept software developer job).
+
+EDUCATION & CREDENTIALS
+
+XYZ UNIVERSITY — Sometown, FL
+Graduate Certificate in Computer Analytics, 2009
+
+ABC UNIVERSITY — Sometown, GA
+BS in Computer Science, 2002
+
+PMI-Certified Project Management Professional (PMP), 2010
+Six Sigma Green Belt, 2008 
+
+TECHNOLOGY SKILLS (Complete list on request)
+
+HP Quality Center; HPE Unified Functional Testing (UFT); HP SiteScope; HP Unified Functional Testing; HP LoadRunner; Selenium Suite; Agile; SoapUI; SilkTest; Introscope; Dynatrace; Compuware Gomez; Java; C#; VBScript; SQL; .NET; XML

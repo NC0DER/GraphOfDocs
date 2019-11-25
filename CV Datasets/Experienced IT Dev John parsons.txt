@@ -1,0 +1,79 @@
+JOHN T. PARSONS
+Sometown, GA 30082
+(555) 555-5555 | jp@somedomain.com | LinkedIn URL
+
+Director of Software Development
+
+Engineering robust, user-focused solutions driving breakthrough efficiency and bottom-line results
+Dynamic leader of software development teams offering 11 years of experience managing multimillion-dollar, mission-critical projects.
+Skilled in all phases of the software development lifecycle; expert in translating business requirements into technical solutions; and fanatical about quality, usability, security and scalability.
+EXPERTISE
+
+Application Development
+Service-Oriented Architecture (SOA)
+Enterprise Implementations
+Software Development Lifecycle (SDLC)
+Release Management
+B2B Integrations
+Project Management
+Offshore Development Operations
+QA & UAT Management
+Team Building & Leadership
+Professional Experience
+
+ABC Inc. (2005 to Present) / DEF Inc. (2004 to 2008) -- Sometown, GA
+ABC is a global financial services firm that acquired DEF in 2008.
+
+Director of Software Development, 2010 to Present
+Senior Software Developer, 2008 to 2010
+Software Developer / Tester, 2004 to 2008
+
+Advanced through several promotions, culminating in present director-level role overseeing firm’s software development activities. Manage a $4.5M R&D budget and a 12-member developer team. Provide cradle-to-grave oversight of software project management, leading the research, design, development, documentation, testing and rollout of enterprise applications.
+
+Accomplishments:
+
+Designed dozens of software solutions driving continuous improvement to processes, systems, work flow and customer responsiveness.
+Mentored development teams in Agile SDLC and RAD best practices. Ensured the release of premium-quality applications that provided intuitive and secure experiences for users.
+Delivered new or enhanced developments
+Web-based customer data-entry applications
+software that automated customer loan data collection and processing functions
+systems for securely handling electronic funds transfers
+browser plug-ins enabling fail-safe recovery of Internet file transfers
+Drove all phases of enterprise integration and process improvement projects to successful completion, including application availability initiatives (e.g., Oracle RAC, WebLogic clustering, data replication) and the implementation of single site fail-over and recovery options.
+Reduced R&D budget from $6M to $4.5M while increasing service levels and improving product stability.
+Project Results
+
+Served as project manager, lead developer and/or team member on dozens of application development projects. Delivered technology solutions that…
+
+Automated processes to resolve business challenges, such as ever-fluctuating currency exchange and bank interest rates (15+ countries), complex bank reconciliation interfaces and ACH/wire-fraud detection.
+Minimized system outages, saving an estimated $1.2M annually.
+Equipped sales force with Web-accessible sales/CRM tools that helped elevate assets under management by 37% from 2003 to 2004.
+Accelerated the lending approval process by 35%.
+Reduced payroll by hundreds of thousands of dollars by automating functions that previously required manual data entry.
+Heightened security of electronic funds transfers and securities pooling.
+Decreased monthly error rates to all-time lows (from 1.2% to 0.02%).
+Streamlined the underwriting and review of government loans.
+Technology Summary
+
+Languages: C++, C#, Java, Delphi, Visual Basic
+Development Tools, Methodologies & Environments: Rapid Application Design (RAD), Object-Oriented Analysis & Design (OOAD), Waterfall Approach, Spiral Approach, Prototyping Approach, Integrated Software Development, Microsoft Visual Studio
+Software: TIBCO, IBM WebSphere MQ, Apache, Business Objects, JBoss, Oracle WebLogic Server
+Systems: Unix, Windows, VAX/VMS, NeXTStep, .Net Framework
+Databases: Oracle, Sybase, Access
+
+EDUCATION
+
+ABC UNIVERSITY - Sometown, GA
+MS in Information Systems
+XYZ COLLEGE - Sometown, AL
+BS in Computer Science
+
+CERTIFICATIONS
+
+MCSD, Microsoft Certified
+Solution Developer
+MCAD, Microsoft Certified
+Applications Developer
+CMST, Certified Manager
+of Software Testig
+CST, Certified Software Tester

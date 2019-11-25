@@ -1,0 +1,53 @@
+CHARLES SIMPSON
+Sometown, OH 45238 | Phone: 555.555.1234 | csimpson@somedomain.com | LinkedIn URL
+
+Quality assurance (QA) Tester
+Creating and Delivering Test Scripts Using Standard & Open Source Tools
+
+Solutions-focused QA tester with experience developing and executing manual and automated test scripts.
+High-level proficiency with QC and UFT toolsets and a foundation in Java, VBScript, SQL, Perl, Linux/Unix and monitoring tools.
+Excel at creating test plans and writing/running automated test scripts to pinpoint software defects, track bugs, close open defects and validate functionality. Serve as a value-adding member of QA teams.
+Technology & Testing Proficiencies
+
+Testing Tools:
+
+HPE Unified Functional Testing (UFT), HP Quality Center
+
+Monitoring Tools:
+
+HP Sitescope, Wily Introscope, Dynatrace, Gomez
+
+Testing Methodologies:
+
+System Testing, Stress Testing, Load Testing, Reliability Testing, Feature Testing, Acceptance Testing, Functionality Testing, Validation
+
+Scripting Tools:
+
+Java, SQL, Unix Shell Scripting, Perl Scripting, VBScript
+
+Systems:
+
+Unix, Linux, Windows
+
+QA Testing Experience
+
+ABC COMPANY -- Sometown, OH
+Business solutions software provider with $25B in annual revenue
+Software Quality Assurance Tester, 2/13 to Present
+Junior Quality Assurance Tester, 12/12 to 2/13
+
+Provide lifecycle management of automated testing projects on software and large database applications using UFT, QC and various monitoring and scripting tools. Maintain cooperative relationships with developers and communicate with both technical and nontechnical stakeholders.
+
+Accomplishments:
+
+Promoted from junior QA tester role within two months of hire, outpacing ABC’s typical six-month timeline for junior testers. Recognized for developing excellent test plans/scripts and rapidly discovering defects.
+Isolated deeply embedded software flaw in new version of company’s cornerstone software product prior to its 2016 release, saving $150K in product-replacement costs.
+Contributed to high-reliability technology releases as a result of thorough testing that helped maintain ABC’s industry-leading sales ranking, market share and customer-satisfaction rating.
+Employed a “test-to-break” approach on testing initiatives and clarified ambiguous requirements to ensure the effectiveness of all test plans.
+Improved documentation of QA testing practices to enhance their repeatability, saving time and money and encouraging testing standardization and best practices.
+Education
+
+BS in Computer Science, 12/12 n Xyz University -- Sometown, OH
+Professional Development Courses:
+Test Improvement for Agile | Performance, Load and Stress Testing | Risk-Driven Software Testing
+Mastering Test Design | Security Testing | Mobile Application Testing

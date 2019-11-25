@@ -1,0 +1,47 @@
+Jim March
+Sometown, NY 55555 | 555-555-5555 | jm@somedomain.com | LinkedIn URL | Twitter Handle
+
+Web Developer
+
+Creative web developer dedicated to building and optimizing the performance of user-centric, high-impact websites for nationwide, F500 and global companies. Leverage technical, analytical and problem-solving skills to create dynamic, high-speed websites, apps and platforms fueling competitive advantage and revenue growth.
+
+Expertise
+
+Web Development
+Coding & Programming
+Search Engine Optimization
+Cross-Browser Compatibility
+Site Troubleshooting
+UX & UI Design
+Agile Methodologies
+Hosting & Maintenance
+Digital & eCommerce Strategy
+CRM & CMS Platforms
+Information Architecture
+Multimedia Design
+Professional Experience
+
+ABC AGENCY, INC. - Sometown, NY • Web Developer, 2013 to Present
+
+Work collaboratively with clients and in-house agency teams to provide rapid, robust and client-acclaimed front- and back-end web development optimizing user experience, search engine ranking, sales, brand positioning and related metrics.
+
+Representative Projects & Results:
+
+Global Cosmetics Company: Developed API platform for segmentation, personalized recommendations and omni-channel messaging that reduced cart-abandonment rate by 37%, leading to a $1.25M increase in online sales within 90 days of solution launch.
+Pharmaceutical Manufacturer: Led front-end development and assisted with back-end programming for website overhaul. Ensured the technical feasibility and optimum functioning of design features that accelerated load-time by 17% and improved site stickiness by 21%.
+NYC Real Estate Firm: Increased web traffic 125% by improving navigation, creating dynamic media sections, introducing virtual tours and adding social media plugins.
+Luxury Resort Hotel Group: Developed SEO strategy as well as seamless interface with travel booking sites that resulted in top 5 rankings on Google, Bing and Yahoo! coupled with a 22% increase in annual sales from Expedia, Hotels.com, Hotwire and Trivago.
+Restaurant Chain: Contributed to mobile app development and resolved issues causing site crashes, elevating uptime to 99%. Efforts were key to a 27% increase in eCommerce sales.
+ 
+
+DEF AGENCY, INC. — Sometown, NY • WordPress Web Developer Intern, 2012 to 2013
+
+Worked with award-winning developers to create and update WordPress sites. Optimized sites for usability, search engine optimization and accessibility. Partnered with marketing department to continually perfect client pitches. Offered job at conclusion of internship (declined to pursue web developer opportunity at ABC Agency).
+
+Education
+
+SOMETOWN UNIVERSITY • Bachelor of Applied Science in Internet and Web Development
+
+Technology Summary (complete list on request)
+
+HTML5; XHTML; CSS3; JavaScript; jQuery; PHP; SQL; Bootstrap; .NET; ActionScript; Adobe Creative Cloud; WordPress; Google Analytics; AJAX; CMS Tools; ColdFusion; Windows; Mac; iOS; Android

@@ -1,0 +1,46 @@
+Ann Simpson
+Sometown, NY 10000 | H: 718-555-5555 | C: 917-555-5555 | as@somedomain.com | LinkedIn URL
+
+Database Administrator
+
+Database administrator (DBA) with extensive experience designing, coding, testing and supporting next-generation database solutions in Oracle enterprise and SQL Server environments. Proficient in an assortment of technologies, including Oracle 12c, DB2, Access, Sybase, MS SQL Server 2016, JDBC, Visio, Apache HTTP Server, Java, C++, XML, Windows, Linux and Unix. DBA skills include:
+
+Oracle Database Administration
+Performance Tuning & Capacity Monitoring
+Data Security, Backup & Recovery
+Standby/Failover Administration
+Oracle RAC & ASM Administration/Installation
+Oracle Forms and Reports Development
+Database-Backed Web Solutions
+SQL Tuning in an Oracle Environment
+Experience
+
+ABC COMPANY, Sometown, NY | 5/2010 to Present
+
+Database Administrator
+
+Manage Oracle database administration assignments for diverse industry clients. Enhance database performance, perform restores, implement recovery procedures, handle performance tuning and conduct regular system backups. Ensure technical and functional designs meet business requirements.
+
+Key projects:
+
+Served as DBA or project lead in the completion of 80+ medium- to large-scale implementations, managing projects from business requirements analysis to solutions delivery and support.
+Managed a $1.2 million data-integration project for financial services firm that consolidated information from accounting applications, third-party market data and internal equities/fixed income applications.
+Contributed to furniture retailer’s 15% revenue growth in 2016 by standardizing content from disparate databases, enabling sales and support staff to quickly respond to customer requests.
+Created Web-enabled, group-scheduling system for a large university, allowing students to view and print schedules for current and future semesters. Delivered solution on time, on spec and on budget.
+Innovated time-saving, robust employee data-intake system that automated database update functions, enabling new salary and process-exception information to be automatically populated.
+Developed and tested storage strategies and disaster-recovery plan for large manufacturing company’s operational database, delivering solution that guaranteed recovery performance and high availability.
+Enhanced users’ understanding of database systems by conducting pre-implementation workshops, delivering group and individual training sessions and creating user-friendly training materials.
+DEF COMPANY, Sometown, NY | 1/2010 to 5/2010
+
+IT Internship
+
+Selected for competitive internship with leading consulting firm. Developed functions, scripts and reports that were instrumental to the success of high-priority development projects.
+
+Key projects:
+
+Developed 25 custom financial and auditing reports using SAP Crystal Reports with T-SQL, JDE Report Design Aid, MS Excel and Access.
+Education & Training
+
+ABC UNIVERSITY, Sometown, NY | 5/2010
+Bachelor of Science, Major in Computer Science
+DBA Workshops: Oracle Database 12c Administration, Advanced Oracle DBA, Intro to Oracle

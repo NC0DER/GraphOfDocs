@@ -1,0 +1,51 @@
+Tina Smith
+
+555.555.5555 | Sometown, NY 10310 | ts@somedomain.com | LinkedIn URL
+
+Information Technology Security Specialist
+Develop, implement, monitor and support information systems security programs
+
+IT security specialist with a passion and talent for aligning security architecture, plans, controls, processes, policies and procedures with security standards and operational goals.
+Project leader with proven experience directing all phases of complex projects while managing, motivating and mentoring global team members.
+Extensive experience developing and testing security architectures of cloud-based systems.
+Technology Skills
+
+Security:
+
+Advanced user of intrusion-detection, IDS/IPS, DLP, SIEM, vulnerability-scanning, Web gateway, proxy appliances and antivirus tools
+
+Systems:
+
+Experience working in mixed Windows/Linux, database and virtualized/physical server environments
+
+Programming:
+
+Knowledge of C, JavaScript, jQuery, PHP, Perl, HTML5, CSS, MySQL
+
+Experience
+
+ABC Company, Sometown, NY | 6/2012 to Present
+
+IT Security Specialist
+
+Oversee security of the cloud infrastructure, serving as the main point of contact for investigating and resolving security-related issues. Develop threat and vulnerability management policies and manage SEM (security event management) system. 
+
+Virtually eliminated threats from malware, advanced persistent threats and security breaches:
+
+Authored security architecture design documentation and standard operating procedures.
+Introduced use of security metrics to mitigate vulnerability by analysing historical threats, addressing risks/gaps/violations and implementing improved protocols.
+Trained 150 end users on security processes, procedures and risks via the company’s first security education program, which is being rolled out companywide.
+DEF Company, Sometown, NY | 1/2008 to 6/2012
+
+Network Administrator & Project Lead
+
+Planned, directed and coordinated network-related projects and multidisciplinary teams. Accomplished project goals on time, on budget and in alignment with corporate objectives.
+
+Led the implementation of business-critical IT initiatives:
+
+Developed and launched enterprise-wide software-distribution system delivering automated software updates remotely to all desktops and devices on the network.
+Founded and built internal helpdesk and trained technical staff to provide support to 1,500 users.
+Education
+
+ABC University, Sometown, NY
+Bachelor of Science, Computer Information Systems

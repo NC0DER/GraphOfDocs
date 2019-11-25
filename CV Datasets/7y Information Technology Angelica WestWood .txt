@@ -1,0 +1,43 @@
+Angelica Westwood
+IT specialist with 7+ years of professional experience in information security and digital forensics. Expert with a wide variety of security, engineering, networking, and operating system software. Possesses an associate degree in Information Security and Digital Forensics
+
+TECHNICAL SKILLS
+McAfee SIEM/EPO/NSM, FireEye CMS/ETP, SecureWorks, IDS/IPS, Sumo Logic cloud-based log management, SSL certificate configuration and management, Juniper NetScreen/Palo Alto Networks firewall
+Ollydbg, WinBdg, GBD, IDA Pro, PEiD, malware sandbox
+Wireshark/TCPView packet analysis, DNS servers, mail server
+Windows XP, Vista, 7, 8; Windows Server 2003, 2008, 2012; Linux including CentOS, Ubuntu, Arch, Debian, BackTrack, and Kali
+PROFESSIONAL EXPERIENCE
+SECURITY PROFESSIONALS INC.
+Columbia, SC
+Security Operations Security Analyst: January 2014–present
+
+Monitor multiple security systems for a Fortune 500 company
+Investigate arising incidents caused by malicious activities, and identified false positives
+Documented security events daily to create a baseline of activity for the client network
+TECHNOLOGY SMARTS
+Charleston, SC
+Network Operations Monitoring Technician: 2011–2014
+
+Refined and improved existing documentation system, resulting in reduced labor costs totaling $15,000 annually via increased workplace efficiency
+Consolidated multiple ticketing systems, improving communication and ticket turnover rate by 7%
+Investigated alerts created by IDS/IPS including malicious file uploads, compromised servers, SQL injections, and port scanning
+Operated in a datacenter environment, ensuring m
+EDUCATION
+TRIDENT COMMUNITY COLLEGE
+Chicago, IL
+AA Information Security and Digital Forensics, 2011
+
+TRIDENT COMMUNITY COLLEGE
+Chicago, IL
+BS Information Technology, 2013
+
+CERTIFICATIONS
+
+Certified Information Systems Security Professional
+2014
+
+Microsoft Certified Systems Engineer
+2013
+
+Computer Security and Forensics Certificate
+2012

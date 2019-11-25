@@ -1,0 +1,38 @@
+Adam West
+
+200 West Commonwealth Avenue, Fullerton, CA 92832
+
+(714) 463-7533
+
+adam.west@gmail.com
+
+Web Developer with 8 years of experience in designing and developing user interfaces, testing, debugging, and training staff within eCommerce technologies. Proven ability in optimizing web functionality that improve data retrieval and workflow efficiencies.
+
+PROFESSIONAL EXPERIENCE
+GROOMING TECHNOLOGIES – Fullerton, CA
+Web DeveloperMay 2010 – Present
+
+Skills & Tools: PHP, PERL, Access, Oracle, .NET, CSS
+
+Revamped web application security applications, minimizing hacker attacks from 2.3% to 0.02%
+Designed and developed user-friendly website, including optimized check-out page that increased user clicks, and subsequently customer purchases by 20%
+Trained over 50 staff members in internal web functions, including steps on how to independently make minor updates or changes
+Fixed bugs from existing websites and implemented enhancements that significantly improved web functionality and speed
+FOCUS SOLUTIONS – Fullerton, CA
+Web DeveloperJun 2007 – Apr 2010
+
+Skills & Tools: ASP, SQL, JavaScript, Visual Basic, XML, C#, Ajax, HTML
+
+Developed dynamic and interactive website that ensured high traffic, page views, and User Experience, resulting in 40% increase in sales revenue
+Oversaw full lifecycle of software development for 9 projects with 100% on time delivery while staying 5% under budget
+Implemented server that expedited document generation and search functionality by 20%, earning commendation and award from upper management
+Designed processes for cleanup and performance improvement, that minimized downtime by 13%
+EDUCATION
+CALIFORNIA STATE UNIVERSITY – Fullerton, CA
+Bachelor of Science in Web Development
+
+GPA: 3.6 / 4.0
+ADDITIONAL SKILLS
+Proficient in WordPress, Dreamweaver, and Photoshop
+Ability to communicate with cross-functional teams
+Certified Java Programmer
