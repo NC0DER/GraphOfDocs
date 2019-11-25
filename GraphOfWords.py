@@ -54,6 +54,8 @@ def generate_words(text_corpus, remove_stopwords = True, lemmatize = False, stem
     return tokens
 
 def create_graph_of_words(words, database, window_size = 4):
+    # Initialize an empty set of edges.
+    edges = {}
     # Create non-duplicate words as words of a graph.
     for word in set(words):
         res = database.execute('CREATE (w:Word {key: "'+ word +'"})', 'w')
@@ -75,11 +77,20 @@ def create_graph_of_words(words, database, window_size = 4):
         # Connect the current element with the next elements of the window size.
         for j in range(1, window_size):
             next = words[i + j]
-            query = ('MATCH (w1:Word {key: "'+ current +'"}) '
-                    'MATCH (w2:Word {key: "' + next + '"}) '
-                    'CREATE (w1)-[r:connects]->(w2) ')
+            edge = (current, next)
+            if edge in edges:
+                # If the edge, exists just update its weight.
+                edges[edge] += 1
+                query = ('MATCH (w1:Word {key: "'+ current +'"})-[r:connects]->(w2:Word {key: "' + next + '"}) '
+                        'SET r.weight = '+ str(edges[edge]))
+            else:
+                # Else, create it, with a starting weight of 1 meaning first co-occurence.
+                edges[edge] = 1
+                query = ('MATCH (w1:Word {key: "'+ current +'"}) '
+                        'MATCH (w2:Word {key: "' + next + '"}) '
+                        'CREATE (w1)-[r:connects {weight:' + str(edges[edge]) + '}]->(w2) ')
             res = database.execute(' '.join(query.split()), 'w')
-    return 
+    return
 
 def main():
     uri = 'bolt://localhost:7687'
@@ -95,17 +106,13 @@ def main():
         print('\t* Please check the database connection before running this app.')
         input('\t* Press any key to exit the app...')
         sys.exit(1)
-    test = str("As a discipline, computer science spans a range of topics "
-               "from theoretical studies of algorithms and the limits of "
-               "computation to the practical issues of implementing "
-               "computing systems in hardware and software. ")
+    test = str("A method for solution of systems of linear algebraic equations with m-dimensional lambda matrices. A system of linear algebraic equations with m-dimensional lambda matrices is considered. The proposed method of searching for the solution of this system lies in reducing it to a numerical system of a special kind.")
     words = generate_words(test)
     print(words)
     # Cleanup all nodes from previous iterations.
     database.execute('MATCH (n) DETACH DELETE n', 'w')
-
-    # Create uniqueness constraint on id / key to avoid duplicate word nodes.
-    database.execute('CREATE CONSTRAINT ON (word:Word) ASSERT word.key IS UNIQUE', 'w')
     create_graph_of_words(words, database)
+
+
 
 if __name__ == "__main__": main()
