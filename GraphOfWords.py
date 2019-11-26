@@ -100,6 +100,13 @@ def create_graph_of_words(words, database, window_size = 4):
             res = database.execute(' '.join(query.split()), 'w')
     return
 
+def clear_screen(current_system):
+    if current_system == 'Windows':
+        system('cls')
+    else:
+        system('clear') # Linux/OS X.
+    return
+
 def main():
     uri = 'bolt://localhost:7687'
     username = 'neo4j'
