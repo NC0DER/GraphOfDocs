@@ -123,6 +123,7 @@ def main():
     uri = 'bolt://localhost:7687'
     username = 'neo4j'
     password = '123'
+    current_system = platform.system()
     # Open the database.
     try:
         database = Neo4jDatabase(uri, username, password)
@@ -133,12 +134,21 @@ def main():
         print('\t* Please check the database connection before running this app.')
         input('\t* Press any key to exit the app...')
         sys.exit(1)
-    test = str("A method for solution of systems of linear algebraic equations with m-dimensional lambda matrices. A system of linear algebraic equations with m-dimensional lambda matrices is considered. The proposed method of searching for the solution of this system lies in reducing it to a numerical system of a special kind.")
-    words = generate_words(test)
-    print(words)
-    # Cleanup all nodes from previous iterations.
+    #test = str("A method for solution of systems of linear algebraic equations with m-dimensional lambda matrices. A system of linear algebraic equations with m-dimensional lambda matrices is considered. The proposed method of searching for the solution of this system lies in reducing it to a numerical system of a special kind.")
+    #words = generate_words(test)
+    #print(words)
     database.execute('MATCH (n) DETACH DELETE n', 'w')
-    create_graph_of_words(words, database)
+    database.execute('MATCH (n) DETACH DELETE n', 'w')
+    datasets = read_datasets('C:\\Users\\USER\\source\\repos\\GraphOfWords\\GraphOfWords\\CV Datasets\\')
+    count = 1
+    total_count = len(datasets)
+    for dataset in datasets:
+        print('Processing ' + str(count) + ' out of ' + str(total_count) + ' datasets...' )
+        words = generate_words(dataset)
+        create_graph_of_words(words, database)
+        count = count + 1
+        clear_screen(current_system)
+    return
 
 
 
