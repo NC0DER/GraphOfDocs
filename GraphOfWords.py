@@ -1,4 +1,8 @@
 import sys
+import platform
+from os import system
+from os import listdir
+from os.path import isfile, join
 from string import punctuation
 from nltk import pos_tag, sent_tokenize
 from nltk.corpus import wordnet, stopwords
@@ -54,6 +58,10 @@ def generate_words(text_corpus, remove_stopwords = True, lemmatize = False, stem
     return tokens
 
 def create_graph_of_words(words, database, window_size = 4):
+    """
+    Function that creates a Graph of Words inside the neo4j database,
+    using the appropriate cypher queries.
+    """
     # Initialize an empty set of edges.
     edges = {}
     # Create non-duplicate words as words of a graph.
