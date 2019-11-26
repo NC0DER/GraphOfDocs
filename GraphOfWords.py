@@ -100,6 +100,18 @@ def create_graph_of_words(words, database, window_size = 4):
             res = database.execute(' '.join(query.split()), 'w')
     return
 
+def read_datasets(filepath):
+    """
+    Function that gets a list of filenames in the directory specified by filepath,
+    then reading them in text mode, and appending them in a list which is to be returned.
+    """
+    data = []
+    files = [file for file in listdir(filepath) if isfile(join(filepath, file))]
+    for file in files:
+        with open(''.join([filepath, file]), 'r', encoding = 'utf8') as fd:
+            data.append(fd.read().replace('\n', ''))
+    return data
+
 def clear_screen(current_system):
     if current_system == 'Windows':
         system('cls')
