@@ -14,7 +14,8 @@ from neo4j_wrapper import Neo4jDatabase, ServiceUnavailable
 lemmatizer = WordNetLemmatizer() # Initialize lemmatizer once.
 stemmer = PorterStemmer() # Initialize Porter's stemmer once.
 
-id = 0 # Global Increasing id to avoid duplicate edges, since the keys of the nodes are duplicated.
+id = 0 # Globally Increasing id to avoid duplicate edges, since the keys of the nodes are duplicated.
+label_id = 1 # Globally Increasing id to distinguish between different graph of words, inside the database.
 
 stop_words = set(stopwords.words('english')).union([ # Augment the stopwords set.
     'don','didn', 'doesn', 'aren', 'ain', 'hadn',
@@ -75,10 +76,11 @@ def create_graph_of_words(words, database, window_size = 4):
     # Store non-duplicated words in a dictionary,
     # which is 0 initialized, until it gets the ids
     # for each word.
-    global id # Using the global increasing id.
+    global id # Using the globally increasing node id.
+    global label_id # Using the globally increasing label id.
     dictionary = {word: 0 for word in terms}
     for word, _ in dictionary.items():
-        res = database.execute('CREATE (w:Word {id: '+ str(id) +', key: "'+ word +'"})', 'w')
+        res = database.execute('CREATE (w:Word'+ str(label_id) +' {id: '+ str(id) +', key: "'+ word +'"})', 'w')
         # Assigning an id to each word, after its used, we increase to get the next one.
         dictionary[word] = id
         id = id + 1
@@ -107,17 +109,18 @@ def create_graph_of_words(words, database, window_size = 4):
             if edge in edges:
                 # If the edge, exists just update its weight.
                 edges[edge] += 1
-                query = ('MATCH (w1:Word {key: "'+ current +'"})-[r:connects]->(w2:Word {key: "' + next + '"}) '
+                query = ('MATCH (w1:Word'+ str(label_id) +' {key: "'+ current +'"})-[r:connects]->(w2:Word'+ str(label_id) +' {key: "' + next + '"}) '
                         'WHERE w1.id = ' + str(current_id) + ' AND w2.id = ' + str(next_id) + ' '
                         'SET r.weight = '+ str(edges[edge]))
             else:
                 # Else, create it, with a starting weight of 1 meaning first co-occurence.
                 edges[edge] = 1
-                query = ('MATCH (w1:Word {key: "'+ current +'"}) '
-                        'MATCH (w2:Word {key: "' + next + '"}) '
+                query = ('MATCH (w1:Word'+ str(label_id) +' {key: "'+ current +'"}) '
+                        'MATCH (w2:Word'+ str(label_id) +' {key: "' + next + '"}) '
                         'WHERE w1.id = ' + str(current_id) + ' AND w2.id = ' + str(next_id) + ' '
                         'CREATE (w1)-[r:connects {weight:' + str(edges[edge]) + '}]->(w2) ')
             res = database.execute(' '.join(query.split()), 'w')
+    label_id = label_id + 1
     return
 
 def read_datasets(filepath):
