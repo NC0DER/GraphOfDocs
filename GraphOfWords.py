@@ -14,6 +14,8 @@ from neo4j_wrapper import Neo4jDatabase, ServiceUnavailable
 lemmatizer = WordNetLemmatizer() # Initialize lemmatizer once.
 stemmer = PorterStemmer() # Initialize Porter's stemmer once.
 
+id = 0 # Global Increasing id to avoid duplicate edges, since the keys of the nodes are duplicated.
+
 stop_words = set(stopwords.words('english')).union([ # Augment the stopwords set.
     'don','didn', 'doesn', 'aren', 'ain', 'hadn',
     'hasn', 'mightn', 'mustn', 'couldn', 'shouldn',
@@ -64,9 +66,22 @@ def create_graph_of_words(words, database, window_size = 4):
     """
     # Initialize an empty set of edges.
     edges = {}
-    # Create non-duplicate words as words of a graph.
-    for word in set(words):
-        res = database.execute('CREATE (w:Word {key: "'+ word +'"})', 'w')
+
+    # Get a list of unique terms from the list of words.
+    terms = []
+    for word in words:
+        if word not in terms: terms.append(word)
+
+    # Store non-duplicated words in a dictionary,
+    # which is 0 initialized, until it gets the ids
+    # for each word.
+    global id # Using the global increasing id.
+    dictionary = {word: 0 for word in terms}
+    for word, _ in dictionary.items():
+        res = database.execute('CREATE (w:Word {id: '+ str(id) +', key: "'+ word +'"})', 'w')
+        # Assigning an id to each word, after its used, we increase to get the next one.
+        dictionary[word] = id
+        id = id + 1
 
     # Length should be greater than the window size at all times.
     # Window size ranges from 2 to 6.
@@ -82,20 +97,25 @@ def create_graph_of_words(words, database, window_size = 4):
         # If there are leftover items smaller than the window size, reduce it.
         if i + window_size > length:
             window_size = window_size - 1
+        # Get the unique id of the current word.
+        current_id = dictionary[current]
         # Connect the current element with the next elements of the window size.
         for j in range(1, window_size):
             next = words[i + j]
+            next_id = dictionary[next]
             edge = (current, next)
             if edge in edges:
                 # If the edge, exists just update its weight.
                 edges[edge] += 1
                 query = ('MATCH (w1:Word {key: "'+ current +'"})-[r:connects]->(w2:Word {key: "' + next + '"}) '
+                        'WHERE w1.id = ' + str(current_id) + ' AND w2.id = ' + str(next_id) + ' '
                         'SET r.weight = '+ str(edges[edge]))
             else:
                 # Else, create it, with a starting weight of 1 meaning first co-occurence.
                 edges[edge] = 1
                 query = ('MATCH (w1:Word {key: "'+ current +'"}) '
                         'MATCH (w2:Word {key: "' + next + '"}) '
+                        'WHERE w1.id = ' + str(current_id) + ' AND w2.id = ' + str(next_id) + ' '
                         'CREATE (w1)-[r:connects {weight:' + str(edges[edge]) + '}]->(w2) ')
             res = database.execute(' '.join(query.split()), 'w')
     return
