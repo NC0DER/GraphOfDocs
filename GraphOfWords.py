@@ -14,7 +14,12 @@ from neo4j_wrapper import Neo4jDatabase, ServiceUnavailable
 lemmatizer = WordNetLemmatizer() # Initialize lemmatizer once.
 stemmer = PorterStemmer() # Initialize Porter's stemmer once.
 
-id = 0 # Globally Increasing id to avoid duplicate edges, since the keys of the nodes are duplicated.
+# Initialize an empty set of edges.
+edges = {}
+# Initialize an empty list of unique terms.
+# We are using a list to preserver order of appearance.
+nodes = []
+
 label_id = 1 # Globally Increasing id to distinguish between different graph of words, inside the database.
 
 stop_words = set(stopwords.words('english')).union([ # Augment the stopwords set.
@@ -62,28 +67,34 @@ def generate_words(text_corpus, remove_stopwords = True, lemmatize = False, stem
 
 def create_graph_of_words(words, database, window_size = 4):
     """
-    Function that creates a Graph of Words inside the neo4j database,
-    using the appropriate cypher queries.
+    Function that creates a Graph of Words that contains all nodes from each document for easy comparison,
+    inside the neo4j database, using the appropriate cypher queries.
     """
-    # Initialize an empty set of edges.
-    edges = {}
+    # We are using a global set of edges to avoid creating duplicate edges between different graph of words.
+    # Basically the co-occurences will be merged.
+    global edges
 
-    # Get a list of unique terms from the list of words.
+    # We are using a global set of edges to avoid creating duplicate nodes between different graph of words.
+    # A list is being used to respect the order of appearance.
+    global nodes
+
+    # We are getting the unique terms for the current graph of words.
     terms = []
     for word in words:
-        if word not in terms: terms.append(word)
+        if word not in terms: 
+            terms.append(word)
 
-    # Store non-duplicated words in a dictionary,
-    # which is 0 initialized, until it gets the ids
-    # for each word.
-    global id # Using the globally increasing node id.
-    global label_id # Using the globally increasing label id.
-    dictionary = {word: 0 for word in terms}
-    for word, _ in dictionary.items():
-        res = database.execute('CREATE (w:Word'+ str(label_id) +' {id: '+ str(id) +', key: "'+ word +'"})', 'w')
-        # Assigning an id to each word, after its used, we increase to get the next one.
-        dictionary[word] = id
-        id = id + 1
+    # Using the globally increasing label id, each document has its own id.
+    global label_id 
+    for word in terms:
+        # If the word is already a node, then simply update its label.
+        if word in nodes:
+            database.execute('MATCH (w:Word {key: "'+ word +'"}) SET w:Document' + str(label_id), 'w')
+        # If not then create it.
+        else:
+            database.execute('CREATE (w:Word:Document'+ str(label_id) +' {key: "'+ word +'"})', 'w')
+            # Append word to the global node graph, to avoid duplicate creation.
+            nodes.append(word)
 
     # Length should be greater than the window size at all times.
     # Window size ranges from 2 to 6.
@@ -99,27 +110,33 @@ def create_graph_of_words(words, database, window_size = 4):
         # If there are leftover items smaller than the window size, reduce it.
         if i + window_size > length:
             window_size = window_size - 1
-        # Get the unique id of the current word.
-        current_id = dictionary[current]
         # Connect the current element with the next elements of the window size.
         for j in range(1, window_size):
             next = words[i + j]
-            next_id = dictionary[next]
             edge = (current, next)
             if edge in edges:
                 # If the edge, exists just update its weight.
                 edges[edge] += 1
-                query = ('MATCH (w1:Word'+ str(label_id) +' {key: "'+ current +'"})-[r:connects]->(w2:Word'+ str(label_id) +' {key: "' + next + '"}) '
-                        'WHERE w1.id = ' + str(current_id) + ' AND w2.id = ' + str(next_id) + ' '
+                query = ('MATCH (w1:Word:Document'+ str(label_id) +' {key: "'+ current +'"})-[r:connects]->(w2:Word:Document'+ str(label_id) +' {key: "' + next + '"}) '
                         'SET r.weight = '+ str(edges[edge]))
             else:
                 # Else, create it, with a starting weight of 1 meaning first co-occurence.
                 edges[edge] = 1
-                query = ('MATCH (w1:Word'+ str(label_id) +' {key: "'+ current +'"}) '
-                        'MATCH (w2:Word'+ str(label_id) +' {key: "' + next + '"}) '
-                        'WHERE w1.id = ' + str(current_id) + ' AND w2.id = ' + str(next_id) + ' '
+                query = ('MATCH (w1:Word:Document'+ str(label_id) +' {key: "'+ current +'"}) '
+                        'MATCH (w2:Word:Document'+ str(label_id) +' {key: "' + next + '"}) '
                         'CREATE (w1)-[r:connects {weight:' + str(edges[edge]) + '}]->(w2) ')
-            res = database.execute(' '.join(query.split()), 'w')
+                database.execute(' '.join(query.split()), 'w')
+
+    # Create a parent node that represents the document itself.
+    # This node is connected to all words of its own graph,
+    # and will be used for similarity/comparison queries.
+    database.execute('CREATE (p:Head {key:"Document'+ str(label_id) +'"})', 'w')
+    query = ('MATCH (d:Document'+ str(label_id) +') WITH collect(d) as words '
+            'MATCH (h:Head {key: "Document'+ str(label_id) +'"}) '
+            'UNWIND words as word '
+            'CREATE (h)-[:includes]->(word)')
+    database.execute(' '.join(query.split()), 'w')
+    # All queries are finished so increase the global label id, to process the next graph of words. 
     label_id = label_id + 1
     return
 
@@ -162,6 +179,10 @@ def main():
     #print(words)
     database.execute('MATCH (n) DETACH DELETE n', 'w')
     database.execute('MATCH (n) DETACH DELETE n', 'w')
+
+    # Create uniqueness constraint on key to avoid duplicate word nodes.
+    database.execute('CREATE CONSTRAINT ON (word:Word) ASSERT word.id IS UNIQUE', 'w')
+
     datasets = read_datasets('C:\\Users\\USER\\source\\repos\\GraphOfWords\\GraphOfWords\\CV Datasets\\')
     count = 1
     total_count = len(datasets)
