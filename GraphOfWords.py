@@ -43,7 +43,7 @@ def get_wordnet_tag(tag):
     else: #default lemmatizer parameter
         return wordnet.NOUN
 
-def generate_words(text_corpus, remove_stopwords = True, lemmatize = False, stemming = True):
+def generate_words(text_corpus, remove_stopwords = True, lemmatize = False, stemming = False):
     """
     Function that generates words from a text corpus and optionally lemmatizes them.
     Returns a set of unique tokens based on order of appearance in-text.
@@ -65,7 +65,7 @@ def generate_words(text_corpus, remove_stopwords = True, lemmatize = False, stem
         tokens = [stemmer.stem(token) for token in tokens]
     return tokens
 
-def create_graph_of_words(words, database, window_size = 4):
+def create_graph_of_words(words, database, filename, window_size = 4):
     """
     Function that creates a Graph of Words that contains all nodes from each document for easy comparison,
     inside the neo4j database, using the appropriate cypher queries.
@@ -78,10 +78,11 @@ def create_graph_of_words(words, database, window_size = 4):
     # A list is being used to respect the order of appearance.
     global nodes
 
-    # We are getting the unique terms for the current graph of words.
+    # We are getting the unique terms for the current graph of words,
+    # And we are also cleaning the data, from numbers and leftover syllabes or letters.
     terms = []
     for word in words:
-        if word not in terms: 
+        if word not in terms and not word.isnumeric() and len(word) > 2: 
             terms.append(word)
 
     # Using the globally increasing label id, each document has its own id.
@@ -130,7 +131,7 @@ def create_graph_of_words(words, database, window_size = 4):
     # Create a parent node that represents the document itself.
     # This node is connected to all words of its own graph,
     # and will be used for similarity/comparison queries.
-    database.execute('CREATE (p:Head {key:"Document'+ str(label_id) +'"})', 'w')
+    database.execute('CREATE (p:Head {key: "Document'+ str(label_id) +'" filename: "'+ filename +'"})', 'w')
     query = ('MATCH (d:Document'+ str(label_id) +') WITH collect(d) as words '
             'MATCH (h:Head {key: "Document'+ str(label_id) +'"}) '
             'UNWIND words as word '
@@ -143,13 +144,13 @@ def create_graph_of_words(words, database, window_size = 4):
 def read_datasets(filepath):
     """
     Function that gets a list of filenames in the directory specified by filepath,
-    then reading them in text mode, and appending them in a list which is to be returned.
+    then reading them in text mode, and appending them in a list which contains the file(name) and its contents.
     """
     data = []
     files = [file for file in listdir(filepath) if isfile(join(filepath, file))]
     for file in files:
         with open(''.join([filepath, file]), 'r', encoding = 'utf8') as fd:
-            data.append(fd.read().replace('\n', ''))
+            data.append((file, fd.read().replace('\n', '')))  
     return data
 
 def clear_screen(current_system):
@@ -183,13 +184,13 @@ def main():
     # Create uniqueness constraint on key to avoid duplicate word nodes.
     database.execute('CREATE CONSTRAINT ON (word:Word) ASSERT word.id IS UNIQUE', 'w')
 
-    datasets = read_datasets('C:\\Users\\USER\\source\\repos\\GraphOfWords\\GraphOfWords\\CV Datasets\\')
+    datasets = read_datasets('C:\\Users\\USER\\source\\repos\\GraphOfWords\\GraphOfWords\\NLM_500\\documents\\')
     count = 1
     total_count = len(datasets)
-    for dataset in datasets:
+    for filename, dataset in datasets:
         print('Processing ' + str(count) + ' out of ' + str(total_count) + ' datasets...' )
         words = generate_words(dataset)
-        create_graph_of_words(words, database)
+        create_graph_of_words(words, database, filename)
         count = count + 1
         clear_screen(current_system)
     return
