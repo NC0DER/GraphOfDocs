@@ -131,7 +131,7 @@ def create_graph_of_words(words, database, filename, window_size = 4):
     # Create a parent node that represents the document itself.
     # This node is connected to all words of its own graph,
     # and will be used for similarity/comparison queries.
-    database.execute('CREATE (p:Head {key: "Document'+ str(label_id) +'" filename: "'+ filename +'"})', 'w')
+    database.execute('CREATE (p:Head {key: "Document'+ str(label_id) +'", filename: "'+ filename +'"})', 'w')
     query = ('MATCH (d:Document'+ str(label_id) +') WITH collect(d) as words '
             'MATCH (h:Head {key: "Document'+ str(label_id) +'"}) '
             'UNWIND words as word '
@@ -140,6 +140,24 @@ def create_graph_of_words(words, database, filename, window_size = 4):
     # All queries are finished so increase the global label id, to process the next graph of words. 
     label_id = label_id + 1
     return
+
+def run_algorithms(database):
+    """
+    Function that runs centrality & community detection algorithms,
+    in order to prepare the data for analysis and visualization.
+    Weighted Pagerank & Louvain are used, respectively.
+    The calculated score for each node of the algorithms is being stored
+    on the nodes themselves.
+    """
+    query = ('CALL algo.pageRank("Word", "connects", '
+            '{iterations: 20, dampingFactor: 0.85, write: true, writeProperty: "pagerank"}) '
+            'YIELD nodes, iterations, loadMillis, computeMillis, writeMillis, dampingFactor, write, writeProperty')
+    database.execute(' '.join(query.split()), 'w')
+    query = ('CALL algo.louvain("Word", "connects", '
+            '{direction: "BOTH", writeProperty: "community"}) '
+            'YIELD nodes, communityCount, iterations, loadMillis, computeMillis, writeMillis')
+    database.execute(' '.join(query.split()), 'w')
+
 
 def read_datasets(filepath):
     """
@@ -160,7 +178,7 @@ def clear_screen(current_system):
         system('clear') # Linux/OS X.
     return
 
-def main():
+def main(create = True):
     uri = 'bolt://localhost:7687'
     username = 'neo4j'
     password = '123'
@@ -178,23 +196,31 @@ def main():
     #test = str("A method for solution of systems of linear algebraic equations with m-dimensional lambda matrices. A system of linear algebraic equations with m-dimensional lambda matrices is considered. The proposed method of searching for the solution of this system lies in reducing it to a numerical system of a special kind.")
     #words = generate_words(test)
     #print(words)
-    database.execute('MATCH (n) DETACH DELETE n', 'w')
-    database.execute('MATCH (n) DETACH DELETE n', 'w')
+    if create:
+        # Delete nodes from previous iterations.
+        database.execute('MATCH (n) DETACH DELETE n', 'w')
+        database.execute('MATCH (n) DETACH DELETE n', 'w')
 
-    # Create uniqueness constraint on key to avoid duplicate word nodes.
-    database.execute('CREATE CONSTRAINT ON (word:Word) ASSERT word.id IS UNIQUE', 'w')
+        # Create uniqueness constraint on key to avoid duplicate word nodes.
+        database.execute('CREATE CONSTRAINT ON (word:Word) ASSERT word.id IS UNIQUE', 'w')
 
-    datasets = read_datasets('C:\\Users\\USER\\source\\repos\\GraphOfWords\\GraphOfWords\\NLM_500\\documents\\')
-    count = 1
-    total_count = len(datasets)
-    for filename, dataset in datasets:
-        print('Processing ' + str(count) + ' out of ' + str(total_count) + ' datasets...' )
-        words = generate_words(dataset)
-        create_graph_of_words(words, database, filename)
-        count = count + 1
-        clear_screen(current_system)
+        # Read text from files, which becomes a string in a list called datasets.
+        datasets = read_datasets('C:\\Users\\USER\\source\\repos\\GraphOfWords\\GraphOfWords\\wiki20\\documents\\')
+        count = 1
+        total_count = len(datasets)
+        # Iterate all datasets.
+        for filename, dataset in datasets:
+            # Print the number of the currently processed dataset.
+            print('Processing ' + str(count) + ' out of ' + str(total_count) + ' datasets...' )
+            # Generate the terms from the text of each dataset.
+            words = generate_words(dataset)
+            # Create the graph of words in the database.
+            create_graph_of_words(words, database, filename)
+            # Update the progress counter.
+            count = count + 1
+            # Clear the screen to output the update the progress counter.
+            clear_screen(current_system)
+    run_algorithms(database)
     return
-
-
 
 if __name__ == "__main__": main()
