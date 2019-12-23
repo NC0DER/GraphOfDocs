@@ -1,1 +1,1 @@
-# GraphOfWords
+# GraphOfDocs

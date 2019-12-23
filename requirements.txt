@@ -1,0 +1,9 @@
+neo4j==1.7.6
+neobolt==1.7.15
+neotime==1.7.4
+nltk==3.4.5
+pip==19.3.1
+pytz==2019.3
+setuptools==40.6.2
+singledispatch==3.4.0.3
+six==1.13.0
