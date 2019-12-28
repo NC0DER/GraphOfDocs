@@ -45,9 +45,20 @@ def create_graph_of_words(words, database, filename, window_size = 4):
         # If there are leftover items smaller than the window size, reduce it.
         if i + window_size > length:
             window_size = window_size - 1
+        # If the current word is the end of sentence string,
+        # we need to skip it, in order to go to the words of the next sentence,
+        # without connecting words of different sentences, in the database.
+        if current == 'e5':
+            continue
         # Connect the current element with the next elements of the window size.
         for j in range(1, window_size):
             next = words[i + j]
+            # Reached the end of sentence string.
+            # We can't connect words of different sentences,
+            # therefore we need to pick a new current word,
+            # by going back out to the outer loop.
+            if next == 'e5':
+                break
             edge = (current, next)
             if edge in edges:
                 # If the edge, exists just update its weight.

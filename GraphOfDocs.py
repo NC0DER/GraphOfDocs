@@ -3,9 +3,9 @@ import platform
 from neo4j import ServiceUnavailable
 from GraphOfDocs.neo4j_wrapper import Neo4jDatabase
 from GraphOfDocs.utils import generate_words, read_datasets, clear_screen
-from GraphOfDocs.query import create_graph_of_words, run_initial_algorithms, calculate_pagerank_ranges
+from GraphOfDocs.query import create_graph_of_words, run_initial_algorithms
 
-def main(create = False):
+def main(create = True):
     uri = 'bolt://localhost:7687'
     username = 'neo4j'
     password = '123'

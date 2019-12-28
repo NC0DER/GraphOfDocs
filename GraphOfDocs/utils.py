@@ -39,10 +39,23 @@ def generate_words(text_corpus, remove_stopwords = True, lemmatize = False, stem
     Function that generates words from a text corpus and optionally lemmatizes them.
     Returns a set of unique tokens based on order of appearance in-text.
     """
+    # Remove all whitespace characters(by split) and join on space.
+    text_corpus = ' '.join(text_corpus.split())
     # Handle special characters that connect words.
-    text_corpus = text_corpus.translate({ord(c): ' ' for c in '\'\"\\'})
+    text_corpus = text_corpus.translate({ord(c): '' for c in '\'\"\\>/|<{}[]:'})
+    # Find all end of sentences and introduce a special string to track them.
+    # By chaining the replace methods together, we achieve a slight amount of performance,
+    # over other methods, that achieve the same result.
+    text_corpus = text_corpus.replace('. ', ' e5 ')\
+                .replace('! ', ' e5 ' )\
+                .replace('? ', ' e5 ' )
+    # Leftover characters (e.g from domains) are being translated into spaces.
+    text_corpus = text_corpus.replace('@', ' ')\
+                .replace('.', ' ')\
+                .replace('!', ' ')\
+                .replace('?', ' ')
     # Remove punctuation and lowercase the string.
-    input_text = text_corpus.translate(str.maketrans('', '', punctuation)).lower()
+    input_text = text_corpus.translate(str.maketrans(' ', ' ', punctuation)).lower()
     if remove_stopwords:
         tokens = [token for token in word_tokenize(input_text) if not token in stop_words] 
     else:
@@ -64,7 +77,7 @@ def read_datasets(filepath):
     data = []
     files = [file for file in listdir(filepath) if isfile(join(filepath, file))]
     for file in files:
-        with open(''.join([filepath, file]), 'r', encoding = 'utf8') as fd:
+        with open(''.join([filepath, file]), 'rt', encoding = 'utf8') as fd:
             data.append((file, fd.read().replace('\n', '')))  
     return data
 
