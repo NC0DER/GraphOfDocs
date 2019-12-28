@@ -3,8 +3,6 @@ edges = {}
 # Initialize an empty list of unique terms.
 # We are using a list to preserver order of appearance.
 nodes = []
-# Globally Increasing id to distinguish between different graph of words, inside the database.
-label_id = 1 
 
 def create_graph_of_words(words, database, filename, window_size = 4):
     """
@@ -26,17 +24,12 @@ def create_graph_of_words(words, database, filename, window_size = 4):
         if word not in terms and not word.isnumeric() and len(word) > 2: 
             terms.append(word)
 
-    # Using the globally increasing label id, each document has its own id.
-    global label_id 
     for word in terms:
-        # If the word is already a node, then simply update its label.
-        if word in nodes:
-            database.execute('MATCH (w:Word {key: "'+ word +'"}) SET w:Document' + str(label_id), 'w')
-        # If not then create it.
-        else:
-            database.execute('CREATE (w:Word:Document'+ str(label_id) +' {key: "'+ word +'"})', 'w')
+        # If the word doesn't exist as a node, then create it.
+        if word not in nodes:
+            database.execute('CREATE (w:Word {key: "'+ word +'"})', 'w')
             # Append word to the global node graph, to avoid duplicate creation.
-            nodes.append(word)
+            nodes.append(word)      
 
     # Length should be greater than the window size at all times.
     # Window size ranges from 2 to 6.
@@ -58,28 +51,30 @@ def create_graph_of_words(words, database, filename, window_size = 4):
             edge = (current, next)
             if edge in edges:
                 # If the edge, exists just update its weight.
-                edges[edge] += 1
-                query = ('MATCH (w1:Word:Document'+ str(label_id) +' {key: "'+ current +'"})-[r:connects]->(w2:Word:Document'+ str(label_id) +' {key: "' + next + '"}) '
+                edges[edge] = edges[edge] + 1
+                query = ('MATCH (w1:Word {key: "'+ current +'"})-[r:connects]-(w2:Word {key: "' + next + '"}) '
                         'SET r.weight = '+ str(edges[edge]))
             else:
                 # Else, create it, with a starting weight of 1 meaning first co-occurence.
                 edges[edge] = 1
-                query = ('MATCH (w1:Word:Document'+ str(label_id) +' {key: "'+ current +'"}) '
-                        'MATCH (w2:Word:Document'+ str(label_id) +' {key: "' + next + '"}) '
-                        'CREATE (w1)-[r:connects {weight:' + str(edges[edge]) + '}]->(w2) ')
-                database.execute(' '.join(query.split()), 'w')
+                query = ('MATCH (w1:Word {key: "'+ current +'"}) '
+                        'MATCH (w2:Word {key: "' + next + '"}) '
+                        'MERGE (w1)-[r:connects {weight:' + str(edges[edge]) + '}]-(w2) ')
+            # This line of code, is meant to be executed, in both cases of the if...else statement.
+            database.execute(' '.join(query.split()), 'w')
 
     # Create a parent node that represents the document itself.
     # This node is connected to all words of its own graph,
     # and will be used for similarity/comparison queries.
-    database.execute('CREATE (p:Head {key: "Document'+ str(label_id) +'", filename: "'+ filename +'"})', 'w')
-    query = ('MATCH (d:Document'+ str(label_id) +') WITH collect(d) as words '
-            'MATCH (h:Head {key: "Document'+ str(label_id) +'"}) '
+    database.execute('CREATE (d:Document {filename: "'+ filename +'"})', 'w')
+    # Create a word list with comma separated, quoted strings for use in the Cypher query below.
+    word_list = ', '.join('"{0}"'.format(word) for word in set(words))
+    query = ('MATCH (w:Word) WHERE w.key IN [' + word_list + '] '
+            'WITH collect(w) as words '
+            'MATCH (d:Document {filename: "'+ filename +'"}) '
             'UNWIND words as word '
-            'CREATE (h)-[:includes]->(word)')
+            'CREATE (d)-[:includes]->(word)')
     database.execute(' '.join(query.split()), 'w')
-    # All queries are finished so increase the global label id, to process the next graph of words. 
-    label_id = label_id + 1
     return
 
 def run_initial_algorithms(database):

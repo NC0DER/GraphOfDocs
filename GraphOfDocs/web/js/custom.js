@@ -3,10 +3,10 @@ var viz;
 
 $(document).ready(function () {
     var query = "MATCH (n:Word)-[r:connects]-(k) "
-        + "WHERE n.pagerank > 5 "
-        + "AND k.pagerank > 5 "
-        + "AND n.pagerank < 10 "
-        + "AND k.pagerank < 10 "
+        + "WHERE n.pagerank > 650 "
+        + "AND k.pagerank > 650 "
+        + "AND n.pagerank < 750 "
+        + "AND k.pagerank < 750 "
         + "RETURN n,r,k LIMIT 1000";
     draw(query);
 });
@@ -57,12 +57,21 @@ function draw(query) {
                 caption: "key",
                 size: "pagerank",
                 community: "community"
+            },
+            "Document":{
+                caption: "filename",
+                size: "none",
+                community: "none"
             }
         },
         relationships: {
             "connects": {
                 caption: "weight",
-                thickness: "count"
+                thickness: "weight"
+            },
+            "includes": {
+                caption: "none",
+                thickness: "none"
             }
         },
         initial_cypher: query
