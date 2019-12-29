@@ -5,7 +5,7 @@ from GraphOfDocs.neo4j_wrapper import Neo4jDatabase
 from GraphOfDocs.utils import generate_words, read_datasets, clear_screen
 from GraphOfDocs.query import create_graph_of_words, run_initial_algorithms
 
-def main(create = True):
+def main(create = False):
     uri = 'bolt://localhost:7687'
     username = 'neo4j'
     password = '123'
@@ -24,10 +24,9 @@ def main(create = True):
     if create:
         # Delete nodes from previous iterations.
         database.execute('MATCH (n) DETACH DELETE n', 'w')
-        database.execute('MATCH (n) DETACH DELETE n', 'w')
 
         # Create uniqueness constraint on key to avoid duplicate word nodes.
-        database.execute('CREATE CONSTRAINT ON (word:Word) ASSERT word.id IS UNIQUE', 'w')
+        database.execute('CREATE CONSTRAINT ON (word:Word) ASSERT word.key IS UNIQUE', 'w')
 
         # Read text from files, which becomes a string in a list called datasets.
         datasets = read_datasets('C:\\Users\\USER\\source\\repos\\GraphOfDocs\\GraphOfDocs\\\\GraphOfDocs\\20news-18828-all\\')
