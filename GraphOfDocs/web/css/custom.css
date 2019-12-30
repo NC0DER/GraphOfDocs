@@ -8,6 +8,7 @@ body, html {
 #viz {
     width: 100%;
     height: 700px;
+    margin-top: 20px;
     border: 1px solid #ced4da;
     border-radius: .25rem;
     margin-bottom: 10px;

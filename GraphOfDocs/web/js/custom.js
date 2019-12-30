@@ -3,8 +3,8 @@ var viz;
 
 $(document).ready(function () {
     var query = "MATCH (n:Word)-[r:connects]-(k) "
-        + "WHERE n.pagerank > 650 "
-        + "AND k.pagerank > 650 "
+        + "WHERE n.pagerank > 250 "
+        + "AND k.pagerank > 250 "
         + "AND n.pagerank < 750 "
         + "AND k.pagerank < 750 "
         + "RETURN n,r,k LIMIT 1000";
@@ -14,6 +14,7 @@ $(document).ready(function () {
 $("#query").click(function () {
     var start = $("#field1").val();
     var end = $("#field2").val();
+    var score = $("#field3").val();
     if (start === "" || end === "") {
         alert("Please speficy the ranges!");
         return;
@@ -24,6 +25,7 @@ $("#query").click(function () {
         + "AND k.pagerank > " + start + " "
         + "AND n.pagerank < " + end + " "
         + "AND k.pagerank < " + end + " "
+        + "AND r.weight > " + score + " "
         + "RETURN n,r,k LIMIT 1000";
     viz.renderWithCypher(query);
 });
