@@ -49,17 +49,12 @@ def generate_words(text_corpus, remove_stopwords = True, lemmatize = False, stem
     text_corpus = text_corpus.replace('. ', ' e5 ')\
                 .replace('! ', ' e5 ' )\
                 .replace('? ', ' e5 ' )
-    # Leftover characters (e.g from domains) are being translated into spaces.
-    text_corpus = text_corpus.replace('@', ' ')\
-                .replace('.', ' ')\
-                .replace('!', ' ')\
-                .replace('?', ' ')
-    # Remove punctuation and lowercase the string.
-    input_text = text_corpus.translate(str.maketrans(' ', ' ', punctuation)).lower()
+    # Translate punctuation to space and lowercase the string.
+    text_corpus = text_corpus.translate({ord(c): ' ' for c in punctuation}).lower()
     if remove_stopwords:
-        tokens = [token for token in word_tokenize(input_text) if not token in stop_words] 
+        tokens = [token for token in word_tokenize(text_corpus) if not token in stop_words] 
     else:
-        tokens = word_tokenize(input_text)
+        tokens = word_tokenize(text_corpus)
     if lemmatize:
         tokens_tags = pos_tag(tokens) # Create part-of-speech tags.
         # Overwrite the list with the lemmatized versions of tokens.
