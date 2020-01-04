@@ -39,10 +39,10 @@ def generate_words(text_corpus, remove_stopwords = True, lemmatize = False, stem
     Function that generates words from a text corpus and optionally lemmatizes them.
     Returns a set of unique tokens based on order of appearance in-text.
     """
-    # Remove all whitespace characters(by split) and join on space.
+    # Remove all whitespace characters (by split) and join on space.
     text_corpus = ' '.join(text_corpus.split())
     # Handle special characters that connect words.
-    text_corpus = text_corpus.translate({ord(c): '' for c in '\'\"\\>/|<{}[]:'})
+    text_corpus = text_corpus.translate({ord(c): '' for c in '\'\"'})
     # Find all end of sentences and introduce a special string to track them.
     # By chaining the replace methods together, we achieve a slight amount of performance,
     # over other methods, that achieve the same result.
@@ -72,13 +72,15 @@ def generate_words(text_corpus, remove_stopwords = True, lemmatize = False, stem
 def read_datasets(filepath):
     """
     Function that gets a list of filenames in the directory specified by filepath,
-    then reading them in text mode, and appending them in a list which contains the file(name) and its contents.
+    then reading them in text mode, and appending them in a list which contains the file(name),
+    and its contents, which have newline characters removed.
+    Handles newline endings of '\n' and '\r\n'.
     """
     data = []
     files = [file for file in listdir(filepath) if isfile(join(filepath, file))]
     for file in files:
-        with open(''.join([filepath, file]), 'rt', encoding = 'utf8') as fd:
-            data.append((file, fd.read().replace('\n', '')))  
+        with open(''.join([filepath, file]), 'rt', encoding = 'utf-8-sig') as fd:
+            data.append((file, fd.read().replace('\n', ' ').replace('\r', '')))  
     return data
 
 def clear_screen(current_system):
