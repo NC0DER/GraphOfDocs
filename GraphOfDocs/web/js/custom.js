@@ -63,7 +63,7 @@ function draw(query) {
             "Document":{
                 caption: "filename",
                 size: "none",
-                community: "none"
+                community: "community"
             }
         },
         relationships: {
@@ -74,6 +74,10 @@ function draw(query) {
             "includes": {
                 caption: "none",
                 thickness: "none"
+            },
+            "is_similar": {
+                caption: "score",
+                thickness: "score"
             }
         },
         initial_cypher: query

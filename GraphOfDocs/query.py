@@ -104,3 +104,34 @@ def run_initial_algorithms(database):
             '{direction: "BOTH", writeProperty: "community"}) '
             'YIELD nodes, communityCount, iterations, loadMillis, computeMillis, writeMillis')
     database.execute(' '.join(query.split()), 'w')
+
+def create_similarity_graph(database, system):
+    """
+    Function that creates a similarity graph
+    based on Jaccard similarity measure.
+    This measure connects the document nodes with each other
+    using the relationship 'is_similar', which has the similarity score as a property.
+    In order to prepare the data for analysis and visualization,
+    we use Louvain Community detection algorithm.
+    The calculated community id for each node is being stored
+    on the nodes themselves.
+    """
+    # Remove similarity edges from previous iterations.
+    database.execute('MATCH ()-[r:is_similar]->() DELETE r', 'w')
+
+    # Create the similarity graph using Jaccard similarity measure.
+    query = ('MATCH (d:Document)-[:includes]->(w:Word) '
+    'WITH {item:id(d), categories: collect(id(w))} as data '
+    'WITH collect(data) as Data '
+    'CALL algo.similarity.jaccard(Data, {topK: 1, similarityCutoff: 0.2, write: true, writeRelationshipType: "is_similar", writeProperty: "score"}) '
+    'YIELD nodes, similarityPairs, write, writeRelationshipType, writeProperty, min, max, mean, stdDev, p25, p50, p75, p90, p95, p99, p999, p100 '
+    'RETURN nodes, similarityPairs, write, writeRelationshipType, writeProperty, min, max, mean, p95 ')
+    database.execute(' '.join(query.split()), 'w')
+
+    # Find all similar document communities.
+    query = ('CALL algo.louvain("Document", "is_similar", '
+            '{direction: "BOTH", writeProperty: "community"}) '
+            'YIELD nodes, communityCount, iterations, loadMillis, computeMillis, writeMillis')
+    database.execute(' '.join(query.split()), 'w')
+    print('Similarity graph created.')
+    return

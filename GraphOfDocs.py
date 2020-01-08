@@ -3,7 +3,7 @@ import platform
 from neo4j import ServiceUnavailable
 from GraphOfDocs.neo4j_wrapper import Neo4jDatabase
 from GraphOfDocs.utils import generate_words, read_datasets, clear_screen
-from GraphOfDocs.query import create_graph_of_words, run_initial_algorithms
+from GraphOfDocs.query import create_graph_of_words, run_initial_algorithms, create_similarity_graph
 
 def main(create = False):
     uri = 'bolt://localhost:7687'
@@ -45,6 +45,7 @@ def main(create = False):
             # Clear the screen to output the update the progress counter.
             clear_screen(current_system)
         run_initial_algorithms(database)
+    create_similarity_graph(database, current_system)
     database.close()
     return
 
