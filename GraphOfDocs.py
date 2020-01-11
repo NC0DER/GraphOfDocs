@@ -2,8 +2,8 @@ import sys
 import platform
 from neo4j import ServiceUnavailable
 from GraphOfDocs.neo4j_wrapper import Neo4jDatabase
-from GraphOfDocs.create import create_graph_of_words, run_initial_algorithms
 from GraphOfDocs.utils import generate_words, read_datasets, clear_screen
+from GraphOfDocs.query import create_graph_of_words, run_initial_algorithms, create_similarity_graph
 
 def main(create = True):
     uri = 'bolt://localhost:7687'
@@ -24,10 +24,9 @@ def main(create = True):
     if create:
         # Delete nodes from previous iterations.
         database.execute('MATCH (n) DETACH DELETE n', 'w')
-        database.execute('MATCH (n) DETACH DELETE n', 'w')
 
         # Create uniqueness constraint on key to avoid duplicate word nodes.
-        database.execute('CREATE CONSTRAINT ON (word:Word) ASSERT word.id IS UNIQUE', 'w')
+        database.execute('CREATE CONSTRAINT ON (word:Word) ASSERT word.key IS UNIQUE', 'w')
 
         # Read text from files, which becomes a string in a list called datasets.
         datasets = read_datasets('C:\\Users\\USER\\source\\repos\\GraphOfDocs\\GraphOfDocs\\\\GraphOfDocs\\20news-18828-all\\')
@@ -46,6 +45,8 @@ def main(create = True):
             # Clear the screen to output the update the progress counter.
             clear_screen(current_system)
         run_initial_algorithms(database)
+        create_similarity_graph(database, current_system)
+    database.close()
     return
 
 if __name__ == "__main__": main()

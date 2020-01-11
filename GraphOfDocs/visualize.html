@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Dataviz</title>
+    <link href="web/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="web/css/custom.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="container">
+        <div id="viz"></div>
+    </div>
+    <div class="container">
+        <form>
+            <div class="content row justify-content-center align-items-center">
+                <div class="form-group form-inline">
+                    <div class="col-xs-5" style="padding-right: 5px;">
+                        <label>Pagerank Range: </label>
+                    </div>
+                    <div class="col-xs-2" style="padding-right: 5px;">
+                        <input type="number" class="form-control" id="field1" placeholder="0">
+                    </div>
+                    <div class="col-xs-1" style="padding-right: 5px;">
+                        <label> - </label>
+                    </div>
+                    <div class="col-xs-2" style="padding-right: 5px;">
+                        <input type="number" class="form-control" id="field2" placeholder="1000">
+                    </div>
+                    <div class="col-xs-5" style="padding-right: 5px;">
+                        <label>Co-occurence Score: </label>
+                    </div>
+                    <div class="col-xs-2" style="padding-right: 5px;">
+                        <input type="number" class="form-control" id="field3" placeholder="1">
+                    </div>
+                    <div class="col-xs-1" style="padding-right: 5px;">
+                        <input type="button" class="btn btn-primary" id="query" value="⮞" />
+                    </div>
+                    <div class="col-xs-1" style="padding-right: 5px;">
+                        <input type="button" class="btn btn-primary" id="stabilize" value="||" />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="form-group">
+                <label for="Textarea">Run Query ▶️</label>
+                <textarea class="form-control rounded-0" id="textarea" rows="3" placeholder="Use the Pagerank ranges above or run a custom query here, by pressing enter."></textarea>
+            </div>
+        </div>
+    </div>
+    <!-- JavaScript Here -->
+    <!-- jQuery first, then Bootstrap Bundle JS -->
+    <script src="web/js/jquery-3.3.1.min.js"></script>
+    <script src="web/js/bootstrap.bundle.min.js"></script>
+    <script src="web/js/neovis.js"></script>
+    <script src="web/js/custom.js"></script>
+</body>
+</html>
