@@ -19,9 +19,10 @@ stop_words = set(stopwords.words('english')).union([ # Augment the stopwords set
     'dont', 'didnt', 'doesnt', 'arent', 'aint',
     'hadnt', 'hasnt', 'may', 'mightve', 'couldnt',
     'shouldnt', 'shouldnot', 'shouldntve', 'mustnt',
-    'would', 'woulda', 'wouldany', 'wouldnot', 'woudnt'
-    'wouldve', 'must', 'ive', 'cant', 'thats', 'isnt',
-    'youre', 'wont', 'from', 'subject', 'hes', 'etc',
+    'would', 'woulda', 'wouldany', 'wouldnot', 'woudnt',
+    'wouldve', 'must', 'could', 'can', 'have', 'has',
+    'do', 'does', 'did', 'are', 'is', 'ive', 'cant', 'thats',
+    'isnt', 'youre', 'wont', 'from', 'subject', 'hes', 'etc',
     'edu', 'com', 'org', 've', 'll', 'd', 're', 't', 's'])
 
 def get_wordnet_tag(tag):
