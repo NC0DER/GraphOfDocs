@@ -78,6 +78,10 @@ function draw(query) {
             "is_similar": {
                 caption: "score",
                 thickness: "score"
+            },
+            "has_tag": {
+                caption: "none",
+                thickness: "none"
             }
         },
         initial_cypher: query

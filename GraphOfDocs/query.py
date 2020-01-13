@@ -1,3 +1,6 @@
+import platform
+from GraphOfDocs.utils import clear_screen
+
 # Initialize an empty set of edges.
 edges = {}
 # Initialize an empty list of unique terms.
@@ -134,4 +137,63 @@ def create_similarity_graph(database, system):
             'YIELD nodes, communityCount, iterations, loadMillis, computeMillis, writeMillis')
     database.execute(' '.join(query.split()), 'w')
     print('Similarity graph created.')
+    return
+
+def generate_community_tags_scores(database, community):
+    """
+    This function generates the most important terms that describe
+    a community of similar documents, alongside their pagerank and in-degree scores.
+    """
+    # Get all intersecting nodes of the speficied community, 
+    # ranked by their in-degree (which shows to how many documents they belong to).
+    # and pagerank score in descending order.
+    query = ('MATCH p=((d:Document {community: '+ str(community) +'})-[:includes]->(w:Word)) '
+             'WITH w, count(p) as degree '
+             'WHERE degree > 1 '
+             'RETURN w.key, w.pagerank as pagerank, degree '
+             'ORDER BY degree DESC, pagerank DESC')
+    tags_scores = database.execute(' '.join(query.split()), 'r')
+    return tags_scores
+
+def create_clustering_tags(database, top_terms = 25):
+    """
+    This functions creates, in the Neo4j database, 
+    for all communities, the relationships that connect 
+    document nodes of a similarity community with top important 
+    clustering tags for that community, based on the amount of common
+    appearances between documents and a higher pagerank score.
+    """
+    current_system = platform.system()
+    # Remove has_tag edges from previous iterations.
+    database.execute('MATCH ()-[r:has_tag]->() DELETE r', 'w')
+    # Get all id numbers from communities which have more than one files,
+    # and all their assosiated file(name)s.
+    # Filtering by file_count is necessary, since Louvain makes community on isolated documents as well.
+    print('Loading all community ids and their filenames...')
+    query = ('MATCH (d:Document) WITH d.community AS community, count(d.filename) AS file_count WHERE file_count > 1 '
+             'MATCH (d:Document {community: community}) RETURN community, collect(d.filename) AS files ')
+    results = database.execute(' '.join(query.split()), 'r')
+    
+    # Count all results (rows) for a simple loading screen.
+    count = 1
+    total_count = len(results)
+    for [community, filenames] in results:
+        # Print the number of the currently processed community.
+        print('Processing ' + str(count) + ' out of ' + str(total_count) + ' communities...' )
+        tags_scores = generate_community_tags_scores(database, community)
+        # Get the top 25 tags from the tags and scores list.
+        top_tags = [tag[0] for tag in tags_scores[:top_terms]]
+        for filename in filenames:
+            # Connect a filename of a specific community with all its associated tags,
+            # where tags are important words that describe that particular community,
+            # and which already exist in the graph of docs model.
+            query = ('MATCH (d:Document {filename: "'+ filename +'"}) '
+                     'UNWIND ' + str(top_tags) +' AS tag '
+                     'MATCH (w:Word {key: tag}) '
+                     'CREATE (d)-[r:has_tag]->(w) ')
+            database.execute(' '.join(query.split()), 'w')
+        # Update the progress counter.
+        count = count + 1
+        # Clear the screen to output the update the progress counter.
+        clear_screen(current_system)
     return
