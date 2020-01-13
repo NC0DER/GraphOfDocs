@@ -16,7 +16,13 @@ stemmer = PorterStemmer() # Initialize Porter's stemmer once.
 stop_words = set(stopwords.words('english')).union([ # Augment the stopwords set.
     'don','didn', 'doesn', 'aren', 'ain', 'hadn',
     'hasn', 'mightn', 'mustn', 'couldn', 'shouldn',
-    've', 'll', 'd', 're', 't', 's'])
+    'dont', 'didnt', 'doesnt', 'arent', 'aint',
+    'hadnt', 'hasnt', 'may', 'mightve', 'couldnt',
+    'shouldnt', 'shouldnot', 'shouldntve', 'mustnt',
+    'would', 'woulda', 'wouldany', 'wouldnot', 'woudnt'
+    'wouldve', 'must', 'ive', 'cant', 'thats', 'isnt',
+    'youre', 'wont', 'from', 'subject', 'hes', 'etc',
+    'edu', 'com', 'org', 've', 'll', 'd', 're', 't', 's'])
 
 def get_wordnet_tag(tag):
     """
