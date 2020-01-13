@@ -3,9 +3,9 @@ import platform
 from neo4j import ServiceUnavailable
 from GraphOfDocs.neo4j_wrapper import Neo4jDatabase
 from GraphOfDocs.utils import generate_words, read_datasets, clear_screen
-from GraphOfDocs.query import create_graph_of_words, run_initial_algorithms, create_similarity_graph
+from GraphOfDocs.query import *
 
-def main(create = True):
+def main(create = False):
     uri = 'bolt://localhost:7687'
     username = 'neo4j'
     password = '123'
@@ -45,7 +45,8 @@ def main(create = True):
             # Clear the screen to output the update the progress counter.
             clear_screen(current_system)
         run_initial_algorithms(database)
-        create_similarity_graph(database, current_system)
+        create_similarity_graph(database)
+        create_clustering_tags(database)
     database.close()
     return
 
