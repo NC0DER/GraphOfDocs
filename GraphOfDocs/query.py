@@ -20,11 +20,10 @@ def create_graph_of_words(words, database, filename, window_size = 4):
     # A list is being used to respect the order of appearance.
     global nodes
 
-    # We are getting the unique terms for the current graph of words,
-    # And we are also cleaning the data, from numbers and leftover syllabes or letters.
+    # We are getting the unique terms for the current graph of words.
     terms = []
     for word in words:
-        if word not in terms and not word.isnumeric() and len(word) > 2: 
+        if word not in terms: 
             terms.append(word)
 
     for word in terms:
