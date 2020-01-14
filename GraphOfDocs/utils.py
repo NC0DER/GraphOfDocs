@@ -61,8 +61,10 @@ def generate_words(text, extend_window = False, remove_stopwords = True, lemmati
                     .replace('? ', ' e5 ' )
     # Translate punctuation to space and lowercase the string.
     text = text.translate({ord(c): ' ' for c in punctuation}).lower()
+    # We are cleaning the data from stopwords, numbers and leftover syllabes/letters.
     if remove_stopwords:
-        tokens = [token for token in word_tokenize(text) if not token in stop_words] 
+        tokens = [token for token in word_tokenize(text)
+        if not token in stop_words and not token.isnumeric() and len(token) > 2]
     else:
         tokens = word_tokenize(text)
     if lemmatize:
