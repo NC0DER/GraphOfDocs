@@ -1,5 +1,6 @@
 joblib==0.14.1
 neo4j==1.7.6
+neo4j-driver==1.7.6
 neobolt==1.7.15
 neotime==1.7.4
 nltk==3.4.5
