@@ -166,18 +166,29 @@ def create_clustering_tags(database, top_terms = 25):
     current_system = platform.system()
     # Remove has_tag edges from previous iterations.
     database.execute('MATCH ()-[r:has_tag]->() DELETE r', 'w')
-    # Get all id numbers from communities which have more than one files,
-    # and all their assosiated file(name)s.
-    # Filtering by file_count is necessary, since Louvain makes community on isolated documents as well.
+    # Get all id numbers from communities and all their assosiated file(name)s.
     print('Loading all community ids and their filenames...')
-    query = ('MATCH (d:Document) WITH d.community AS community, count(d.filename) AS file_count WHERE file_count > 1 '
-             'MATCH (d:Document {community: community}) RETURN community, collect(d.filename) AS files ')
+    query = ('MATCH (d:Document) RETURN d.community, '
+            'collect(d.filename) AS files, '
+            'count(d.filename) AS file_count '
+            'ORDER BY file_count DESC')
     results = database.execute(' '.join(query.split()), 'r')
-    
+    # The communities are ordered by filecount, which means that after the first one found,
+    # with 1 file all the rest have the same amount of documents.
+    # These communities are a side effect of the Louvain implementation of Neo4j.
+    # There is no reason to create tags in isolated communities, since there are no common tags, 
+    # with other documents. Therefore we are going to filter them out of the results list.
+    index = 0
+    for result in results:
+        if result[2] == 1: # filecount == 1
+            break
+        index = index + 1
+    # Slice the list based on the first found index.
+    results = results[:index]
     # Count all results (rows) for a simple loading screen.
     count = 1
     total_count = len(results)
-    for [community, filenames] in results:
+    for [community, filenames, filecount] in results:
         # Print the number of the currently processed community.
         print('Processing ' + str(count) + ' out of ' + str(total_count) + ' communities...' )
         tags_scores = generate_community_tags_scores(database, community)
