@@ -1,3 +1,7 @@
+"""
+This script contains functions that 
+create data in the Neo4j database.
+"""
 import platform
 from GraphOfDocs.utils import clear_screen
 
@@ -194,15 +198,15 @@ def create_clustering_tags(database, top_terms = 25):
         tags_scores = generate_community_tags_scores(database, community)
         # Get the top 25 tags from the tags and scores list.
         top_tags = [tag[0] for tag in tags_scores[:top_terms]]
-        for filename in filenames:
-            # Connect a filename of a specific community with all its associated tags,
-            # where tags are important words that describe that particular community,
-            # and which already exist in the graph of docs model.
-            query = ('MATCH (d:Document {filename: "'+ filename +'"}) '
-                     'UNWIND ' + str(top_tags) +' AS tag '
-                     'MATCH (w:Word {key: tag}) '
-                     'CREATE (d)-[r:has_tag]->(w) ')
-            database.execute(' '.join(query.split()), 'w')
+        # Connect filenames of a specific community with all their associated tags.
+        # Tags are considered to be important words that describe that community,
+        # and which already exist in the graphofdocs model.
+        query = ('UNWIND ' + str(filenames) +' AS filename '
+                'MATCH (d:Document {filename: filename}) '
+                'UNWIND ' + str(top_tags) +' AS tag '
+                'MATCH (w:Word {key: tag}) '
+                'CREATE (d)-[r:has_tag]->(w) ')
+        database.execute(' '.join(query.split()), 'w')
         # Update the progress counter.
         count = count + 1
         # Clear the screen to output the update the progress counter.
