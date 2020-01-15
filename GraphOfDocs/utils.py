@@ -76,7 +76,7 @@ def generate_words(text, extend_window = False, remove_stopwords = True, lemmati
         tokens = [stemmer.stem(token) for token in tokens]
     return tokens
 
-def read_datasets(dirpath):
+def read_dataset(dirpath):
     """
     Function that gets a list of filenames in the directory specified by dirpath,
     then reading them in text mode, and appending them in a list which contains the file(name),
