@@ -3,7 +3,7 @@ import platform
 from neo4j import ServiceUnavailable
 from GraphOfDocs.neo4j_wrapper import Neo4jDatabase
 from GraphOfDocs.utils import generate_words, read_dataset, clear_screen
-from GraphOfDocs.query import *
+from GraphOfDocs.create import *
 
 def main(create = False):
     uri = 'bolt://localhost:7687'
