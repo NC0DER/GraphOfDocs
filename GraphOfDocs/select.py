@@ -1,3 +1,7 @@
+"""
+This script contains functions that 
+select data from the Neo4j database.
+"""
 def get_similarity_score(database, filename1, filename2):
     query = ('MATCH (d1:Document {filename: "'+ filename1 +'"})'
     '-[r:is_similar]-(d2:Document {filename: "'+ filename2 +'"}) '
@@ -28,4 +32,3 @@ def get_communities_by_tag(database, tag):
             'RETURN d.community, collect(d.filename) AS files')
     results = database.execute(' '.join(query.split()), 'r')
     return results
-
