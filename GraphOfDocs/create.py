@@ -4,6 +4,7 @@ create data in the Neo4j database.
 """
 import platform
 from GraphOfDocs.utils import clear_screen
+from GraphOfDocs.algos import *
 
 # Initialize an empty set of edges.
 edges = {}
@@ -102,10 +103,7 @@ def run_initial_algorithms(database):
     The calculated score for each node of the algorithms is being stored
     on the nodes themselves.
     """
-    query = ('CALL algo.pageRank("Word", "connects", '
-            '{iterations: 20, dampingFactor: 0.85, write: true, writeProperty: "pagerank"}) '
-            'YIELD nodes, iterations, loadMillis, computeMillis, writeMillis, dampingFactor, write, writeProperty')
-    database.execute(' '.join(query.split()), 'w')
+    pagerank('Word', 'connects', 20, 'pagerank')
     query = ('CALL algo.louvain("Word", "connects", '
             '{direction: "BOTH", writeProperty: "community"}) '
             'YIELD nodes, communityCount, iterations, loadMillis, computeMillis, writeMillis')
