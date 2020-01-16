@@ -103,8 +103,8 @@ def run_initial_algorithms(database):
     The calculated score for each node of the algorithms is being stored
     on the nodes themselves.
     """
-    pagerank('Word', 'connects', 20, 'pagerank')
-    louvain('Word', 'connects', 'community')
+    pagerank(database, 'Word', 'connects', 20, 'pagerank')
+    louvain(database, 'Word', 'connects', 'community')
     return
 
 def create_similarity_graph(database):
@@ -123,10 +123,10 @@ def create_similarity_graph(database):
     database.execute('MATCH ()-[r:is_similar]->() DELETE r', 'w')
 
     # Create the similarity graph using Jaccard similarity measure.
-    jaccard('Document', 'includes', 'Word', 0.23, 'is_similar', 'score')
+    jaccard(database, 'Document', 'includes', 'Word', 0.23, 'is_similar', 'score')
 
     # Find all similar document communities.
-    louvain('Document', 'is_similar', 'community')
+    louvain(database, 'Document', 'is_similar', 'community')
     print('Similarity graph created.')
     return
 
@@ -157,6 +157,7 @@ def create_clustering_tags(database, top_terms = 25):
     current_system = platform.system()
     # Remove has_tag edges from previous iterations.
     database.execute('MATCH ()-[r:has_tag]->() DELETE r', 'w')
+
     # Get all id numbers from communities and all their assosiated file(name)s.
     print('Loading all community ids and their filenames...')
     query = ('MATCH (d:Document) RETURN d.community, '
@@ -164,6 +165,7 @@ def create_clustering_tags(database, top_terms = 25):
             'count(d.filename) AS file_count '
             'ORDER BY file_count DESC')
     results = database.execute(' '.join(query.split()), 'r')
+
     # The communities are ordered by filecount, which means that after the first one found,
     # with 1 file all the rest have the same amount of documents.
     # These communities are a side effect of the Louvain implementation of Neo4j.
@@ -174,17 +176,20 @@ def create_clustering_tags(database, top_terms = 25):
         if result[2] == 1: # filecount == 1
             break
         index = index + 1
+
     # Slice the list based on the first found index.
     results = results[:index]
     # Count all results (rows) for a simple loading screen.
     count = 1
     total_count = len(results)
+
     for [community, filenames, filecount] in results:
         # Print the number of the currently processed community.
         print('Processing ' + str(count) + ' out of ' + str(total_count) + ' communities...' )
         tags_scores = generate_community_tags_scores(database, community)
         # Get the top 25 tags from the tags and scores list.
         top_tags = [tag[0] for tag in tags_scores[:top_terms]]
+
         # Connect filenames of a specific community with all their associated tags.
         # Tags are considered to be important words that describe that community,
         # and which already exist in the graphofdocs model.
@@ -194,6 +199,7 @@ def create_clustering_tags(database, top_terms = 25):
                 'MATCH (w:Word {key: tag}) '
                 'CREATE (d)-[r:has_tag]->(w) ')
         database.execute(' '.join(query.split()), 'w')
+
         # Update the progress counter.
         count = count + 1
         # Clear the screen to output the update the progress counter.
