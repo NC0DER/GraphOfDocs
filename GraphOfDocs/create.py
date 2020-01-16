@@ -123,13 +123,7 @@ def create_similarity_graph(database):
     database.execute('MATCH ()-[r:is_similar]->() DELETE r', 'w')
 
     # Create the similarity graph using Jaccard similarity measure.
-    query = ('MATCH (d:Document)-[:includes]->(w:Word) '
-    'WITH {item:id(d), categories: collect(id(w))} as data '
-    'WITH collect(data) as Data '
-    'CALL algo.similarity.jaccard(Data, {topK: 1, similarityCutoff: 0.23, write: true, writeRelationshipType: "is_similar", writeProperty: "score"}) '
-    'YIELD nodes, similarityPairs, write, writeRelationshipType, writeProperty, min, max, mean, stdDev, p25, p50, p75, p90, p95, p99, p999, p100 '
-    'RETURN nodes, similarityPairs, write, writeRelationshipType, writeProperty, min, max, mean, p95 ')
-    database.execute(' '.join(query.split()), 'w')
+    jaccard('Document', 'includes', 'Word', 0.23, 'is_similar', 'score')
 
     # Find all similar document communities.
     louvain('Document', 'is_similar', 'community')
