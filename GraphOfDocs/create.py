@@ -99,15 +99,13 @@ def run_initial_algorithms(database):
     """
     Function that runs centrality & community detection algorithms,
     in order to prepare the data for analysis and visualization.
-    Weighted Pagerank & Louvain are used, respectively.
+    Pagerank & Louvain are used, respectively.
     The calculated score for each node of the algorithms is being stored
     on the nodes themselves.
     """
     pagerank('Word', 'connects', 20, 'pagerank')
-    query = ('CALL algo.louvain("Word", "connects", '
-            '{direction: "BOTH", writeProperty: "community"}) '
-            'YIELD nodes, communityCount, iterations, loadMillis, computeMillis, writeMillis')
-    database.execute(' '.join(query.split()), 'w')
+    louvain('Word', 'connects', 'community')
+    return
 
 def create_similarity_graph(database):
     """
@@ -134,10 +132,7 @@ def create_similarity_graph(database):
     database.execute(' '.join(query.split()), 'w')
 
     # Find all similar document communities.
-    query = ('CALL algo.louvain("Document", "is_similar", '
-            '{direction: "BOTH", writeProperty: "community"}) '
-            'YIELD nodes, communityCount, iterations, loadMillis, computeMillis, writeMillis')
-    database.execute(' '.join(query.split()), 'w')
+    louvain('Document', 'is_similar', 'community')
     print('Similarity graph created.')
     return
 

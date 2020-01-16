@@ -12,3 +12,11 @@ def pagerank(node, edge, iterations, property):
             '{iterations: '+ iterations +', dampingFactor: 0.85, write: true, writeProperty: "'+ property +'"}) '
             'YIELD nodes, iterations, loadMillis, computeMillis, writeMillis, dampingFactor, write, writeProperty')
     database.execute(' '.join(query.split()), 'w')
+    return
+
+def louvain(node, edge, property):
+    query = ('CALL algo.louvain("'+ node +'", "'+ edge +'", '
+            '{direction: "BOTH", writeProperty: "'+ property +'"}) '
+            'YIELD nodes, communityCount, iterations, loadMillis, computeMillis, writeMillis')
+    database.execute(' '.join(query.split()), 'w')
+    return
