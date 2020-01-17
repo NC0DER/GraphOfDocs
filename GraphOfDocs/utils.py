@@ -1,3 +1,7 @@
+"""
+This script contains utility functions
+e.g to read files, preprocess text, etc.
+"""
 import sys
 import platform
 from os import system

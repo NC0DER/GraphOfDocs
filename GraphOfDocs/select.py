@@ -1,3 +1,7 @@
+"""
+This script contains functions that 
+select data from the Neo4j database.
+"""
 def get_similarity_score(database, filename1, filename2):
     query = ('MATCH (d1:Document {filename: "'+ filename1 +'"})'
     '-[r:is_similar]-(d2:Document {filename: "'+ filename2 +'"}) '
