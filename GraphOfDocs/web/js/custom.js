@@ -3,10 +3,10 @@ var viz;
 
 $(document).ready(function () {
     var query = "MATCH (n:Word)-[r:connects]-(k) "
-        + "WHERE n.pagerank > 250 "
-        + "AND k.pagerank > 250 "
-        + "AND n.pagerank < 750 "
-        + "AND k.pagerank < 750 "
+        + "WHERE n.pagerank > 90 "
+        + "AND k.pagerank > 90 "
+        + "AND n.pagerank < 200 "
+        + "AND k.pagerank < 200 "
         + "RETURN n,r,k LIMIT 1000";
     draw(query);
 });
