@@ -7,31 +7,39 @@ Their implementantions are located
 in the Neo4j Algorithms library.
 """
 
-def pagerank(database, node, edge, iterations, property):
+def pagerank(database, node, edge, iterations, property, weight = ''):
     type_correct = all([isinstance(node, str),
     isinstance(edge, str),
     isinstance(iterations, int),
-    isinstance(property, str)])
+    isinstance(property, str),
+    isinstance(weight, str)])
     
     if not type_correct:
         raise TypeError('All arguments should be strings, except iterations which should be int!')
 
+    if weight: # If weight is not an empty str.
+        weight = ', weightProperty: "'+ weight +'"'
+
     query = ('CALL algo.pageRank("'+ node +'", "'+ edge +'", '
-            '{iterations: '+ str(iterations) +', dampingFactor: 0.85, write: true, writeProperty: "'+ property +'"}) '
+            '{iterations: '+ str(iterations) +', dampingFactor: 0.85, write: true, writeProperty: "'+ property +'"'+ weight +'}) '
             'YIELD nodes, iterations, loadMillis, computeMillis, writeMillis, dampingFactor, write, writeProperty')
     database.execute(' '.join(query.split()), 'w')
     return
 
-def louvain(database, node, edge, property):
+def louvain(database, node, edge, property, weight = ''):
     type_correct = all([isinstance(node, str),
     isinstance(edge, str),
-    isinstance(property, str)])
+    isinstance(property, str),
+    isinstance(weight, str)])
 
     if not type_correct:
         raise TypeError('All arguments should be strings!')
 
+    if weight: # If weight is not an empty str.
+        weight = ', weightProperty: "'+ weight +'"'
+
     query = ('CALL algo.louvain("'+ node +'", "'+ edge +'", '
-            '{direction: "BOTH", writeProperty: "'+ property +'"}) '
+            '{direction: "BOTH", writeProperty: "'+ property +'"'+ weight +'}) '
             'YIELD nodes, communityCount, iterations, loadMillis, computeMillis, writeMillis')
     database.execute(' '.join(query.split()), 'w')
     return

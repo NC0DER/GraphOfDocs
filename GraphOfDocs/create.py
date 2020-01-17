@@ -103,6 +103,7 @@ def run_initial_algorithms(database):
     The calculated score for each node of the algorithms is being stored
     on the nodes themselves.
     """
+    # Append the parameter 'weight' for the weighted version of the algorithm.
     pagerank(database, 'Word', 'connects', 20, 'pagerank')
     louvain(database, 'Word', 'connects', 'community')
     return
@@ -126,6 +127,7 @@ def create_similarity_graph(database):
     jaccard(database, 'Document', 'includes', 'Word', 0.23, 'is_similar', 'score')
 
     # Find all similar document communities.
+    # Append the parameter 'score' for the weighted version of the algorithm.
     louvain(database, 'Document', 'is_similar', 'community')
     print('Similarity graph created.')
     return
