@@ -16,9 +16,13 @@ def get_document_communities(database):
     results = database.execute(' '.join(query.split()), 'r')
     return results
 
-def get_document_terms(database, filename):
-    query = ('MATCH (d:Document {filename: "'+ filename +'"})'
-            '-[r:includes]->(w:Word) RETURN w.key, w.pagerank, w.community')
+def get_document_terms(database, filename, group_by_word_community_id=False):
+    if group_by_word_community_id:
+        query = ('MATCH (d:Document {filename: "'+ filename +'"})'
+                '-[r:includes]->(w:Word) WITH w.community AS community, w.key AS word, w.pagerank AS pagerank ORDER BY pagerank DESC RETURN community, collect([word, pagerank]) AS words, count(word) AS word_count ORDER BY word_count DESC')
+    else:
+        query = ('MATCH (d:Document {filename: "'+ filename +'"})'
+                '-[r:includes]->(w:Word) RETURN w.key, w.pagerank, w.community')
     results = database.execute(' '.join(query.split()), 'r')
     return results
 
@@ -29,3 +33,9 @@ def get_communities_by_tag(database, tag):
     results = database.execute(' '.join(query.split()), 'r')
     return results
 
+def get_communities_by_tags(database, tags):
+    query = ('MATCH (d:Document)-[r:has_tag]->'
+            '(w:Word) WHERE w.key in ' + str(tags) +
+            'RETURN d.community, collect(d.filename) AS files')
+    results = database.execute(' '.join(query.split()), 'r')
+    return results
