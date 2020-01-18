@@ -47,11 +47,11 @@ def get_communities_by_tags(database, tags):
     results = database.execute(' '.join(query.split()), 'r')
     return results
 
-def get_word_2grams_by_filename(database, filename):
+def get_word_digrams_by_filename(database, filename):
     query = ('MATCH (d:Document {filename: "'+ filename +'"})'
             '-[:includes]->(w1:Word)-[r:connects]->(w2:Word)'
             '<-[:includes]-(d) WHERE id(w1) < id(w2) '
             'WITH w1.key AS source, w2.key AS target, r.weight AS weight '
-            'ORDER BY weight DESC RETURN collect([source, target, weight]) AS twograms')
+            'ORDER BY weight DESC RETURN collect([source, target, weight]) AS digrams')
     results = database.execute(' '.join(query.split()), 'r')
     return results
