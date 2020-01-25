@@ -3,10 +3,10 @@ var viz;
 
 $(document).ready(function () {
     var query = "MATCH (n:Word)-[r:connects]-(k) "
-        + "WHERE n.pagerank > 250 "
-        + "AND k.pagerank > 250 "
-        + "AND n.pagerank < 750 "
-        + "AND k.pagerank < 750 "
+        + "WHERE n.pagerank > 90 "
+        + "AND k.pagerank > 90 "
+        + "AND n.pagerank < 200 "
+        + "AND k.pagerank < 200 "
         + "RETURN n,r,k LIMIT 1000";
     draw(query);
 });
@@ -37,7 +37,10 @@ $("#stabilize").click(function () {
 $("#textarea").keyup(function (e) {
     var code = e.keyCode ? e.keyCode : e.which;
     if (code === 13) { // Enter key pressed.
-        var query = $("#textarea").val();
+        var query = $("#textarea").val().replace(/\r?\n|\r/g, "");
+        // Set value back to retain the query 
+        // without any newline characters.
+        $("#textarea").val(query);
         if (query === ""){
             alert("Please supply a query!");
             return;
@@ -78,6 +81,10 @@ function draw(query) {
             "is_similar": {
                 caption: "score",
                 thickness: "score"
+            },
+            "has_tag": {
+                caption: "none",
+                thickness: "none"
             }
         },
         initial_cypher: query

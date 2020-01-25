@@ -1,3 +1,11 @@
+"""
+This script contains functions that 
+create data in the Neo4j database.
+"""
+import platform
+from GraphOfDocs.utils import clear_screen
+from GraphOfDocs.algos import *
+
 # Initialize an empty set of edges.
 edges = {}
 # Initialize an empty list of unique terms.
@@ -17,11 +25,10 @@ def create_graph_of_words(words, database, filename, window_size = 4):
     # A list is being used to respect the order of appearance.
     global nodes
 
-    # We are getting the unique terms for the current graph of words,
-    # And we are also cleaning the data, from numbers and leftover syllabes or letters.
+    # We are getting the unique terms for the current graph of words.
     terms = []
     for word in words:
-        if word not in terms and not word.isnumeric() and len(word) > 2: 
+        if word not in terms: 
             terms.append(word)
 
     for word in terms:
@@ -92,25 +99,22 @@ def run_initial_algorithms(database):
     """
     Function that runs centrality & community detection algorithms,
     in order to prepare the data for analysis and visualization.
-    Weighted Pagerank & Louvain are used, respectively.
+    Pagerank & Louvain are used, respectively.
     The calculated score for each node of the algorithms is being stored
     on the nodes themselves.
     """
-    query = ('CALL algo.pageRank("Word", "connects", '
-            '{iterations: 20, dampingFactor: 0.85, write: true, writeProperty: "pagerank"}) '
-            'YIELD nodes, iterations, loadMillis, computeMillis, writeMillis, dampingFactor, write, writeProperty')
-    database.execute(' '.join(query.split()), 'w')
-    query = ('CALL algo.louvain("Word", "connects", '
-            '{direction: "BOTH", writeProperty: "community"}) '
-            'YIELD nodes, communityCount, iterations, loadMillis, computeMillis, writeMillis')
-    database.execute(' '.join(query.split()), 'w')
+    # Append the parameter 'weight' for the weighted version of the algorithm.
+    pagerank(database, 'Word', 'connects', 20, 'pagerank')
+    louvain(database, 'Word', 'connects', 'community')
+    return
 
-def create_similarity_graph(database, system):
+def create_similarity_graph(database):
     """
     Function that creates a similarity graph
     based on Jaccard similarity measure.
     This measure connects the document nodes with each other
-    using the relationship 'is_similar', which has the similarity score as a property.
+    using the relationship 'is_similar', 
+    which has the similarity score as a property.
     In order to prepare the data for analysis and visualization,
     we use Louvain Community detection algorithm.
     The calculated community id for each node is being stored
@@ -120,18 +124,86 @@ def create_similarity_graph(database, system):
     database.execute('MATCH ()-[r:is_similar]->() DELETE r', 'w')
 
     # Create the similarity graph using Jaccard similarity measure.
-    query = ('MATCH (d:Document)-[:includes]->(w:Word) '
-    'WITH {item:id(d), categories: collect(id(w))} as data '
-    'WITH collect(data) as Data '
-    'CALL algo.similarity.jaccard(Data, {topK: 1, similarityCutoff: 0.2, write: true, writeRelationshipType: "is_similar", writeProperty: "score"}) '
-    'YIELD nodes, similarityPairs, write, writeRelationshipType, writeProperty, min, max, mean, stdDev, p25, p50, p75, p90, p95, p99, p999, p100 '
-    'RETURN nodes, similarityPairs, write, writeRelationshipType, writeProperty, min, max, mean, p95 ')
-    database.execute(' '.join(query.split()), 'w')
+    jaccard(database, 'Document', 'includes', 'Word', 0.23, 'is_similar', 'score')
 
     # Find all similar document communities.
-    query = ('CALL algo.louvain("Document", "is_similar", '
-            '{direction: "BOTH", writeProperty: "community"}) '
-            'YIELD nodes, communityCount, iterations, loadMillis, computeMillis, writeMillis')
-    database.execute(' '.join(query.split()), 'w')
+    # Append the parameter 'score' for the weighted version of the algorithm.
+    louvain(database, 'Document', 'is_similar', 'community')
     print('Similarity graph created.')
+    return
+
+def generate_community_tags_scores(database, community):
+    """
+    This function generates the most important terms that describe
+    a community of similar documents, alongside their pagerank and in-degree scores.
+    """
+    # Get all intersecting nodes of the speficied community, 
+    # ranked by their in-degree (which shows to how many documents they belong to).
+    # and pagerank score in descending order.
+    query = ('MATCH p=((d:Document {community: '+ str(community) +'})-[:includes]->(w:Word)) '
+             'WITH w, count(p) as degree '
+             'WHERE degree > 1 '
+             'RETURN w.key, w.pagerank as pagerank, degree '
+             'ORDER BY degree DESC, pagerank DESC')
+    tags_scores = database.execute(' '.join(query.split()), 'r')
+    return tags_scores
+
+def create_clustering_tags(database, top_terms = 25):
+    """
+    This functions creates, in the Neo4j database, 
+    for all communities, the relationships that connect 
+    document nodes of a similarity community with top important 
+    clustering tags for that community, based on the amount of common
+    appearances between documents and a higher pagerank score.
+    """
+    current_system = platform.system()
+    # Remove has_tag edges from previous iterations.
+    database.execute('MATCH ()-[r:has_tag]->() DELETE r', 'w')
+
+    # Get all id numbers from communities and all their assosiated file(name)s.
+    print('Loading all community ids and their filenames...')
+    query = ('MATCH (d:Document) RETURN d.community, '
+            'collect(d.filename) AS files, '
+            'count(d.filename) AS file_count '
+            'ORDER BY file_count DESC')
+    results = database.execute(' '.join(query.split()), 'r')
+
+    # The communities are ordered by filecount, which means that after the first one found,
+    # with 1 file all the rest have the same amount of documents.
+    # These communities are a side effect of the Louvain implementation of Neo4j.
+    # There is no reason to create tags in isolated communities, since there are no common tags, 
+    # with other documents. Therefore we are going to filter them out of the results list.
+    index = 0
+    for result in results:
+        if result[2] == 1: # filecount == 1
+            break
+        index = index + 1
+
+    # Slice the list based on the first found index.
+    results = results[:index]
+    # Count all results (rows) for a simple loading screen.
+    count = 1
+    total_count = len(results)
+
+    for [community, filenames, filecount] in results:
+        # Print the number of the currently processed community.
+        print('Processing ' + str(count) + ' out of ' + str(total_count) + ' communities...' )
+        tags_scores = generate_community_tags_scores(database, community)
+        # Get the top 25 tags from the tags and scores list.
+        top_tags = [tag[0] for tag in tags_scores[:top_terms]]
+
+        # Connect filenames of a specific community with all their associated tags.
+        # Tags are considered to be important words that describe that community,
+        # and which already exist in the graphofdocs model.
+        query = ('UNWIND ' + str(filenames) +' AS filename '
+                'MATCH (d:Document {filename: filename}) '
+                'UNWIND ' + str(top_tags) +' AS tag '
+                'MATCH (w:Word {key: tag}) '
+                'CREATE (d)-[r:has_tag]->(w) ')
+        database.execute(' '.join(query.split()), 'w')
+
+        # Update the progress counter.
+        count = count + 1
+        # Clear the screen to output the update the progress counter.
+        clear_screen(current_system)
     return

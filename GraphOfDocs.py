@@ -2,10 +2,10 @@ import sys
 import platform
 from neo4j import ServiceUnavailable
 from GraphOfDocs.neo4j_wrapper import Neo4jDatabase
-from GraphOfDocs.utils import generate_words, read_datasets, clear_screen
-from GraphOfDocs.query import create_graph_of_words, run_initial_algorithms, create_similarity_graph
+from GraphOfDocs.utils import generate_words, read_dataset, clear_screen
+from GraphOfDocs.create import *
 
-def main(create = True):
+def main(create = False):
     uri = 'bolt://localhost:7687'
     username = 'neo4j'
     password = '123'
@@ -28,16 +28,16 @@ def main(create = True):
         # Create uniqueness constraint on key to avoid duplicate word nodes.
         database.execute('CREATE CONSTRAINT ON (word:Word) ASSERT word.key IS UNIQUE', 'w')
 
-        # Read text from files, which becomes a string in a list called datasets.
-        datasets = read_datasets('C:\\Users\\USER\\source\\repos\\GraphOfDocs\\GraphOfDocs\\\\GraphOfDocs\\20news-18828-all\\')
+        # Read text from files, which becomes a string in a list called dataset.
+        dataset = read_dataset('C:\\Users\\USER\\source\\repos\\GraphOfDocs\\GraphOfDocs\\GraphOfDocs\\20news-18828-all\\')
         count = 1
-        total_count = len(datasets)
-        # Iterate all datasets.
-        for filename, dataset in datasets:
-            # Print the number of the currently processed dataset.
+        total_count = len(dataset)
+        # Iterate all file records of the dataset.
+        for filename, file in dataset:
+            # Print the number of the currently processed file.
             print('Processing ' + str(count) + ' out of ' + str(total_count) + ' datasets...' )
-            # Generate the terms from the text of each dataset.
-            words = generate_words(dataset)
+            # Generate the terms from the text of each file.
+            words = generate_words(file)
             # Create the graph of words in the database.
             create_graph_of_words(words, database, filename)
             # Update the progress counter.
@@ -45,7 +45,8 @@ def main(create = True):
             # Clear the screen to output the update the progress counter.
             clear_screen(current_system)
         run_initial_algorithms(database)
-        create_similarity_graph(database, current_system)
+        create_similarity_graph(database)
+        create_clustering_tags(database)
     database.close()
     return
 
