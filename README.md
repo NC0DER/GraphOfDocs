@@ -4,7 +4,7 @@ This repository hosts code for the paper [On a novel representation of multiple 
 ![image1](https://github.com/NC0DER/GraphOfDocs/blob/master/GraphOfDocs/images/GraphofDocs.jpg)
 
 ## Test Results
-Open `experiments.ipynb` 
+Run `jupyter notebook experiments.ipynb` 
 
 ## Dataset
 Available in [this link](https://drive.google.com/drive/folders/121dlySvdaNSCoLOTJB2Cqt9cwf2nLoPq)
