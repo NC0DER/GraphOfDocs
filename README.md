@@ -1,7 +1,13 @@
-# GraphOfDocs
-`Python` app that creates and visualizes documents in a `Neo4j` database based on the `GraphOfDocs` model, as described in the paper...
+# Graph-of-docs: Advancing text mining by representing multiple textual documents as a single graph
+This repository hosts code for the paper [Graph-of-docs: Advancing text mining by representing multiple textual documents as a single graph]()  
 
 ![image1](https://github.com/NC0DER/GraphOfDocs/blob/develop/GraphOfDocs/images/GraphofDocs.jpg)
+
+## Test Results
+Open `experiments.ipynb` 
+
+## Dataset
+Available in [this link](https://drive.google.com/drive/folders/121dlySvdaNSCoLOTJB2Cqt9cwf2nLoPq)
 
 ## Installation
 **Prequisites:**
@@ -45,3 +51,11 @@ Once it's done, the database is initialized and ready for use.
 You could use the `Neo4j Browser` to run your queries, 
 or for large queries you could use the custom visualization tool  
 `visualize.html` which is located in the `GraphOfDocs` Subdirectory.
+
+## Citation
+You can find the bibtex in [this link](), should you want to cite this paper.
+
+## Contributors
+* Nikolaos Giarelis (giarelis@ceid.upatras.gr)
+* Nikos Kanakaris (nkanakaris@upnet.gr)
+* Nikos Karacapilidis (karacap@upatras.gr)
