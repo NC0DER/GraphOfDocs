@@ -55,3 +55,8 @@ def get_word_digrams_by_filename(database, filename):
             'ORDER BY weight DESC RETURN collect([source, target, weight]) AS digrams')
     results = database.execute(' '.join(query.split()), 'r')
     return results
+
+def get_all_tags_per_community(database):
+    query = ('MATCH (d:Document)-[:has_tag]->(word:Word) RETURN d.community, collect(word.key)')
+    results = database.execute(' '.join(query.split()), 'r')
+    return results

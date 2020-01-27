@@ -4,7 +4,7 @@ This repository hosts code for the paper [Graph-of-docs: Advancing text mining b
 ![image1](https://github.com/NC0DER/GraphOfDocs/blob/develop/GraphOfDocs/images/GraphofDocs.jpg)
 
 ## Test Results
-Open `experiments.ipynb` 
+Run `jupyter notebook experiments.ipynb` 
 
 ## Dataset
 Available in [this link](https://drive.google.com/drive/folders/121dlySvdaNSCoLOTJB2Cqt9cwf2nLoPq)
