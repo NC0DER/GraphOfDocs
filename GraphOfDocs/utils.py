@@ -3,6 +3,7 @@ This script contains utility functions
 e.g to read files, preprocess text, etc.
 """
 import sys
+import string
 import platform
 from os import system
 from os import listdir
@@ -60,9 +61,9 @@ def generate_words(text, extend_window = False, remove_stopwords = True, lemmati
     # Also, by chaining the replace methods together, a slight amount of performance is achieved,
     # over other methods, that have the same output.
     if not extend_window:
-        text = text.replace('. ', ' e5 ')\
-                    .replace('! ', ' e5 ' )\
-                    .replace('? ', ' e5 ' )
+        text = text.replace('. ', ' e5c ')\
+                    .replace('! ', ' e5c ' )\
+                    .replace('? ', ' e5c ' )
     # Translate punctuation to space and lowercase the string.
     text = text.translate({ord(c): ' ' for c in punctuation}).lower()
     # We are cleaning the data from stopwords, numbers and leftover syllabes/letters.
@@ -84,14 +85,16 @@ def read_dataset(dirpath):
     """
     Function that gets a list of filenames in the directory specified by dirpath,
     then reading them in text mode, and appending them in a list which contains the file(name),
-    and its contents, which have newline characters removed.
+    and its contents, which have newline characters and non-printable characters removed.
     Handles newline endings of '\n' and '\r\n'.
     """
     data = []
     files = [file for file in listdir(dirpath) if isfile(join(dirpath, file))]
     for file in files:
         with open(''.join([dirpath, file]), 'rt', encoding = 'utf-8-sig') as fd:
-            data.append((file, fd.read().replace('\n', ' ').replace('\r', '')))  
+            text = fd.read().replace('\n', ' ').replace('\r', '')
+            text = ''.join(filter(lambda x: x in string.printable, text))
+            data.append((file, text))
     return data
 
 def clear_screen(current_system):

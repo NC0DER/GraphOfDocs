@@ -31,9 +31,11 @@ def create_graph_of_words(words, database, filename, window_size = 4):
     for word in words:
         if word not in terms: 
             terms.append(word)
-
+    # Remove end-of-sentence token, so it doesn't get created.
+    if 'e5c' in terms:
+        terms.remove('e5c')
+    # If the word doesn't exist as a node, then create it.
     for word in terms:
-        # If the word doesn't exist as a node, then create it.
         if word not in nodes:
             database.execute('CREATE (w:Word {key: "'+ word +'"})', 'w')
             # Append word to the global node graph, to avoid duplicate creation.
@@ -56,7 +58,7 @@ def create_graph_of_words(words, database, filename, window_size = 4):
         # If the current word is the end of sentence string,
         # we need to skip it, in order to go to the words of the next sentence,
         # without connecting words of different sentences, in the database.
-        if current == 'e5':
+        if current == 'e5c':
             continue
         # Connect the current element with the next elements of the window size.
         for j in range(1, window_size):
@@ -65,7 +67,7 @@ def create_graph_of_words(words, database, filename, window_size = 4):
             # We can't connect words of different sentences,
             # therefore we need to pick a new current word,
             # by going back out to the outer loop.
-            if next == 'e5':
+            if next == 'e5c':
                 break
             edge = (current, next)
             if edge in edges:
@@ -87,7 +89,7 @@ def create_graph_of_words(words, database, filename, window_size = 4):
     # and will be used for similarity/comparison queries.
     database.execute('CREATE (d:Document {filename: "'+ filename +'"})', 'w')
     # Create a word list with comma separated, quoted strings for use in the Cypher query below.
-    word_list = ', '.join('"{0}"'.format(word) for word in set(words))
+    word_list = ', '.join('"{0}"'.format(word) for word in terms)
     query = ('MATCH (w:Word) WHERE w.key IN [' + word_list + '] '
             'WITH collect(w) as words '
             'MATCH (d:Document {filename: "'+ filename +'"}) '
