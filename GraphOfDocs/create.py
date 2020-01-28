@@ -5,6 +5,7 @@ create data in the Neo4j database.
 import platform
 from GraphOfDocs.utils import clear_screen
 from GraphOfDocs.algos import *
+from GraphOfDocs.select import get_community_tags
 
 # Initialize an empty set of edges.
 edges = {}
@@ -132,22 +133,6 @@ def create_similarity_graph(database):
     print('Similarity graph created.')
     return
 
-def generate_community_tags_scores(database, community):
-    """
-    This function generates the most important terms that describe
-    a community of similar documents, alongside their pagerank and in-degree scores.
-    """
-    # Get all intersecting nodes of the speficied community, 
-    # ranked by their in-degree (which shows to how many documents they belong to).
-    # and pagerank score in descending order.
-    query = ('MATCH p=((d:Document {community: '+ str(community) +'})-[:includes]->(w:Word)) '
-             'WITH w, count(p) as degree '
-             'WHERE degree > 1 '
-             'RETURN w.key, w.pagerank as pagerank, degree '
-             'ORDER BY degree DESC, pagerank DESC')
-    tags_scores = database.execute(' '.join(query.split()), 'r')
-    return tags_scores
-
 def create_clustering_tags(database, top_terms = 25):
     """
     This functions creates, in the Neo4j database, 
@@ -188,9 +173,7 @@ def create_clustering_tags(database, top_terms = 25):
     for [community, filenames, filecount] in results:
         # Print the number of the currently processed community.
         print('Processing ' + str(count) + ' out of ' + str(total_count) + ' communities...' )
-        tags_scores = generate_community_tags_scores(database, community)
-        # Get the top 25 tags from the tags and scores list.
-        top_tags = [tag[0] for tag in tags_scores[:top_terms]]
+        top_tags = get_community_tags(database, community, top_terms)
 
         # Connect filenames of a specific community with all their associated tags.
         # Tags are considered to be important words that describe that community,

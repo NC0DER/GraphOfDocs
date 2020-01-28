@@ -33,6 +33,27 @@ def get_document_terms(database, filename, group_by_word_community_id = False):
     results = database.execute(' '.join(query.split()), 'r')
     return results
 
+def get_community_tags(database, community, top_terms = None):
+    """
+    This function generates the most important terms that describe
+    a community of similar documents, alongside their pagerank and in-degree scores.
+    """
+    # Get all intersecting nodes of the speficied community, 
+    # ranked by their in-degree (which shows to how many documents they belong to).
+    # and pagerank score in descending order.
+    query = ('MATCH p=((d:Document {community: '+ str(community) +'})-[:includes]->(w:Word)) '
+             'WITH w, count(p) as degree '
+             'WHERE degree > 1 '
+             'RETURN w.key, w.pagerank as pagerank, degree '
+             'ORDER BY degree DESC, pagerank DESC')
+    tags_scores = database.execute(' '.join(query.split()), 'r')
+    # Get the top 25 tags from the tags and scores list.
+    if top_terms is None:
+        top_tags = [tag[0] for tag in tags_scores]
+    else:
+        top_tags = [tag[0] for tag in tags_scores[:top_terms]]
+    return top_tags
+
 def get_communities_by_tag(database, tag):
     query = ('MATCH (d:Document)-[r:has_tag]->'
             '(w:Word {key: "'+ tag +'"}) '
@@ -53,10 +74,5 @@ def get_word_digrams_by_filename(database, filename):
             '<-[:includes]-(d) WHERE id(w1) < id(w2) '
             'WITH w1.key AS source, w2.key AS target, r.weight AS weight '
             'ORDER BY weight DESC RETURN collect([source, target, weight]) AS digrams')
-    results = database.execute(' '.join(query.split()), 'r')
-    return results
-
-def get_all_tags_per_community(database):
-    query = ('MATCH (d:Document)-[:has_tag]->(word:Word) RETURN d.community, collect(word.key)')
     results = database.execute(' '.join(query.split()), 'r')
     return results

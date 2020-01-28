@@ -5,7 +5,7 @@ from GraphOfDocs.neo4j_wrapper import Neo4jDatabase
 from GraphOfDocs.utils import generate_words, read_dataset, clear_screen
 from GraphOfDocs.create import *
 
-def main(create = False):
+def graphofdocs(create = False):
     uri = 'bolt://localhost:7687'
     username = 'neo4j'
     password = '123'
@@ -50,4 +50,4 @@ def main(create = False):
     database.close()
     return
 
-if __name__ == "__main__": main()
+if __name__ == "__main__": graphofdocs()
