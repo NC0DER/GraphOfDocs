@@ -9,6 +9,8 @@ def graphofdocs(create = False):
     uri = 'bolt://localhost:7687'
     username = 'neo4j'
     password = '123'
+    # List that retains the skipped filenames.
+    skipped = []
     current_system = platform.system()
     # Open the database.
     try:
@@ -29,7 +31,7 @@ def graphofdocs(create = False):
         database.execute('CREATE CONSTRAINT ON (word:Word) ASSERT word.key IS UNIQUE', 'w')
 
         # Read text from files, which becomes a string in a list called dataset.
-        dataset = read_dataset('C:\\Users\\USER\\source\\repos\\GraphOfDocs\\GraphOfDocs\\GraphOfDocs\\20news-18828-all\\')
+        dataset = read_dataset('C:\\Users\\USER\\source\\repos\\GraphOfDocs\\GraphOfDocs\\GraphOfDocs\\jira_issues\\')
         count = 1
         total_count = len(dataset)
         # Iterate all file records of the dataset.
@@ -39,7 +41,9 @@ def graphofdocs(create = False):
             # Generate the terms from the text of each file.
             words = generate_words(file)
             # Create the graph of words in the database.
-            create_graph_of_words(words, database, filename)
+            value = create_graph_of_words(words, database, filename)
+            if value is not None:
+                skipped.append(value)
             # Update the progress counter.
             count = count + 1
             # Clear the screen to output the update the progress counter.
@@ -47,6 +51,13 @@ def graphofdocs(create = False):
         run_initial_algorithms(database)
         create_similarity_graph(database)
         create_clustering_tags(database)
+        # Count all skipped files and write their filenames in skipped.log
+        skip_count = len(skipped)
+        print('Created '+ str(total_count - skip_count) +', skipped '+ str(skip_count) +' files.')
+        print('Check skipped.log for info.')
+        with open('skipped.log', 'w') as log:  
+            for item in skipped:
+                log.write(item + '\n')
     database.close()
     return
 
