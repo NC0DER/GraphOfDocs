@@ -18,6 +18,14 @@ def create_graph_of_words(words, database, filename, window_size = 4):
     Function that creates a Graph of Words that contains all nodes from each document for easy comparison,
     inside the neo4j database, using the appropriate cypher queries.
     """
+
+    # Files that have word length < window size, are skipped.
+    # Window size ranges from 2 to 6.
+    length = len(words)
+    if (length < window_size):
+        # Early exit, we return the skipped filename
+        return filename
+
     # We are using a global set of edges to avoid creating duplicate edges between different graph of words.
     # Basically the co-occurences will be merged.
     global edges
@@ -41,14 +49,7 @@ def create_graph_of_words(words, database, filename, window_size = 4):
             # Append word to the global node graph, to avoid duplicate creation.
             nodes.append(word)      
 
-    # Length should be greater than the window size at all times.
-    # Window size ranges from 2 to 6.
-    length = len(words)
-    try:
-        if (length < window_size):
-            raise ValueError('Word length should always be bigger than the window size!')
-    except ValueError as err:
-            print(repr(err))
+    
 
     # Create unique connections between existing nodes of the graph.
     for i, current in enumerate(words):

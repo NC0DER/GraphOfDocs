@@ -47,7 +47,7 @@ def get_community_tags(database, community, top_terms = None):
              'RETURN w.key, w.pagerank as pagerank, degree '
              'ORDER BY degree DESC, pagerank DESC')
     tags_scores = database.execute(' '.join(query.split()), 'r')
-    # Get the top 25 tags from the tags and scores list.
+    # Get the top tags from the tags and scores list.
     if top_terms is None:
         top_tags = [tag[0] for tag in tags_scores]
     else:
