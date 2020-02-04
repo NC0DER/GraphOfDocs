@@ -1,9 +1,9 @@
+import sys
 import json
 import string
 import platform
-from os import system
 from pathlib import Path
-from GraphOfDocs.utils import clear_screen
+from utils import clear_screen
 
 """
 Function that reads an json file containing multiple jira issues,
@@ -67,4 +67,4 @@ def convert_json_issues_to_files(filepath):
         print('Loaded ' + str(count - skip) + ' issues, skipped ' + str(skip) + ' empty items.')
     return
 
-if __name__ == "__main__": convert_json_issues_to_files(filepath)
+if __name__ == "__main__": convert_json_issues_to_files(sys.argv[1]) # Filepath is expected to be the 2nd argument.
