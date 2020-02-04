@@ -5,6 +5,11 @@ from os import system
 from pathlib import Path
 from GraphOfDocs.utils import clear_screen
 
+"""
+Function that reads an json file containing multiple jira issues,
+which are processed to have their plaintext extracted, without any metadata.
+Finally, each issue is being written into its own file, in the output directory.
+"""
 def convert_json_issues_to_files(filepath):
     current_system = platform.system()
     # List that contains the chosen assignees
@@ -14,7 +19,7 @@ def convert_json_issues_to_files(filepath):
         'batik-dev@xmlgraphics.apache.org', 'djohnson', 'ancosen',
         'elserj', 'bowserj', 'onechiporenko']
 
-    with open(filepath, 'rt', encoding = 'utf-8-sig') as dataset:
+    with open(filepath, 'rt', encoding = 'utf-8-sig', errors = 'ignore') as dataset:
         # Load the json object in memory as a list of dictionaries.
         issues = json.load(dataset)['issues']
         count = 1
@@ -23,7 +28,7 @@ def convert_json_issues_to_files(filepath):
         # Iterate all issues.
         for issue in issues:
             # Retrieve all important fields from the dictionary.
-            # Print the number of the currently processed file.
+            # Print the number of the currently processed issue.
             print('Processing ' + str(count) + ' out of ' + str(total_count) + ' issues...' )
             issue_key = issue['key']
             issue_summary = ('' if issue['fields']['summary'] is None else issue['fields']['summary'])

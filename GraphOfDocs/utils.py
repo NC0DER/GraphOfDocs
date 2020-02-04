@@ -91,7 +91,7 @@ def read_dataset(dirpath):
     data = []
     files = [file for file in listdir(dirpath) if isfile(join(dirpath, file))]
     for file in files:
-        with open(''.join([dirpath, file]), 'rt', encoding = 'utf-8-sig') as fd:
+        with open(''.join([dirpath, file]), 'rt', encoding = 'utf-8-sig', errors = 'ignore') as fd:
             text = fd.read().replace('\n', ' ').replace('\r', '')
             text = ''.join(filter(lambda x: x in string.printable, text))
             data.append((file, text))
