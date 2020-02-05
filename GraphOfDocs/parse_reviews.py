@@ -82,4 +82,9 @@ def convert_xml_reviews_to_files(filepath):
             clear_screen(current_system)
     return
     
-if __name__ == '__main__': convert_xml_reviews_to_files(sys.argv[1]) # Filepath is expected to be the 2nd argument.
+if __name__ == '__main__':
+    if(len(sys.argv) > 1):
+        # Filepath is expected to be the 2nd argument.
+        convert_xml_reviews_to_files(sys.argv[1])
+    else:
+        print('Please input a file path, after parse_reviews.py.')
