@@ -18,6 +18,7 @@ def find_all(string, sub):
 
 """
 Function that extracts values, for a given type of xml tag, from an xml string.
+If the tag is empty then None is returned.
 """ 
 def get_tag_value(string, type, start, end):
     # Construct tags from tag type.
@@ -31,8 +32,17 @@ def get_tag_value(string, type, start, end):
     # Find the index of the ending tag.
     tag_end_idx = string.find(xml_end_tag, start, end)
 
-    # Return the value from tags by slicing the string.
-    value = string[tag_start_idx:tag_end_idx]
+    # Starting or ending tag not found, no value to be found.
+    if tag_start_idx == -1 or tag_end_idx == -1:
+        value = None
+    # Both tags have been found but their distance is 0.
+    # Which means, that they have no value between them.
+    # E.g <tag></tag>
+    elif (tag_end_idx - tag_start_idx) == 0:
+        value = None
+    else:
+        # Return the value from tags by slicing the string.
+        value = string[tag_start_idx:tag_end_idx]
     return value
 
 """
