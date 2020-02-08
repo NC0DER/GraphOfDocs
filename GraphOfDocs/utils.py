@@ -2,13 +2,10 @@
 This script contains utility functions
 e.g to read files, preprocess text, etc.
 """
-import sys
-import string
-import platform
 from os import system
 from os import listdir
 from os.path import isfile, join
-from string import punctuation
+from string import punctuation, printable
 from nltk import pos_tag, sent_tokenize
 from nltk.corpus import wordnet, stopwords
 from nltk.stem.wordnet import WordNetLemmatizer
@@ -46,7 +43,7 @@ def get_wordnet_tag(tag):
     else: #default lemmatizer parameter
         return wordnet.NOUN
 
-def generate_words(text, extend_window = False, remove_stopwords = True, lemmatize = False, stemming = False):
+def generate_words(text, extend_window = False, remove_stopwords = True, lemmatize = False, stem = False):
     """
     Function that generates words from a text corpus and optionally lemmatizes them.
     Returns a set of unique tokens based on order of appearance in-text.
@@ -76,7 +73,7 @@ def generate_words(text, extend_window = False, remove_stopwords = True, lemmati
         tokens_tags = pos_tag(tokens) # Create part-of-speech tags.
         # Overwrite the list with the lemmatized versions of tokens.
         tokens = [lemmatizer.lemmatize(token, get_wordnet_tag(tag)) for token, tag in tokens_tags]
-    if stemming:
+    if stem:
         # Overwrite the list with the stemmed versions of tokens.
         tokens = [stemmer.stem(token) for token in tokens]
     return tokens
@@ -89,11 +86,13 @@ def read_dataset(dirpath):
     Handles newline endings of '\n' and '\r\n'.
     """
     data = []
+    # Add trailing slash to directory path, if not present.
+    dirpath = join(dirpath, '')
     files = [file for file in listdir(dirpath) if isfile(join(dirpath, file))]
     for file in files:
         with open(''.join([dirpath, file]), 'rt', encoding = 'utf-8-sig', errors = 'ignore') as fd:
             text = fd.read().replace('\n', ' ').replace('\r', '')
-            text = ''.join(filter(lambda x: x in string.printable, text))
+            text = ''.join(filter(lambda x: x in printable, text))
             data.append((file, text))
     return data
 
