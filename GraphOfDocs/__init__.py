@@ -6,5 +6,6 @@ __all__ = [
     'create_clustering_tags',
     'generate_words',
     'read_datasets',
-    'clear_screen'
+    'clear_screen',
+    'parser'
 ]
