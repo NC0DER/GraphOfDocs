@@ -86,12 +86,12 @@ if __name__ == '__main__':
         print(args)
         # Run the graphofdocs function with create and initialize set to True.
         # The first argument (0th index) after the dirpath flag is the actual directory path. 
-        graphofdocs(True, True, args.dirpath[0], args.window_size,
-                   args.extend_window, args.remove_stopwords, args.lemmatize, args.stem)
+        graphofdocs(True, True, args.dirpath[0], args.window_size[0],
+                   args.extend_window, args.insert_stopwords, args.lemmatize, args.stem)
     # Else if reinitialize flag is specified, unset the create flag.
     elif args.reinitialize:
         print(args)
         # Run the graphofdocs function with create set to False and initialize set to True.
         # We also set the directory path to None, since its not needed.
-        graphofdocs(False, True, None, args.window_size,
-                   args.extend_window, args.remove_stopwords, args.lemmatize, args.stem)
+        graphofdocs(False, True, None, args.window_size[0],
+                   args.extend_window, args.insert_stopwords, args.lemmatize, args.stem)
