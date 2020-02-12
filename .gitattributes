@@ -1,0 +1,7 @@
+*.ipynb linguist-language=Python
+neovis.js linguist-generated
+bootstrap.min.css -linguist-vendored
+bootstrap.min.css.map -linguist-vendored
+bootstrap.bundle.min.js -linguist-vendored
+bootstrap.bundle.min.js.map -linguist-vendored
+jquery-3.3.1.min.js -linguist-vendored
