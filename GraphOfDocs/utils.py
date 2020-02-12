@@ -43,7 +43,7 @@ def get_wordnet_tag(tag):
     else: #default lemmatizer parameter
         return wordnet.NOUN
 
-def generate_words(text, extend_window = False, remove_stopwords = True, lemmatize = False, stem = False):
+def generate_words(text, extend_window = False, insert_stopwords = False, lemmatize = False, stem = False):
     """
     Function that generates words from a text corpus and optionally lemmatizes them.
     Returns a set of unique tokens based on order of appearance in-text.
@@ -64,7 +64,7 @@ def generate_words(text, extend_window = False, remove_stopwords = True, lemmati
     # Translate punctuation to space and lowercase the string.
     text = text.translate({ord(c): ' ' for c in punctuation}).lower()
     # We are cleaning the data from stopwords, numbers and leftover syllabes/letters.
-    if remove_stopwords:
+    if not insert_stopwords:
         tokens = [token for token in word_tokenize(text)
         if not token in stop_words and not token.isnumeric() and len(token) > 2]
     else:
