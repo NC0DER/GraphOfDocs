@@ -62,7 +62,7 @@ positions = [i for i in range(len(X))]
 positions_train, positions_test = train_test_split(positions, test_size=0.33, random_state=42)
 
 res = evaluation.BOWEvaluator().evaluate(X, y, results_table=results_table, classifiers=config_experiments.classifiers)
-evaluation_results.extend()
+evaluation_results.extend(res)
 
 res = evaluation.MetaFeatureSelectionEvaluator().evaluate(X, y, results_table=results_table, classifiers=config_experiments.classifiers)
 evaluation_results.extend(res)
