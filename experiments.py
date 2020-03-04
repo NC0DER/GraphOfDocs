@@ -11,6 +11,9 @@ from config_experiments import extract_file_class
 import evaluation
 
 results_table = PrettyTable(['Method', 'Accuracy', 'Number of features', 'Train size', 'Test size', 'Details'])
+evaluation_results = []
+feature_selection_evaluation_results = []
+bigrams_extraction_evaluation_results = []
 
 print('%'*100)
 print('!START OF THE EXPERIMENT!')
@@ -19,7 +22,6 @@ print('MIN NUMBER OF DOCUMENTS PER SELECTED COMMUNITY: %s' % config_experiments.
 print('VARIANCE THRESHOLD: %s' % config_experiments.VARIANCE_THRESHOLD)
 print('SELECT KBEST K: %s' % config_experiments.SELECT_KBEST_K)
 print('TOP N SELECTED COMMUNITY TERMS: %s' % config_experiments.TOP_N_SELECTED_COMMUNITY_TERMS)
-print('\n')
 
 # Connect to database.
 database = Neo4jDatabase('bolt://localhost:7687', 'neo4j', '123')
@@ -59,26 +61,62 @@ y = df['class_number']
 positions = [i for i in range(len(X))]
 positions_train, positions_test = train_test_split(positions, test_size=0.33, random_state=42)
 
-evaluation.BOWEvaluator().evaluate(X, y, results_table=results_table, classifiers=config_experiments.classifiers)
-evaluation.MetaFeatureSelectionEvaluator().evaluate(X, y, results_table=results_table, classifiers=config_experiments.classifiers)
-#for variance_threshold in config_experiments.VARIANCE_THRESHOLD:
-#    evaluation.LowVarianceFeatureSelectionEvaluator(variance_threshold=variance_threshold).evaluate(X, y, results_table=results_table, classifiers=config_experiments.classifiers)
-#for kbest_k in config_experiments.SELECT_KBEST_K:
-#    evaluation.SelectKBestFeatureSelectionEvaluator(kbest=kbest_k).evaluate(X, y, results_table=results_table, classifiers=config_experiments.classifiers)
-#evaluation.BigramsExtractionEvaluator().evaluate(X, y, results_table=results_table, classifiers=config_experiments.classifiers)
-#for kbest_k in config_experiments.SELECT_KBEST_K:
-#    evaluation.BigramsExtractionAndSelectKBestFeatureSelectionEvaluator(kbest=kbest_k).evaluate(X, y, results_table=results_table, classifiers=config_experiments.classifiers)
-#evaluation.GraphOfDocsClassifier(doc_to_community_dict, doc_communities_dict).calculate_accuracy(df['identifier'], results_table=results_table)
-#for top_n in config_experiments.TOP_N_SELECTED_COMMUNITY_TERMS:
-#    evaluation.TopNOfEachCommunityEvaluator(top_n, doc_to_community_dict, doc_communities_dict).evaluate(X, y, df=df, positions_train=positions_train, database=database, results_table=results_table, classifiers=config_experiments.classifiers)
-#for top_n in config_experiments.TOP_N_GRAPH_OF_DOCS_BIGRAMS:
-#    evaluation.GraphOfDocsBigramsExtractionEvaluator(top_n=top_n, min_weight=None).evaluate(None, y, database=database, classifiers=config_experiments.classifiers, results_table=results_table, df=df)
-#for min_weight in config_experiments.MIN_WEIGHT_GRAPH_OF_DOCS_BIGRAMS:
-#    evaluation.GraphOfDocsBigramsExtractionEvaluator(top_n=None, min_weight=min_weight).evaluate(None, y, database=database, classifiers=config_experiments.classifiers, results_table=results_table, df=df)
+res = evaluation.BOWEvaluator().evaluate(X, y, results_table=results_table, classifiers=config_experiments.classifiers)
+evaluation_results.extend()
+
+res = evaluation.MetaFeatureSelectionEvaluator().evaluate(X, y, results_table=results_table, classifiers=config_experiments.classifiers)
+evaluation_results.extend(res)
+
+for variance_threshold in config_experiments.VARIANCE_THRESHOLD:
+    res = evaluation.LowVarianceFeatureSelectionEvaluator(variance_threshold=variance_threshold).evaluate(X, y, results_table=results_table, classifiers=config_experiments.classifiers)
+    evaluation_results.extend(res)
+    feature_selection_evaluation_results.extend(res)
+
+for kbest_k in config_experiments.SELECT_KBEST_K:
+    res = evaluation.SelectKBestFeatureSelectionEvaluator(kbest=kbest_k).evaluate(X, y, results_table=results_table, classifiers=config_experiments.classifiers)
+    evaluation_results.extend(res)
+    feature_selection_evaluation_results.extend(res)
+
+res = evaluation.BigramsExtractionEvaluator().evaluate(X, y, results_table=results_table, classifiers=config_experiments.classifiers)
+evaluation_results.extend(res)
+
+for kbest_k in config_experiments.SELECT_KBEST_K:
+    res = evaluation.BigramsExtractionAndSelectKBestFeatureSelectionEvaluator(kbest=kbest_k).evaluate(X, y, results_table=results_table, classifiers=config_experiments.classifiers)
+    evaluation_results.extend(res)
+    bigrams_extraction_evaluation_results.extend(res)
+
+evaluation.GraphOfDocsClassifier(doc_to_community_dict, doc_communities_dict).calculate_accuracy(df['identifier'], results_table=results_table)
+
+for top_n in config_experiments.TOP_N_SELECTED_COMMUNITY_TERMS:
+    res = evaluation.TopNOfEachCommunityEvaluator(top_n, doc_to_community_dict, doc_communities_dict).evaluate(X, y, df=df, positions_train=positions_train, database=database, results_table=results_table, classifiers=config_experiments.classifiers)
+    evaluation_results.extend(res)
+    feature_selection_evaluation_results.extend(res)
+
+for top_n in config_experiments.TOP_N_GRAPH_OF_DOCS_BIGRAMS:
+    res = evaluation.GraphOfDocsBigramsExtractionEvaluator(top_n=top_n, min_weight=None).evaluate(None, y, database=database, classifiers=config_experiments.classifiers, results_table=results_table, df=df)
+    evaluation_results.extend(res)
+    bigrams_extraction_evaluation_results.extend(res)
+
+for min_weight in config_experiments.MIN_WEIGHT_GRAPH_OF_DOCS_BIGRAMS:
+    res = evaluation.GraphOfDocsBigramsExtractionEvaluator(top_n=None, min_weight=min_weight).evaluate(None, y, database=database, classifiers=config_experiments.classifiers, results_table=results_table, df=df)
+    evaluation_results.extend(res)
+    bigrams_extraction_evaluation_results.extend(res)
+
+df_evaluation_results = pd.DataFrame(evaluation_results)
+df_feature_selection_evaluation_results = pd.DataFrame(feature_selection_evaluation_results)
+df_bigrams_extraction_evaluation_results = pd.DataFrame(bigrams_extraction_evaluation_results)
+print('EXAMPLE OF THE EVALUATION RESULTS PANDAS DATAFRAME')
+print(df_evaluation_results.head(2))
 
 results_table.sortby = 'Accuracy'
 results_table.reversesort = True
 print(results_table)
+
+output_dir = config_experiments.EXPERIMENTAL_RESULTS_OUPUT_DIR
+plots_prefix = config_experiments.PLOTS_PREFIX
+df_evaluation_results.to_csv('%s/%s_evaluation_results.csv' % (output_dir, plots_prefix))
+evaluation.generate_plots(df_feature_selection_evaluation_results, output_dir=output_dir, plots_prefix='%s_feature_selection' % (plots_prefix), show_only=False)
+evaluation.generate_plots(df_bigrams_extraction_evaluation_results, output_dir=output_dir, plots_prefix='%s_bigrams_extraction' % (plots_prefix), show_only=False)
 
 database.close()
 print('!END OF THE EXPERIMENT!')

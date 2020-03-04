@@ -10,6 +10,8 @@ from sklearn.svm import LinearSVC
 from collections import Counter
 from GraphOfDocs import select
 from config_experiments import extract_file_class
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 def benchmark_classifier(clf, X_train, y_train, X_test, y_test, round_digits=4):
     clf.fit(X_train, y_train)
@@ -17,6 +19,17 @@ def benchmark_classifier(clf, X_train, y_train, X_test, y_test, round_digits=4):
     accuracy = accuracy_score(y_test, y_pred)
     accuracy = round(accuracy, round_digits)
     return clf, accuracy
+
+def generate_plots(df, show_only=True, output_dir='', plots_prefix='plot'):
+    unique_classifier_names = list(df['Classifier'].unique())
+    for clf in unique_classifier_names:
+        df_tmp = df[df['Classifier'] == clf]
+        sns.lineplot(x="Number of features", y="Accuracy", hue="Method", style="Method", markers=True, dashes=False, data=df_tmp)
+        if show_only:
+            plt.show()
+        else:
+            plt.savefig('%s/%s_%s.png' % (output_dir, plots_prefix, clf), dpi=2000)
+            plt.clf()
 
 class GraphOfDocsClassifier:
     def __init__(self, doc_to_community_dict, doc_communities_dict, test_size=0.33, random_state=42):
@@ -50,14 +63,27 @@ class Evaluator:
     def evaluate(self, x, y, **kwargs):
         raise NotImplemented('pure virtual')
 
-    def _collect_evaluation_results(self, x_train_transformed, y_train, x_test_transformed, y_test, results_table, classifiers, method_prefix, extra_details=''):
+    def _collect_evaluation_results(self, x_train_transformed, y_train, x_test_transformed, y_test, results_table, classifiers, method_prefix, extra_details={}):
         train_size = x_train_transformed.shape[0]
         test_size = x_test_transformed.shape[0]
         number_of_features = x_test_transformed.shape[1]
+        evaluation_results = []
         for classifier in classifiers:
             _, accuracy = benchmark_classifier(classifier[1], x_train_transformed, y_train, x_test_transformed, y_test)
             # print('classifier:%s %s %s' % (classifier[0], accuracy, number_of_features))
-            results_table.add_row([method_prefix + classifier[0], accuracy, number_of_features, train_size, test_size, extra_details])
+            method = method_prefix + classifier[0]
+            results_table.add_row([method, accuracy, number_of_features, train_size, test_size, str(extra_details)])
+            classifier_results = {
+                'Method': method,
+                'Accuracy': accuracy,
+                'Number of features': number_of_features,
+                'Train size': train_size,
+                'Test size': test_size,
+            }
+            classifier_results.update(extra_details)
+            classifier_results.update({'Classifier': classifier[0]})
+            evaluation_results.append(classifier_results)
+        return evaluation_results
 
 class BOWEvaluator(Evaluator):
     def __init__(self, test_size=0.33, random_state=42):
@@ -71,7 +97,7 @@ class BOWEvaluator(Evaluator):
 
         results_table = kwargs['results_table']
         classifiers = kwargs['classifiers']
-        self._collect_evaluation_results(x_train_transformed, y_train, x_test_transformed, y_test, results_table, classifiers, method_prefix='BOW + ')
+        return self._collect_evaluation_results(x_train_transformed, y_train, x_test_transformed, y_test, results_table, classifiers, method_prefix='BOW+')
 
 class MetaFeatureSelectionEvaluator(Evaluator):
     def __init__(self, estimator_model=LinearSVC, test_size=0.33, random_state=42):
@@ -89,7 +115,7 @@ class MetaFeatureSelectionEvaluator(Evaluator):
 
         results_table = kwargs['results_table']
         classifiers = kwargs['classifiers']
-        self._collect_evaluation_results(x_train_transformed, y_train, x_test_transformed, y_test, results_table, classifiers, method_prefix='META + ')
+        return self._collect_evaluation_results(x_train_transformed, y_train, x_test_transformed, y_test, results_table, classifiers, method_prefix='META+')
 
 class LowVarianceFeatureSelectionEvaluator(Evaluator):
     def __init__(self, variance_threshold, test_size=0.33, random_state=42):
@@ -107,8 +133,10 @@ class LowVarianceFeatureSelectionEvaluator(Evaluator):
 
         results_table = kwargs['results_table']
         classifiers = kwargs['classifiers']
-        extra_details = 'variance thershold:' + str(self.__variance_threshold)
-        self._collect_evaluation_results(x_train_transformed, y_train, x_test_transformed, y_test, results_table, classifiers, method_prefix='LOW VARIANCE + ', extra_details=extra_details)
+        extra_details = {
+            'variance thershold': self.__variance_threshold
+        }
+        return self._collect_evaluation_results(x_train_transformed, y_train, x_test_transformed, y_test, results_table, classifiers, method_prefix='LVAR+', extra_details=extra_details)
 
 class SelectKBestFeatureSelectionEvaluator(Evaluator):
     def __init__(self, kbest, test_size=0.33, random_state=42):
@@ -126,8 +154,10 @@ class SelectKBestFeatureSelectionEvaluator(Evaluator):
 
         results_table = kwargs['results_table']
         classifiers = kwargs['classifiers']
-        extra_details = 'kbest:' + str(self.__kbest)
-        self._collect_evaluation_results(x_train_transformed, y_train, x_test_transformed, y_test, results_table, classifiers, method_prefix='KBEST + ', extra_details=extra_details)
+        extra_details = {
+            'kbest': self.__kbest
+        }
+        return self._collect_evaluation_results(x_train_transformed, y_train, x_test_transformed, y_test, results_table, classifiers, method_prefix='KBEST+', extra_details=extra_details)
 
 class BigramsExtractionEvaluator(Evaluator):
     def __init__(self, test_size=0.33, random_state=42):
@@ -141,7 +171,7 @@ class BigramsExtractionEvaluator(Evaluator):
 
         results_table = kwargs['results_table']
         classifiers = kwargs['classifiers']
-        self._collect_evaluation_results(x_train_transformed, y_train, x_test_transformed, y_test, results_table, classifiers, 'BIGRAMS + ')
+        return self._collect_evaluation_results(x_train_transformed, y_train, x_test_transformed, y_test, results_table, classifiers, 'BI+')
 
 class BigramsExtractionAndSelectKBestFeatureSelectionEvaluator(Evaluator):
     def __init__(self, kbest, test_size=0.33, random_state=42):
@@ -159,8 +189,10 @@ class BigramsExtractionAndSelectKBestFeatureSelectionEvaluator(Evaluator):
 
         results_table = kwargs['results_table']
         classifiers = kwargs['classifiers']
-        extra_details = 'kbest:' + str(self.__kbest)
-        self._collect_evaluation_results(x_train_transformed, y_train, x_test_transformed, y_test, results_table, classifiers, 'BIGRAMS + KBEST + ', extra_details=extra_details)
+        extra_details = {
+            'kbest': self.__kbest
+        }
+        return self._collect_evaluation_results(x_train_transformed, y_train, x_test_transformed, y_test, results_table, classifiers, 'BI+KBEST+', extra_details=extra_details)
 
 class TopNOfEachCommunityEvaluator(Evaluator):
     def __init__(self, top_n, doc_to_community_dict, doc_communities_dict, test_size=0.33, random_state=42):
@@ -186,8 +218,10 @@ class TopNOfEachCommunityEvaluator(Evaluator):
 
         results_table = kwargs['results_table']
         classifiers = kwargs['classifiers']
-        extra_details = 'top_n:' + str(self.__top_n)
-        self._collect_evaluation_results(x_train_transformed, y_train, x_test_transformed, y_test, results_table, classifiers, 'TOP N WORD COMMUNITY + ', extra_details=extra_details)
+        extra_details = {
+            'top_n': self.__top_n
+        }
+        return self._collect_evaluation_results(x_train_transformed, y_train, x_test_transformed, y_test, results_table, classifiers, 'TOPN+', extra_details=extra_details)
 
 # Ignore this class for the AIAI paper. Future work.
 class Docs2ComEvaluator(Evaluator):
@@ -231,8 +265,10 @@ class Docs2ComEvaluator(Evaluator):
 
         results_table = kwargs['results_table']
         classifiers = kwargs['classifiers']
-        extra_details = 'top_n:' + str(self.__top_n)
-        self._collect_evaluation_results(x_transformed, communities_y_encoded, x_test_docs_transformed, y_test, results_table, classifiers, 'DOC2COM + ', extra_details=extra_details)
+        extra_details = {
+            'top_n': self.__top_n
+        }
+        return self._collect_evaluation_results(x_transformed, communities_y_encoded, x_test_docs_transformed, y_test, results_table, classifiers, 'DOC2COM+', extra_details=extra_details)
 
 class GraphOfDocsBigramsExtractionEvaluator(Evaluator):
     def __init__(self, top_n=None, min_weight=None, test_size=0.33, random_state=42):
@@ -274,5 +310,9 @@ class GraphOfDocsBigramsExtractionEvaluator(Evaluator):
 
         results_table = kwargs['results_table']
         classifiers = kwargs['classifiers']
-        extra_details = 'top_n:%s, min_weight:%s' %(self.__top_n, self.__min_weight)
-        self._collect_evaluation_results(train_transformed, y_train, test_transformed, y_test, results_table, classifiers, 'Graph-of-docs BIGRAMS + ', extra_details=extra_details)
+        extra_details = {
+            'top_n': self.__top_n,
+            'min_weight': self.__min_weight
+        }
+        prefix = 'TOP_N' if self.__top_n else 'MIN_WEIGHT'
+        return self._collect_evaluation_results(train_transformed, y_train, test_transformed, y_test, results_table, classifiers, 'GOD+BI %s+' % prefix, extra_details=extra_details)
