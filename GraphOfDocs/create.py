@@ -5,7 +5,7 @@ create data in the Neo4j database.
 import platform
 from GraphOfDocs.utils import clear_screen
 from GraphOfDocs.algos import *
-from GraphOfDocs.select import get_community_tags
+from GraphOfDocs.select import get_communities_filenames, get_communities_tags
 
 # Initialize an empty set of edges.
 edges = {}
@@ -150,11 +150,7 @@ def create_clustering_tags(database, top_terms = 25):
 
     # Get all id numbers from communities and all their assosiated file(name)s.
     print('Loading all community ids and their filenames...')
-    query = ('MATCH (d:Document) RETURN d.community, '
-            'collect(d.filename) AS files, '
-            'count(d.filename) AS file_count '
-            'ORDER BY file_count DESC')
-    results = database.execute(' '.join(query.split()), 'r')
+    results = get_communities_filenames(database)
 
     # The communities are ordered by filecount, which means that after the first one found,
     # with 1 file all the rest have the same amount of documents.
@@ -173,17 +169,23 @@ def create_clustering_tags(database, top_terms = 25):
     count = 1
     total_count = len(results)
 
-    for [community, filenames, filecount] in results:
+    # Get all top tags for each community.
+    top_tags = get_communities_tags(database, top_terms)
+
+    for [community, filenames, _] in results:
         # Print the number of the currently processed community.
         print('Processing ' + str(count) + ' out of ' + str(total_count) + ' communities...' )
-        top_tags = get_community_tags(database, community, top_terms)
+        try:
+            tags = top_tags[community]
+        except KeyError:
+            print('\t* Error: Community key should exist in dictionary!')
 
         # Connect filenames of a specific community with all their associated tags.
         # Tags are considered to be important words that describe that community,
         # and which already exist in the graphofdocs model.
         query = ('UNWIND ' + str(filenames) +' AS filename '
                 'MATCH (d:Document {filename: filename}) '
-                'UNWIND ' + str(top_tags) +' AS tag '
+                'UNWIND ' + str(tags) +' AS tag '
                 'MATCH (w:Word {key: tag}) '
                 'CREATE (d)-[r:has_tag]->(w) ')
         database.execute(' '.join(query.split()), 'w')
