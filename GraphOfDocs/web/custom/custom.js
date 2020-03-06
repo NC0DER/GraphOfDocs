@@ -15,8 +15,8 @@ $("#query").click(function () {
     var start = $("#field1").val();
     var end = $("#field2").val();
     var score = $("#field3").val();
-    if (start === "" || end === "") {
-        alert("Please speficy the ranges!");
+    if (start === "" || end === "" || score === "") {
+        alert("Please speficy the ranges and/or score!");
         return;
     }
     // Build the query based on the above values.
@@ -25,7 +25,7 @@ $("#query").click(function () {
         + "AND k.pagerank > " + start + " "
         + "AND n.pagerank < " + end + " "
         + "AND k.pagerank < " + end + " "
-        + "AND r.weight > " + score + " "
+        + "AND r.weight >= " + score + " "
         + "RETURN n,r,k LIMIT 1000";
     viz.renderWithCypher(query);
 });

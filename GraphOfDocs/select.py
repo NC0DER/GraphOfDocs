@@ -2,71 +2,44 @@
 This script contains functions that 
 select data from the Neo4j database.
 """
-def get_similarity_score(database, filename1, filename2):
-    query = ('MATCH (d1:Document {filename: "'+ filename1 +'"})'
-    '-[r:is_similar]-(d2:Document {filename: "'+ filename2 +'"}) '
-    'RETURN r.score')
-    results = database.execute(' '.join(query.split()), 'r')
-    if (results): #If list not empty, the files are similar
-        return results[0][0]
-    else:
-        return 0.0
 
-def get_document_communities(database):
+def get_communities_filenames(database):
+    """
+    This function retrieves all filenames (and the file count) 
+    for every community of similar documents.
+    """
     query = ('MATCH (d:Document) RETURN d.community, '
-            'collect(d.filename) AS files, '
-            'count(d.filename) AS file_count '
-            'ORDER BY file_count DESC')
+                'collect(d.filename) AS files, '
+                'count(d.filename) AS file_count '
+                'ORDER BY file_count DESC')
     results = database.execute(' '.join(query.split()), 'r')
     return results
 
-def get_document_terms(database, filename, group_by_word_community_id = False):
-    if group_by_word_community_id:
-        query = ('MATCH (d:Document {filename: "'+ filename +'"})'
-                '-[r:includes]->(w:Word) WITH w.community AS community, '
-                'w.key AS word, w.pagerank AS pagerank ORDER BY pagerank DESC '
-                'RETURN community, collect([word, pagerank]) AS words, '
-                'count(word) AS word_count ORDER BY word_count DESC')
-    else:
-        query = ('MATCH (d:Document {filename: "'+ filename +'"})'
-                '-[r:includes]->(w:Word) RETURN w.key, w.pagerank, w.community')
-    results = database.execute(' '.join(query.split()), 'r')
-    return results
-
-def get_community_tags(database, community, top_terms = None):
+def get_communities_tags(database, top_terms = None):
     """
     This function generates the most important terms that describe
-    a community of similar documents, alongside their pagerank and in-degree scores.
+    each community of similar documents, and returns them for all communities.
     """
     # Get all intersecting nodes of the speficied community, 
     # ranked by their in-degree (which shows to how many documents they belong to).
     # and pagerank score in descending order.
-    query = ('MATCH p=((d:Document {community: '+ str(community) +'})-[:includes]->(w:Word)) '
-             'WITH w, count(p) as degree '
-             'WHERE degree > 1 '
-             'RETURN w.key, w.pagerank as pagerank, degree '
-             'ORDER BY degree DESC, pagerank DESC')
-    tags_scores = database.execute(' '.join(query.split()), 'r')
+    top_tags = {}
+    query = ('MATCH p=((d:Document)-[:includes]->(w:Word)) '
+            'WITH d.community as community, w, count(p) as degree '
+            'WHERE degree > 1 '
+            'WITH community as com, w.key as word, w.pagerank as pagerank, degree as deg '
+            'ORDER BY com, deg DESC, pagerank DESC '
+            'RETURN com, collect([word, pagerank, deg]) ')
+    communities = database.execute(' '.join(query.split()), 'r')
+
     # Get the top tags from the tags and scores list.
-    if top_terms is None:
-        top_tags = [tag[0] for tag in tags_scores]
-    else:
-        top_tags = [tag[0] for tag in tags_scores[:top_terms]]
+    for [community, tags_scores] in communities:
+        # Get all top terms for this community.
+        if top_terms is None: 
+            top_tags[community] = [tag[0] for tag in tags_scores]
+        else:
+            top_tags[community] = [tag[0] for tag in tags_scores[:top_terms]]
     return top_tags
-
-def get_communities_by_tag(database, tag):
-    query = ('MATCH (d:Document)-[r:has_tag]->'
-            '(w:Word {key: "'+ tag +'"}) '
-            'RETURN d.community, collect(d.filename) AS files')
-    results = database.execute(' '.join(query.split()), 'r')
-    return results
-
-def get_communities_by_tags(database, tags):
-    query = ('MATCH (d:Document)-[r:has_tag]->'
-            '(w:Word) WHERE w.key in ' + str(tags) +
-            'RETURN d.community, collect(d.filename) AS files')
-    results = database.execute(' '.join(query.split()), 'r')
-    return results
 
 def get_word_digrams_by_filename(database, filename):
     query = ('MATCH (d:Document {filename: "'+ filename +'"})'
