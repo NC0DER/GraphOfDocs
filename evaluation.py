@@ -215,8 +215,9 @@ class TopNOfEachCommunityEvaluator(Evaluator):
         train_docs = list(df.iloc[positions_train]['identifier'])
         database = kwargs['database']
         vocabulary = []
+        community_id_to_tags = select.get_communities_tags(database, top_terms=self.__top_n)
         for doc in train_docs:
-            for word in select.get_community_tags(database, self.__doc_to_community_dict[doc], top_terms=self.__top_n):
+            for word in community_id_to_tags[self.__doc_to_community_dict[doc]]:
                 vocabulary.append(word)
         vocabulary = list(set(vocabulary))
         x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=self._test_size, random_state=self._random_state)
