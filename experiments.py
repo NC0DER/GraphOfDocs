@@ -9,12 +9,13 @@ from prettytable import PrettyTable
 import config_experiments
 from config_experiments import extract_file_class
 import evaluation
+import timeit
 
 results_table = PrettyTable(['Method', 'Accuracy', 'Number of features', 'Train size', 'Test size', 'Details'])
 evaluation_results = []
 feature_selection_evaluation_results = []
-bigrams_extraction_evaluation_results = []
 
+start_time = timeit.default_timer()
 print('%'*100)
 print('!START OF THE EXPERIMENT!')
 print('DATASET DIR PATH: %s' % config_experiments.DATASET_PATH)
@@ -77,14 +78,6 @@ for kbest_k in config_experiments.SELECT_KBEST_K:
     evaluation_results.extend(res)
     feature_selection_evaluation_results.extend(res)
 
-res = evaluation.BigramsExtractionEvaluator().evaluate(X, y, results_table=results_table, classifiers=config_experiments.classifiers)
-evaluation_results.extend(res)
-
-for kbest_k in config_experiments.SELECT_KBEST_K:
-    res = evaluation.BigramsExtractionAndSelectKBestFeatureSelectionEvaluator(kbest=kbest_k).evaluate(X, y, results_table=results_table, classifiers=config_experiments.classifiers)
-    evaluation_results.extend(res)
-    bigrams_extraction_evaluation_results.extend(res)
-
 evaluation.GraphOfDocsClassifier(doc_to_community_dict, doc_communities_dict).calculate_accuracy(df['identifier'], results_table=results_table)
 
 for top_n in config_experiments.TOP_N_SELECTED_COMMUNITY_TERMS:
@@ -92,19 +85,8 @@ for top_n in config_experiments.TOP_N_SELECTED_COMMUNITY_TERMS:
     evaluation_results.extend(res)
     feature_selection_evaluation_results.extend(res)
 
-for top_n in config_experiments.TOP_N_GRAPH_OF_DOCS_BIGRAMS:
-    res = evaluation.GraphOfDocsBigramsExtractionEvaluator(top_n=top_n, min_weight=None).evaluate(None, y, database=database, classifiers=config_experiments.classifiers, results_table=results_table, df=df)
-    evaluation_results.extend(res)
-    bigrams_extraction_evaluation_results.extend(res)
-
-for min_weight in config_experiments.MIN_WEIGHT_GRAPH_OF_DOCS_BIGRAMS:
-    res = evaluation.GraphOfDocsBigramsExtractionEvaluator(top_n=None, min_weight=min_weight).evaluate(None, y, database=database, classifiers=config_experiments.classifiers, results_table=results_table, df=df)
-    evaluation_results.extend(res)
-    bigrams_extraction_evaluation_results.extend(res)
-
 df_evaluation_results = pd.DataFrame(evaluation_results)
 df_feature_selection_evaluation_results = pd.DataFrame(feature_selection_evaluation_results)
-df_bigrams_extraction_evaluation_results = pd.DataFrame(bigrams_extraction_evaluation_results)
 print('EXAMPLE OF THE EVALUATION RESULTS PANDAS DATAFRAME')
 print(df_evaluation_results.head(2))
 
@@ -116,8 +98,9 @@ output_dir = config_experiments.EXPERIMENTAL_RESULTS_OUPUT_DIR
 plots_prefix = config_experiments.PLOTS_PREFIX
 df_evaluation_results.to_csv('%s/%s_evaluation_results.csv' % (output_dir, plots_prefix))
 evaluation.generate_plots(df_feature_selection_evaluation_results, output_dir=output_dir, plots_prefix='%s_feature_selection' % (plots_prefix), show_only=False)
-evaluation.generate_plots(df_bigrams_extraction_evaluation_results, output_dir=output_dir, plots_prefix='%s_bigrams_extraction' % (plots_prefix), show_only=False)
 
 database.close()
+stop_time = timeit.default_timer()
+print('Execution time: %s' % (stop_time - start_time))
 print('!END OF THE EXPERIMENT!')
 print('%'*100)

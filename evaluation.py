@@ -24,11 +24,19 @@ def generate_plots(df, show_only=True, output_dir='', plots_prefix='plot'):
     unique_classifier_names = list(df['Classifier'].unique())
     for clf in unique_classifier_names:
         df_tmp = df[df['Classifier'] == clf]
-        sns.lineplot(x="Number of features", y="Accuracy", hue="Method", style="Method", markers=True, dashes=False, data=df_tmp)
+        lineplot = lambda data: sns.lineplot(x="Number of features", y="Accuracy", hue="Method", style="Method", markers=True, dashes=False, data=data)
+
         if show_only:
+            lineplot(df_tmp)
             plt.show()
         else:
+            lineplot(df_tmp)
             plt.savefig('%s/%s_%s.png' % (output_dir, plots_prefix, clf), dpi=2000)
+            plt.clf()
+
+            lineplot(df_tmp)
+            plt.ylim(0, 1)
+            plt.savefig('%s/%s_%s_0_1.png' % (output_dir, plots_prefix, clf), dpi=2000)
             plt.clf()
 
 class GraphOfDocsClassifier:
