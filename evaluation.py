@@ -101,6 +101,7 @@ class BOWEvaluator(Evaluator):
         x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=self._test_size, random_state=self._random_state)
         cv = CountVectorizer()
         x_train_transformed = cv.fit_transform(x_train)
+        print('Number of features in BOWEvaluator:%s' % (x_train_transformed.shape))
         x_test_transformed = cv.transform(x_test)
 
         results_table = kwargs['results_table']
