@@ -26,7 +26,7 @@ classifiers = [
     ('1KNN', KNeighborsClassifier(n_neighbors=1, weights='distance')),
     ('LSVM', LinearSVC()),
     ('NN100x50', MLPClassifier(solver='adam', hidden_layer_sizes=(100, 50), random_state=42)),
-    ('NN500x250', MLPClassifier(solver='adam', hidden_layer_sizes=(500, 250), random_state=42)),
+#    ('NN500x250', MLPClassifier(solver='adam', hidden_layer_sizes=(500, 250), random_state=42)),
 ]
 
 def extract_file_class(filename):
