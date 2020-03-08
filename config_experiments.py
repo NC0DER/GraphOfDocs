@@ -10,9 +10,7 @@ SELECT_KBEST_K = [1000, 2000, 3000, 5000, 10000, 15000, 20000, 25000, 30000]
 
 # Graph of docs feature selection.
 # Create a vocabulary with the TOP N words of each community of docs
-TOP_N_SELECTED_COMMUNITY_TERMS = [25, 50, 100, 250, 500, 1000]
-TOP_N_GRAPH_OF_DOCS_BIGRAMS = [5, 10, 15, 20, 30, 50, 70, 80, 100, 150, 200, 250, 300]
-MIN_WEIGHT_GRAPH_OF_DOCS_BIGRAMS = [10, 20, 30, 50, 70, 80, 100, 150, 200, 250, 300]
+TOP_N_SELECTED_COMMUNITY_TERMS = [5, 10, 15, 20, 25, 50, 100, 250, 500]
 
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.linear_model import LogisticRegression
@@ -28,7 +26,7 @@ classifiers = [
     ('1KNN', KNeighborsClassifier(n_neighbors=1, weights='distance')),
     ('LSVM', LinearSVC()),
     ('NN100x50', MLPClassifier(solver='adam', hidden_layer_sizes=(100, 50), random_state=42)),
-    ('NN500x250', MLPClassifier(solver='adam', hidden_layer_sizes=(500, 250), random_state=42)),
+#    ('NN500x250', MLPClassifier(solver='adam', hidden_layer_sizes=(500, 250), random_state=42)),
 ]
 
 def extract_file_class(filename):
