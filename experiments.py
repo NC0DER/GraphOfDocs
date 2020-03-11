@@ -16,6 +16,7 @@ evaluation_results = []
 feature_selection_evaluation_results = []
 
 start_time = timeit.default_timer()
+print('')
 print('%'*100)
 print('!START OF THE EXPERIMENT!')
 print('DATASET DIR PATH: %s' % config_experiments.DATASET_PATH)
@@ -26,8 +27,8 @@ print('TOP N SELECTED COMMUNITY TERMS: %s' % config_experiments.TOP_N_SELECTED_C
 
 # Connect to database.
 database = Neo4jDatabase('bolt://localhost:7687', 'neo4j', '123')
-# Retrieve the communities of documents.
-doc_communities = select.get_document_communities(database)
+# Retrieve the communities of documents and their filenames.
+doc_communities = select.get_communities_filenames(database)
 # Keep only the communities with more than one documents.
 filtered_doc_communities = [doc_community for doc_community in doc_communities if doc_community[2] >= config_experiments.MIN_NUMBER_OF_DOCUMENTS_PER_SELECTED_COMMUNITY]
 # Fetch the selected documents.
@@ -94,7 +95,7 @@ results_table.sortby = 'Accuracy'
 results_table.reversesort = True
 print(results_table)
 
-output_dir = config_experiments.EXPERIMENTAL_RESULTS_OUPUT_DIR
+output_dir = config_experiments.EXPERIMENTAL_RESULTS_OUΤPUT_DIR
 plots_prefix = config_experiments.PLOTS_PREFIX
 df_evaluation_results.to_csv('%s/%s_evaluation_results.csv' % (output_dir, plots_prefix))
 evaluation.generate_plots(df_feature_selection_evaluation_results, output_dir=output_dir, plots_prefix='%s_feature_selection' % (plots_prefix), show_only=False)
@@ -104,3 +105,4 @@ stop_time = timeit.default_timer()
 print('Execution time: %s' % (stop_time - start_time))
 print('!END OF THE EXPERIMENT!')
 print('%'*100)
+print('')

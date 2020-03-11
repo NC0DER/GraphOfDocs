@@ -3,23 +3,15 @@ This script contains functions that
 select data from the Neo4j database.
 """
 
-def get_document_communities(database):
-    query = ('MATCH (d:Document) RETURN d.community, '
-            'collect(d.filename) AS files, '
-            'count(d.filename) AS file_count '
-            'ORDER BY file_count DESC')
-    results = database.execute(' '.join(query.split()), 'r')
-    return results
-
 def get_communities_filenames(database):
     """
     This function retrieves all filenames (and the file count) 
     for every community of similar documents.
     """
     query = ('MATCH (d:Document) RETURN d.community, '
-                'collect(d.filename) AS files, '
-                'count(d.filename) AS file_count '
-                'ORDER BY file_count DESC')
+             'collect(d.filename) AS files, '
+             'count(d.filename) AS file_count '
+             'ORDER BY file_count DESC')
     results = database.execute(' '.join(query.split()), 'r')
     return results
 
