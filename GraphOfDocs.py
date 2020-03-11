@@ -39,7 +39,7 @@ def graphofdocs(create, initialize, dirpath, window_size,
         # Iterate all file records of the dataset.
         for filename, file in dataset:
             # Print the number of the currently processed file.
-            print('Processing ' + str(count) + ' out of ' + str(total_count) + ' datasets...' )
+            print(f'Processing {count} out of {total_count} files...' )
             # Generate the terms from the text of each file.
             words = generate_words(file, extend_window, remove_stopwords, lemmatize, stem)
             # Create the graph of words in the database.
@@ -52,7 +52,7 @@ def graphofdocs(create, initialize, dirpath, window_size,
             clear_screen(current_system)
         # Count all skipped files and write their filenames in skipped.log
         skip_count = len(skipped)
-        print('Created '+ str(total_count - skip_count) +', skipped '+ str(skip_count) +' files.')
+        print(f'Created {total_count - skip_count}, skipped {skip_count} files.')
         print('Check skipped.log for info.')
         with open('skipped.log', 'w') as log:  
             for item in skipped:

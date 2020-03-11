@@ -45,7 +45,7 @@ def create_graph_of_words(words, database, filename, window_size = 4):
     # If the word doesn't exist as a node, then create it.
     for word in terms:
         if word not in nodes:
-            database.execute('CREATE (w:Word {key: "'+ word +'"})', 'w')
+            database.execute(f'CREATE (w:Word {{key: "{word}"}})', 'w')
             # Append word to the global node graph, to avoid duplicate creation.
             nodes.append(word)      
 
@@ -74,29 +74,29 @@ def create_graph_of_words(words, database, filename, window_size = 4):
             if edge in edges:
                 # If the edge, exists just update its weight.
                 edges[edge] = edges[edge] + 1
-                query = ('MATCH (w1:Word {key: "'+ current +'"})-[r:connects]-(w2:Word {key: "' + next + '"}) '
-                        'SET r.weight = '+ str(edges[edge]))
+                query = (f'MATCH (w1:Word {{key: "{current}"}})-[r:connects]-(w2:Word {{key: "{next}"}}) '
+                         f'SET r.weight = {edges[edge]}')
             else:
                 # Else, create it, with a starting weight of 1 meaning first co-occurence.
                 edges[edge] = 1
-                query = ('MATCH (w1:Word {key: "'+ current +'"}) '
-                        'MATCH (w2:Word {key: "' + next + '"}) '
-                        'MERGE (w1)-[r:connects {weight:' + str(edges[edge]) + '}]-(w2) ')
+                query = (f'MATCH (w1:Word {{key: "{current}"}}) '
+                         f'MATCH (w2:Word {{key: "{next}"}}) '
+                         f'MERGE (w1)-[r:connects {{weight: {edges[edge]}}}]-(w2)')
             # This line of code, is meant to be executed, in both cases of the if...else statement.
-            database.execute(' '.join(query.split()), 'w')
+            database.execute(query, 'w')
 
     # Create a parent node that represents the document itself.
     # This node is connected to all words of its own graph,
     # and will be used for similarity/comparison queries.
-    database.execute('CREATE (d:Document {filename: "'+ filename +'"})', 'w')
+    database.execute(f'CREATE (d:Document {{filename: "{filename}"}})', 'w')
     # Create a word list with comma separated, quoted strings for use in the Cypher query below.
-    word_list = ', '.join('"{0}"'.format(word) for word in terms)
-    query = ('MATCH (w:Word) WHERE w.key IN [' + word_list + '] '
-            'WITH collect(w) as words '
-            'MATCH (d:Document {filename: "'+ filename +'"}) '
-            'UNWIND words as word '
-            'CREATE (d)-[:includes]->(word)')
-    database.execute(' '.join(query.split()), 'w')
+    #word_list = ', '.join(f'"{word}"' for word in terms)
+    query = (f'MATCH (w:Word) WHERE w.key IN {terms} '
+              'WITH collect(w) as words '
+             f'MATCH (d:Document {{filename: "{filename}"}}) '
+              'UNWIND words as word '
+              'CREATE (d)-[:includes]->(word)')
+    database.execute(query, 'w')
     return
 
 def run_initial_algorithms(database):
@@ -174,7 +174,7 @@ def create_clustering_tags(database, top_terms = 25):
 
     for [community, filenames, _] in results:
         # Print the number of the currently processed community.
-        print('Processing ' + str(count) + ' out of ' + str(total_count) + ' communities...' )
+        print(f'Processing {count} out of {total_count} communities...' )
         try:
             tags = top_tags[community]
         except KeyError:
@@ -183,12 +183,12 @@ def create_clustering_tags(database, top_terms = 25):
         # Connect filenames of a specific community with all their associated tags.
         # Tags are considered to be important words that describe that community,
         # and which already exist in the graphofdocs model.
-        query = ('UNWIND ' + str(filenames) +' AS filename '
-                'MATCH (d:Document {filename: filename}) '
-                'UNWIND ' + str(tags) +' AS tag '
-                'MATCH (w:Word {key: tag}) '
-                'CREATE (d)-[r:has_tag]->(w) ')
-        database.execute(' '.join(query.split()), 'w')
+        query = (f'UNWIND {filenames} AS filename '
+                  'MATCH (d:Document {filename: filename}) '
+                 f'UNWIND {tags} AS tag '
+                  'MATCH (w:Word {key: tag}) '
+                  'CREATE (d)-[r:has_tag]->(w)')
+        database.execute(query, 'w')
 
         # Update the progress counter.
         count = count + 1

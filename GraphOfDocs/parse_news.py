@@ -24,7 +24,7 @@ def convert_sgml_news_to_files(filepath):
         # Iterate through text that has matching sgml tags of <REUTERS></REUTERS>
         for start, end in zip(find_all(text, '<REUTERS'), find_all(text, '</REUTERS>')):
             # Print the number of the currently processed news story.
-            print('Processing ' + str(count) + ' out of ' + str(total_count) + ' news stories...' )
+            print(f'Processing {count} out of {total_count} news stories...')
             # Adjust the index to point after the starting tag.
             start = start + offset
 

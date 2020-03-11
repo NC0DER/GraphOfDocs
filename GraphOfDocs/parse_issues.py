@@ -29,7 +29,7 @@ def convert_json_issues_to_files(filepath):
         for issue in issues:
             # Retrieve all important fields from the dictionary.
             # Print the number of the currently processed issue.
-            print('Processing ' + str(count) + ' out of ' + str(total_count) + ' issues...' )
+            print(f'Processing {count} out of {total_count} issues...')
             issue_key = issue['key']
             issue_summary = ('' if issue['fields']['summary'] is None else issue['fields']['summary'])
             issue_description = ('' if issue['fields']['description'] is None else issue['fields']['description'])
@@ -39,7 +39,7 @@ def convert_json_issues_to_files(filepath):
             # Choose the top 15 assignees of the dataset.
             if assignee_key not in assignees:
                 count = count + 1
-                clear_screen(current_system())
+                clear_screen(current_system)
                 continue
 
             # Each issue will become a file.
@@ -64,7 +64,12 @@ def convert_json_issues_to_files(filepath):
             # Clear the screen to output the update the progress counter.
             clear_screen(current_system)
         # Print Completed and skip items if any.
-        print('Loaded ' + str(count - skip) + ' issues, skipped ' + str(skip) + ' empty items.')
+        print(f'Loaded {count - skip} issues, skipped {skip} empty items.')
     return
 
-if __name__ == "__main__": convert_json_issues_to_files(sys.argv[1]) # Filepath is expected to be the 2nd argument.
+if __name__ == '__main__':
+    if(len(sys.argv) > 1):
+        # Filepath is expected to be the 2nd argument.
+        convert_json_issues_to_files(sys.argv[1])
+    else:
+        print('Please input a file path, after parse_issues.py.')

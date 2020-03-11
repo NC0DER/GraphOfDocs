@@ -68,7 +68,7 @@ def convert_xml_reviews_to_files(filepath):
         # Iterate through text that has matching xml tags of <review></review>
         for start, end in zip(find_all(text, '<review>'), find_all(text, '</review>')):
             # Print the number of the currently processed review.
-            print('Processing ' + str(count) + ' out of ' + str(total_count) + ' reviews...' )
+            print(f'Processing {count} out of {total_count} reviews...')
             # Adjust the index to point after the starting tag.
             start = start + offset
 

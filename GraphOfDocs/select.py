@@ -12,7 +12,7 @@ def get_communities_filenames(database):
              'collect(d.filename) AS files, '
              'count(d.filename) AS file_count '
              'ORDER BY file_count DESC')
-    results = database.execute(' '.join(query.split()), 'r')
+    results = database.execute(query, 'r')
     return results
 
 def get_communities_tags(database, top_terms = None):
@@ -25,12 +25,12 @@ def get_communities_tags(database, top_terms = None):
     # and pagerank score in descending order.
     top_tags = {}
     query = ('MATCH p=((d:Document)-[:includes]->(w:Word)) '
-            'WITH d.community as community, w, count(p) as degree '
-            'WHERE degree > 1 '
-            'WITH community as com, w.key as word, w.pagerank as pagerank, degree as deg '
-            'ORDER BY com, deg DESC, pagerank DESC '
-            'RETURN com, collect([word, pagerank, deg]) ')
-    communities = database.execute(' '.join(query.split()), 'r')
+             'WITH d.community as community, w, count(p) as degree '
+             'WHERE degree > 1 '
+             'WITH community as com, w.key as word, w.pagerank as pagerank, degree as deg '
+             'ORDER BY com, deg DESC, pagerank DESC '
+             'RETURN com, collect([word, pagerank, deg])')
+    communities = database.execute(query, 'r')
 
     # Get the top tags from the tags and scores list.
     for [community, tags_scores] in communities:
@@ -42,10 +42,10 @@ def get_communities_tags(database, top_terms = None):
     return top_tags
 
 def get_word_digrams_by_filename(database, filename):
-    query = ('MATCH (d:Document {filename: "'+ filename +'"})'
-            '-[:includes]->(w1:Word)-[r:connects]->(w2:Word)'
-            '<-[:includes]-(d) WHERE id(w1) < id(w2) '
-            'WITH w1.key AS source, w2.key AS target, r.weight AS weight '
-            'ORDER BY weight DESC RETURN collect([source, target, weight]) AS digrams')
-    results = database.execute(' '.join(query.split()), 'r')
+    query = (f'MATCH (d:Document {{filename: "{filename}"}})'
+              '-[:includes]->(w1:Word)-[r:connects]->(w2:Word)'
+              '<-[:includes]-(d) WHERE id(w1) < id(w2) '
+              'WITH w1.key AS source, w2.key AS target, r.weight AS weight '
+              'ORDER BY weight DESC RETURN collect([source, target, weight]) AS digrams')
+    results = database.execute(query, 'r')
     return results
