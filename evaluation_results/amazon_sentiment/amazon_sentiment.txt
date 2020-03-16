@@ -1,0 +1,244 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+!START OF THE EXPERIMENT!
+DATASET DIR PATH: C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\datasets\amazon
+MIN NUMBER OF DOCUMENTS PER SELECTED COMMUNITY: 2
+VARIANCE THRESHOLD: [0.0005, 0.001, 0.0015, 0.002, 0.003, 0.004, 0.005, 0.01]
+SELECT KBEST K: [350, 500, 1000, 2000, 3000, 4000, 5000, 6000, 7000]
+TOP N SELECTED COMMUNITY TERMS: [5, 10, 15, 20, 25, 50, 100, 250, 500]
+Number of selected documents: 931
+EXAMPLE OF THE PANDAS DATAFRAME
+                identifier     class  class_number                                               text
+7325  kitchen.positive_391  positive             1  tommy hilfiger egyptian luxe bath towel mandar...
+2120      dvd.negative_206  negative             0  meet john doe dvd gary cooper barbara stanwyck...
+Number of unique classes: 2
+Number of features in BOWEvaluator:9771
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\svm\_base.py:947: ConvergenceWarning: Liblinear failed to converge, increase the number of iterations.
+  "the number of iterations.", ConvergenceWarning)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\svm\_base.py:947: ConvergenceWarning: Liblinear failed to converge, increase the number of iterations.
+  "the number of iterations.", ConvergenceWarning)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\svm\_base.py:947: ConvergenceWarning: Liblinear failed to converge, increase the number of iterations.
+  "the number of iterations.", ConvergenceWarning)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\svm\_base.py:947: ConvergenceWarning: Liblinear failed to converge, increase the number of iterations.
+  "the number of iterations.", ConvergenceWarning)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\svm\_base.py:947: ConvergenceWarning: Liblinear failed to converge, increase the number of iterations.
+  "the number of iterations.", ConvergenceWarning)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\svm\_base.py:947: ConvergenceWarning: Liblinear failed to converge, increase the number of iterations.
+  "the number of iterations.", ConvergenceWarning)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\svm\_base.py:947: ConvergenceWarning: Liblinear failed to converge, increase the number of iterations.
+  "the number of iterations.", ConvergenceWarning)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\svm\_base.py:947: ConvergenceWarning: Liblinear failed to converge, increase the number of iterations.
+  "the number of iterations.", ConvergenceWarning)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\svm\_base.py:947: ConvergenceWarning: Liblinear failed to converge, increase the number of iterations.
+  "the number of iterations.", ConvergenceWarning)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\svm\_base.py:947: ConvergenceWarning: Liblinear failed to converge, increase the number of iterations.
+  "the number of iterations.", ConvergenceWarning)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\svm\_base.py:947: ConvergenceWarning: Liblinear failed to converge, increase the number of iterations.
+  "the number of iterations.", ConvergenceWarning)
+EXAMPLE OF THE EVALUATION RESULTS PANDAS DATAFRAME
+   Method  Accuracy  Number of features  Train size  Test size Classifier  variance thershold  kbest  top_n
+0  BOW+NB    0.7208                9771         623        308         NB                 NaN    NaN    NaN
+1  BOW+LR    0.7630                9771         623        308         LR                 NaN    NaN    NaN
++--------------------------+----------+--------------------+------------+-----------+--------------------------------+
+|          Method          | Accuracy | Number of features | Train size | Test size |            Details             |
++--------------------------+----------+--------------------+------------+-----------+--------------------------------+
+|         META+LR          |  0.789   |        2731        |    623     |    308    |               {}               |
+|        LVAR+LSVM         |  0.7825  |        1719        |    623     |    308    |  {'variance thershold': 0.01}  |
+|         LVAR+LR          |  0.7792  |        3637        |    623     |    308    | {'variance thershold': 0.004}  |
+|         TOPN+LR          |  0.776   |        4897        |    623     |    308    |         {'top_n': 50}          |
+|        META+LSVM         |  0.7727  |        2731        |    623     |    308    |               {}               |
+|         LVAR+LR          |  0.7727  |        2906        |    623     |    308    | {'variance thershold': 0.005}  |
+|         LVAR+LR          |  0.7727  |        1719        |    623     |    308    |  {'variance thershold': 0.01}  |
+|         KBEST+LR         |  0.7727  |        3000        |    623     |    308    |        {'kbest': 3000}         |
+|         TOPN+LR          |  0.7695  |        6692        |    623     |    308    |         {'top_n': 250}         |
+|        LVAR+LSVM         |  0.7695  |        3637        |    623     |    308    | {'variance thershold': 0.004}  |
+|         LVAR+LR          |  0.7695  |        6000        |    623     |    308    | {'variance thershold': 0.003}  |
+|         LVAR+LR          |  0.7695  |        6000        |    623     |    308    | {'variance thershold': 0.002}  |
+|         TOPN+LR          |  0.7662  |        7005        |    623     |    308    |         {'top_n': 500}         |
+|         TOPN+LR          |  0.7662  |        5777        |    623     |    308    |         {'top_n': 100}         |
+|         TOPN+LR          |  0.7662  |        1940        |    623     |    308    |         {'top_n': 20}          |
+|        LVAR+LSVM         |  0.7662  |        6000        |    623     |    308    | {'variance thershold': 0.003}  |
+|        LVAR+LSVM         |  0.7662  |        6000        |    623     |    308    | {'variance thershold': 0.002}  |
+|         KBEST+LR         |  0.7662  |        2000        |    623     |    308    |        {'kbest': 2000}         |
+|        TOPN+LSVM         |  0.763   |        4897        |    623     |    308    |         {'top_n': 50}          |
+|        LVAR+LSVM         |  0.763   |        9771        |    623     |    308    | {'variance thershold': 0.001}  |
+|        LVAR+LSVM         |  0.763   |        9771        |    623     |    308    | {'variance thershold': 0.0015} |
+|        LVAR+LSVM         |  0.763   |        9771        |    623     |    308    | {'variance thershold': 0.0005} |
+|        LVAR+LSVM         |  0.763   |        2906        |    623     |    308    | {'variance thershold': 0.005}  |
+|         LVAR+LR          |  0.763   |        9771        |    623     |    308    | {'variance thershold': 0.001}  |
+|         LVAR+LR          |  0.763   |        9771        |    623     |    308    | {'variance thershold': 0.0015} |
+|         LVAR+LR          |  0.763   |        9771        |    623     |    308    | {'variance thershold': 0.0005} |
+|        KBEST+LSVM        |  0.763   |        6000        |    623     |    308    |        {'kbest': 6000}         |
+|        KBEST+LSVM        |  0.763   |        4000        |    623     |    308    |        {'kbest': 4000}         |
+|        KBEST+LSVM        |  0.763   |        2000        |    623     |    308    |        {'kbest': 2000}         |
+|         KBEST+LR         |  0.763   |        6000        |    623     |    308    |        {'kbest': 6000}         |
+|         BOW+LSVM         |  0.763   |        9771        |    623     |    308    |               {}               |
+|          BOW+LR          |  0.763   |        9771        |    623     |    308    |               {}               |
+|         KBEST+LR         |  0.7597  |        7000        |    623     |    308    |        {'kbest': 7000}         |
+|         KBEST+LR         |  0.7597  |        5000        |    623     |    308    |        {'kbest': 5000}         |
+|        TOPN+LSVM         |  0.7565  |        2372        |    623     |    308    |         {'top_n': 25}          |
+|         TOPN+LR          |  0.7565  |        2372        |    623     |    308    |         {'top_n': 25}          |
+|         TOPN+LR          |  0.7565  |        1557        |    623     |    308    |         {'top_n': 15}          |
+|         TOPN+LR          |  0.7565  |        1065        |    623     |    308    |         {'top_n': 10}          |
+|      KBEST+NN100x50      |  0.7565  |        1000        |    623     |    308    |        {'kbest': 1000}         |
+|        TOPN+LSVM         |  0.7532  |        1940        |    623     |    308    |         {'top_n': 20}          |
+|        KBEST+LSVM        |  0.7532  |        5000        |    623     |    308    |        {'kbest': 5000}         |
+|        KBEST+LSVM        |  0.7532  |        1000        |    623     |    308    |        {'kbest': 1000}         |
+|      META+NN100x50       |   0.75   |        2731        |    623     |    308    |               {}               |
+|      LVAR+NN100x50       |   0.75   |        1719        |    623     |    308    |  {'variance thershold': 0.01}  |
+|      KBEST+NN100x50      |   0.75   |        4000        |    623     |    308    |        {'kbest': 4000}         |
+|         KBEST+NB         |   0.75   |        500         |    623     |    308    |         {'kbest': 500}         |
+|      LVAR+NN100x50       |  0.7468  |        3637        |    623     |    308    | {'variance thershold': 0.004}  |
+|      KBEST+NN100x50      |  0.7468  |        2000        |    623     |    308    |        {'kbest': 2000}         |
+|      KBEST+NN100x50      |  0.7468  |        500         |    623     |    308    |         {'kbest': 500}         |
+|         KBEST+LR         |  0.7468  |        4000        |    623     |    308    |        {'kbest': 4000}         |
+|        TOPN+LSVM         |  0.7435  |        6692        |    623     |    308    |         {'top_n': 250}         |
+|      LVAR+NN100x50       |  0.7435  |        6000        |    623     |    308    | {'variance thershold': 0.003}  |
+|      LVAR+NN100x50       |  0.7435  |        6000        |    623     |    308    | {'variance thershold': 0.002}  |
+|         KBEST+NB         |  0.7435  |        5000        |    623     |    308    |        {'kbest': 5000}         |
+|        KBEST+LSVM        |  0.7435  |        3000        |    623     |    308    |        {'kbest': 3000}         |
+|         KBEST+LR         |  0.7435  |        1000        |    623     |    308    |        {'kbest': 1000}         |
+|      TOPN+NN100x50       |  0.7403  |        1940        |    623     |    308    |         {'top_n': 20}          |
+|        TOPN+LSVM         |  0.7403  |        7005        |    623     |    308    |         {'top_n': 500}         |
+|        TOPN+LSVM         |  0.7403  |        5777        |    623     |    308    |         {'top_n': 100}         |
+|      LVAR+NN100x50       |  0.7403  |        2906        |    623     |    308    | {'variance thershold': 0.005}  |
+|         KBEST+NB         |  0.7403  |        3000        |    623     |    308    |        {'kbest': 3000}         |
+|         KBEST+NB         |  0.7403  |        350         |    623     |    308    |         {'kbest': 350}         |
+|        KBEST+LSVM        |  0.7403  |        7000        |    623     |    308    |        {'kbest': 7000}         |
+|      TOPN+NN100x50       |  0.737   |        1065        |    623     |    308    |         {'top_n': 10}          |
+|        TOPN+LSVM         |  0.737   |        1557        |    623     |    308    |         {'top_n': 15}          |
+|        TOPN+LSVM         |  0.737   |        1065        |    623     |    308    |         {'top_n': 10}          |
+|         META+NB          |  0.737   |        2731        |    623     |    308    |               {}               |
+|         LVAR+NB          |  0.737   |        2906        |    623     |    308    | {'variance thershold': 0.005}  |
+|         KBEST+NB         |  0.737   |        6000        |    623     |    308    |        {'kbest': 6000}         |
+|         KBEST+NB         |  0.737   |        4000        |    623     |    308    |        {'kbest': 4000}         |
+|         KBEST+NB         |  0.737   |        2000        |    623     |    308    |        {'kbest': 2000}         |
+|         LVAR+NB          |  0.7338  |        3637        |    623     |    308    | {'variance thershold': 0.004}  |
+|         LVAR+NB          |  0.7338  |        1719        |    623     |    308    |  {'variance thershold': 0.01}  |
+|      KBEST+NN100x50      |  0.7338  |        3000        |    623     |    308    |        {'kbest': 3000}         |
+|      KBEST+NN100x50      |  0.7338  |        350         |    623     |    308    |         {'kbest': 350}         |
+|        KBEST+LSVM        |  0.7338  |        500         |    623     |    308    |         {'kbest': 500}         |
+|      TOPN+NN100x50       |  0.7305  |        2372        |    623     |    308    |         {'top_n': 25}          |
+|      TOPN+NN100x50       |  0.7305  |        1557        |    623     |    308    |         {'top_n': 15}          |
+|      KBEST+NN100x50      |  0.7305  |        7000        |    623     |    308    |        {'kbest': 7000}         |
+|         KBEST+NB         |  0.7305  |        7000        |    623     |    308    |        {'kbest': 7000}         |
+|         KBEST+NB         |  0.7305  |        1000        |    623     |    308    |        {'kbest': 1000}         |
+|         TOPN+NB          |  0.7273  |        1940        |    623     |    308    |         {'top_n': 20}          |
+|      LVAR+NN100x50       |  0.7273  |        9771        |    623     |    308    | {'variance thershold': 0.001}  |
+|      LVAR+NN100x50       |  0.7273  |        9771        |    623     |    308    | {'variance thershold': 0.0015} |
+|      LVAR+NN100x50       |  0.7273  |        9771        |    623     |    308    | {'variance thershold': 0.0005} |
+|       BOW+NN100x50       |  0.7273  |        9771        |    623     |    308    |               {}               |
+|         LVAR+NB          |  0.724   |        6000        |    623     |    308    | {'variance thershold': 0.003}  |
+|         LVAR+NB          |  0.724   |        6000        |    623     |    308    | {'variance thershold': 0.002}  |
+|      KBEST+NN100x50      |  0.724   |        6000        |    623     |    308    |        {'kbest': 6000}         |
+|      KBEST+NN100x50      |  0.724   |        5000        |    623     |    308    |        {'kbest': 5000}         |
+|         KBEST+LR         |  0.724   |        500         |    623     |    308    |         {'kbest': 500}         |
+|         KBEST+LR         |  0.724   |        350         |    623     |    308    |         {'kbest': 350}         |
+|        KBEST+5NN         |  0.724   |        350         |    623     |    308    |         {'kbest': 350}         |
+|         TOPN+NB          |  0.7208  |        7005        |    623     |    308    |         {'top_n': 500}         |
+|         TOPN+NB          |  0.7208  |        5777        |    623     |    308    |         {'top_n': 100}         |
+|         TOPN+NB          |  0.7208  |        4897        |    623     |    308    |         {'top_n': 50}          |
+|         TOPN+NB          |  0.7208  |        2372        |    623     |    308    |         {'top_n': 25}          |
+|         LVAR+NB          |  0.7208  |        9771        |    623     |    308    | {'variance thershold': 0.001}  |
+|         LVAR+NB          |  0.7208  |        9771        |    623     |    308    | {'variance thershold': 0.0015} |
+|         LVAR+NB          |  0.7208  |        9771        |    623     |    308    | {'variance thershold': 0.0005} |
+|          BOW+NB          |  0.7208  |        9771        |    623     |    308    |               {}               |
+|      TOPN+NN100x50       |  0.7175  |        7005        |    623     |    308    |         {'top_n': 500}         |
+|         TOPN+NB          |  0.7175  |        6692        |    623     |    308    |         {'top_n': 250}         |
+|      TOPN+NN100x50       |  0.7143  |        5777        |    623     |    308    |         {'top_n': 100}         |
+|        TOPN+1KNN         |  0.711   |        1065        |    623     |    308    |         {'top_n': 10}          |
+|        KBEST+LSVM        |  0.711   |        350         |    623     |    308    |         {'kbest': 350}         |
+|        KBEST+5NN         |  0.711   |        500         |    623     |    308    |         {'kbest': 500}         |
+|      TOPN+NN100x50       |  0.7078  |        6692        |    623     |    308    |         {'top_n': 250}         |
+|      TOPN+NN100x50       |  0.7045  |        4897        |    623     |    308    |         {'top_n': 50}          |
+| Graph-of-docs Classifier |  0.7045  |        N/A         |    N/A     |    308    |                                |
+|      TOPN+NN100x50       |  0.7013  |        372         |    623     |    308    |          {'top_n': 5}          |
+|         TOPN+NB          |  0.7013  |        372         |    623     |    308    |          {'top_n': 5}          |
+|         LVAR+5NN         |  0.7013  |        1719        |    623     |    308    |  {'variance thershold': 0.01}  |
+|         TOPN+2NN         |  0.6981  |        1065        |    623     |    308    |         {'top_n': 10}          |
+|         TOPN+NB          |  0.6948  |        1557        |    623     |    308    |         {'top_n': 15}          |
+|        LVAR+1KNN         |  0.6916  |        1719        |    623     |    308    |  {'variance thershold': 0.01}  |
+|        KBEST+1KNN        |  0.6916  |        500         |    623     |    308    |         {'kbest': 500}         |
+|         TOPN+2NN         |  0.6883  |        372         |    623     |    308    |          {'top_n': 5}          |
+|        TOPN+1KNN         |  0.6883  |        5777        |    623     |    308    |         {'top_n': 100}         |
+|        TOPN+1KNN         |  0.6883  |        372         |    623     |    308    |          {'top_n': 5}          |
+|        LVAR+1KNN         |  0.6883  |        2906        |    623     |    308    | {'variance thershold': 0.005}  |
+|        KBEST+2NN         |  0.6883  |        7000        |    623     |    308    |        {'kbest': 7000}         |
+|        KBEST+2NN         |  0.6883  |        500         |    623     |    308    |         {'kbest': 500}         |
+|        KBEST+1KNN        |  0.6883  |        1000        |    623     |    308    |        {'kbest': 1000}         |
+|        TOPN+1KNN         |  0.6851  |        4897        |    623     |    308    |         {'top_n': 50}          |
+|        TOPN+1KNN         |  0.6851  |        1557        |    623     |    308    |         {'top_n': 15}          |
+|        KBEST+2NN         |  0.6851  |        350         |    623     |    308    |         {'kbest': 350}         |
+|         TOPN+LR          |  0.6818  |        372         |    623     |    308    |          {'top_n': 5}          |
+|         TOPN+2NN         |  0.6818  |        1557        |    623     |    308    |         {'top_n': 15}          |
+|         LVAR+2NN         |  0.6818  |        2906        |    623     |    308    | {'variance thershold': 0.005}  |
+|         LVAR+2NN         |  0.6818  |        1719        |    623     |    308    |  {'variance thershold': 0.01}  |
+|        LVAR+1KNN         |  0.6818  |        3637        |    623     |    308    | {'variance thershold': 0.004}  |
+|        KBEST+5NN         |  0.6818  |        7000        |    623     |    308    |        {'kbest': 7000}         |
+|         TOPN+NB          |  0.6786  |        1065        |    623     |    308    |         {'top_n': 10}          |
+|         TOPN+5NN         |  0.6786  |        1065        |    623     |    308    |         {'top_n': 10}          |
+|        TOPN+1KNN         |  0.6786  |        1940        |    623     |    308    |         {'top_n': 20}          |
+|        KBEST+1KNN        |  0.6786  |        7000        |    623     |    308    |        {'kbest': 7000}         |
+|        KBEST+1KNN        |  0.6786  |        350         |    623     |    308    |         {'kbest': 350}         |
+|         TOPN+2NN         |  0.6753  |        5777        |    623     |    308    |         {'top_n': 100}         |
+|         TOPN+2NN         |  0.6753  |        4897        |    623     |    308    |         {'top_n': 50}          |
+|        KBEST+1KNN        |  0.6753  |        2000        |    623     |    308    |        {'kbest': 2000}         |
+|         LVAR+5NN         |  0.6721  |        6000        |    623     |    308    | {'variance thershold': 0.003}  |
+|         LVAR+5NN         |  0.6721  |        6000        |    623     |    308    | {'variance thershold': 0.002}  |
+|         LVAR+2NN         |  0.6721  |        3637        |    623     |    308    | {'variance thershold': 0.004}  |
+|        KBEST+5NN         |  0.6721  |        2000        |    623     |    308    |        {'kbest': 2000}         |
+|        KBEST+5NN         |  0.6721  |        1000        |    623     |    308    |        {'kbest': 1000}         |
+|         TOPN+5NN         |  0.6688  |        1557        |    623     |    308    |         {'top_n': 15}          |
+|         TOPN+5NN         |  0.6688  |        372         |    623     |    308    |          {'top_n': 5}          |
+|         TOPN+2NN         |  0.6688  |        1940        |    623     |    308    |         {'top_n': 20}          |
+|         LVAR+2NN         |  0.6688  |        6000        |    623     |    308    | {'variance thershold': 0.003}  |
+|         LVAR+2NN         |  0.6688  |        6000        |    623     |    308    | {'variance thershold': 0.002}  |
+|        LVAR+1KNN         |  0.6688  |        6000        |    623     |    308    | {'variance thershold': 0.003}  |
+|        LVAR+1KNN         |  0.6688  |        6000        |    623     |    308    | {'variance thershold': 0.002}  |
+|        KBEST+2NN         |  0.6688  |        2000        |    623     |    308    |        {'kbest': 2000}         |
+|        KBEST+2NN         |  0.6688  |        1000        |    623     |    308    |        {'kbest': 1000}         |
+|        TOPN+1KNN         |  0.6656  |        7005        |    623     |    308    |         {'top_n': 500}         |
+|        TOPN+1KNN         |  0.6656  |        6692        |    623     |    308    |         {'top_n': 250}         |
+|         LVAR+5NN         |  0.6656  |        2906        |    623     |    308    | {'variance thershold': 0.005}  |
+|        KBEST+5NN         |  0.6656  |        3000        |    623     |    308    |        {'kbest': 3000}         |
+|        TOPN+1KNN         |  0.6623  |        2372        |    623     |    308    |         {'top_n': 25}          |
+|         META+5NN         |  0.6623  |        2731        |    623     |    308    |               {}               |
+|         META+2NN         |  0.6623  |        2731        |    623     |    308    |               {}               |
+|        KBEST+5NN         |  0.6623  |        4000        |    623     |    308    |        {'kbest': 4000}         |
+|        KBEST+2NN         |  0.6623  |        5000        |    623     |    308    |        {'kbest': 5000}         |
+|        KBEST+1KNN        |  0.6623  |        5000        |    623     |    308    |        {'kbest': 5000}         |
+|        TOPN+LSVM         |  0.6591  |        372         |    623     |    308    |          {'top_n': 5}          |
+|         TOPN+2NN         |  0.6591  |        7005        |    623     |    308    |         {'top_n': 500}         |
+|         TOPN+2NN         |  0.6591  |        6692        |    623     |    308    |         {'top_n': 250}         |
+|        META+1KNN         |  0.6558  |        2731        |    623     |    308    |               {}               |
+|        KBEST+1KNN        |  0.6558  |        6000        |    623     |    308    |        {'kbest': 6000}         |
+|         TOPN+2NN         |  0.6526  |        2372        |    623     |    308    |         {'top_n': 25}          |
+|         LVAR+2NN         |  0.6526  |        9771        |    623     |    308    | {'variance thershold': 0.001}  |
+|         LVAR+2NN         |  0.6526  |        9771        |    623     |    308    | {'variance thershold': 0.0015} |
+|         LVAR+2NN         |  0.6526  |        9771        |    623     |    308    | {'variance thershold': 0.0005} |
+|        KBEST+1KNN        |  0.6526  |        4000        |    623     |    308    |        {'kbest': 4000}         |
+|         BOW+2NN          |  0.6526  |        9771        |    623     |    308    |               {}               |
+|        KBEST+5NN         |  0.6494  |        6000        |    623     |    308    |        {'kbest': 6000}         |
+|        KBEST+2NN         |  0.6494  |        6000        |    623     |    308    |        {'kbest': 6000}         |
+|         TOPN+5NN         |  0.6461  |        4897        |    623     |    308    |         {'top_n': 50}          |
+|        LVAR+1KNN         |  0.6429  |        9771        |    623     |    308    | {'variance thershold': 0.001}  |
+|        LVAR+1KNN         |  0.6429  |        9771        |    623     |    308    | {'variance thershold': 0.0015} |
+|        LVAR+1KNN         |  0.6429  |        9771        |    623     |    308    | {'variance thershold': 0.0005} |
+|        KBEST+2NN         |  0.6429  |        4000        |    623     |    308    |        {'kbest': 4000}         |
+|         BOW+1KNN         |  0.6429  |        9771        |    623     |    308    |               {}               |
+|         TOPN+5NN         |  0.6396  |        6692        |    623     |    308    |         {'top_n': 250}         |
+|         TOPN+5NN         |  0.6364  |        5777        |    623     |    308    |         {'top_n': 100}         |
+|         TOPN+5NN         |  0.6331  |        1940        |    623     |    308    |         {'top_n': 20}          |
+|         LVAR+5NN         |  0.6331  |        3637        |    623     |    308    | {'variance thershold': 0.004}  |
+|        KBEST+5NN         |  0.6331  |        5000        |    623     |    308    |        {'kbest': 5000}         |
+|        KBEST+2NN         |  0.6331  |        3000        |    623     |    308    |        {'kbest': 3000}         |
+|         TOPN+5NN         |  0.6299  |        7005        |    623     |    308    |         {'top_n': 500}         |
+|         TOPN+5NN         |  0.6299  |        2372        |    623     |    308    |         {'top_n': 25}          |
+|        KBEST+1KNN        |  0.6201  |        3000        |    623     |    308    |        {'kbest': 3000}         |
+|         LVAR+5NN         |  0.6169  |        9771        |    623     |    308    | {'variance thershold': 0.001}  |
+|         LVAR+5NN         |  0.6169  |        9771        |    623     |    308    | {'variance thershold': 0.0015} |
+|         LVAR+5NN         |  0.6169  |        9771        |    623     |    308    | {'variance thershold': 0.0005} |
+|         BOW+5NN          |  0.6169  |        9771        |    623     |    308    |               {}               |
++--------------------------+----------+--------------------+------------+-----------+--------------------------------+
+Execution time: 232.1071627
+!END OF THE EXPERIMENT!
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

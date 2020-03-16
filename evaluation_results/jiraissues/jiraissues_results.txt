@@ -1,0 +1,508 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+!START OF THE EXPERIMENT!
+DATASET DIR PATH: C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\datasets\jiraissues
+MIN NUMBER OF DOCUMENTS PER SELECTED COMMUNITY: 2
+VARIANCE THRESHOLD: [0.0005, 0.001, 0.0015, 0.002, 0.003, 0.004, 0.005, 0.01]
+SELECT KBEST K: [1000, 2000, 3000, 4000, 5000, 6000, 7000, 10000, 14000]
+TOP N SELECTED COMMUNITY TERMS: [5, 10, 15, 20, 25, 50, 100, 250, 500]
+Number of selected documents: 4820
+EXAMPLE OF THE PANDAS DATAFRAME
+                  identifier          class  class_number                                               text
+14142  purplecabbage_CB-6956  purplecabbage            13  cordova platform update wp8 fails https github...
+2787     ancosen_CAMEL-13048        ancosen             2  camel aggregate example remove camel hawtdb re...
+Number of unique classes: 15
+Number of features in BOWEvaluator:14539
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\linear_model\_logistic.py:940: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  extra_warning_msg=_LOGISTIC_SOLVER_CONVERGENCE_MSG)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\svm\_base.py:947: ConvergenceWarning: Liblinear failed to converge, increase the number of iterations.
+  "the number of iterations.", ConvergenceWarning)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\svm\_base.py:947: ConvergenceWarning: Liblinear failed to converge, increase the number of iterations.
+  "the number of iterations.", ConvergenceWarning)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\linear_model\_logistic.py:940: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  extra_warning_msg=_LOGISTIC_SOLVER_CONVERGENCE_MSG)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\svm\_base.py:947: ConvergenceWarning: Liblinear failed to converge, increase the number of iterations.
+  "the number of iterations.", ConvergenceWarning)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\linear_model\_logistic.py:940: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  extra_warning_msg=_LOGISTIC_SOLVER_CONVERGENCE_MSG)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\svm\_base.py:947: ConvergenceWarning: Liblinear failed to converge, increase the number of iterations.
+  "the number of iterations.", ConvergenceWarning)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\linear_model\_logistic.py:940: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  extra_warning_msg=_LOGISTIC_SOLVER_CONVERGENCE_MSG)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\svm\_base.py:947: ConvergenceWarning: Liblinear failed to converge, increase the number of iterations.
+  "the number of iterations.", ConvergenceWarning)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\linear_model\_logistic.py:940: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  extra_warning_msg=_LOGISTIC_SOLVER_CONVERGENCE_MSG)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\svm\_base.py:947: ConvergenceWarning: Liblinear failed to converge, increase the number of iterations.
+  "the number of iterations.", ConvergenceWarning)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\linear_model\_logistic.py:940: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  extra_warning_msg=_LOGISTIC_SOLVER_CONVERGENCE_MSG)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\svm\_base.py:947: ConvergenceWarning: Liblinear failed to converge, increase the number of iterations.
+  "the number of iterations.", ConvergenceWarning)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\linear_model\_logistic.py:940: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  extra_warning_msg=_LOGISTIC_SOLVER_CONVERGENCE_MSG)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\svm\_base.py:947: ConvergenceWarning: Liblinear failed to converge, increase the number of iterations.
+  "the number of iterations.", ConvergenceWarning)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\linear_model\_logistic.py:940: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  extra_warning_msg=_LOGISTIC_SOLVER_CONVERGENCE_MSG)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\svm\_base.py:947: ConvergenceWarning: Liblinear failed to converge, increase the number of iterations.
+  "the number of iterations.", ConvergenceWarning)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\linear_model\_logistic.py:940: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  extra_warning_msg=_LOGISTIC_SOLVER_CONVERGENCE_MSG)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\svm\_base.py:947: ConvergenceWarning: Liblinear failed to converge, increase the number of iterations.
+  "the number of iterations.", ConvergenceWarning)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\linear_model\_logistic.py:940: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  extra_warning_msg=_LOGISTIC_SOLVER_CONVERGENCE_MSG)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\svm\_base.py:947: ConvergenceWarning: Liblinear failed to converge, increase the number of iterations.
+  "the number of iterations.", ConvergenceWarning)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\linear_model\_logistic.py:940: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  extra_warning_msg=_LOGISTIC_SOLVER_CONVERGENCE_MSG)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\svm\_base.py:947: ConvergenceWarning: Liblinear failed to converge, increase the number of iterations.
+  "the number of iterations.", ConvergenceWarning)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\neural_network\_multilayer_perceptron.py:571: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  % self.max_iter, ConvergenceWarning)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\linear_model\_logistic.py:940: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  extra_warning_msg=_LOGISTIC_SOLVER_CONVERGENCE_MSG)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\svm\_base.py:947: ConvergenceWarning: Liblinear failed to converge, increase the number of iterations.
+  "the number of iterations.", ConvergenceWarning)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\neural_network\_multilayer_perceptron.py:571: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  % self.max_iter, ConvergenceWarning)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\linear_model\_logistic.py:940: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  extra_warning_msg=_LOGISTIC_SOLVER_CONVERGENCE_MSG)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\svm\_base.py:947: ConvergenceWarning: Liblinear failed to converge, increase the number of iterations.
+  "the number of iterations.", ConvergenceWarning)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\linear_model\_logistic.py:940: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  extra_warning_msg=_LOGISTIC_SOLVER_CONVERGENCE_MSG)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\svm\_base.py:947: ConvergenceWarning: Liblinear failed to converge, increase the number of iterations.
+  "the number of iterations.", ConvergenceWarning)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\linear_model\_logistic.py:940: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  extra_warning_msg=_LOGISTIC_SOLVER_CONVERGENCE_MSG)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\svm\_base.py:947: ConvergenceWarning: Liblinear failed to converge, increase the number of iterations.
+  "the number of iterations.", ConvergenceWarning)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\linear_model\_logistic.py:940: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  extra_warning_msg=_LOGISTIC_SOLVER_CONVERGENCE_MSG)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\svm\_base.py:947: ConvergenceWarning: Liblinear failed to converge, increase the number of iterations.
+  "the number of iterations.", ConvergenceWarning)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\linear_model\_logistic.py:940: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  extra_warning_msg=_LOGISTIC_SOLVER_CONVERGENCE_MSG)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\svm\_base.py:947: ConvergenceWarning: Liblinear failed to converge, increase the number of iterations.
+  "the number of iterations.", ConvergenceWarning)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\linear_model\_logistic.py:940: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  extra_warning_msg=_LOGISTIC_SOLVER_CONVERGENCE_MSG)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\svm\_base.py:947: ConvergenceWarning: Liblinear failed to converge, increase the number of iterations.
+  "the number of iterations.", ConvergenceWarning)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\linear_model\_logistic.py:940: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  extra_warning_msg=_LOGISTIC_SOLVER_CONVERGENCE_MSG)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\svm\_base.py:947: ConvergenceWarning: Liblinear failed to converge, increase the number of iterations.
+  "the number of iterations.", ConvergenceWarning)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\linear_model\_logistic.py:940: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  extra_warning_msg=_LOGISTIC_SOLVER_CONVERGENCE_MSG)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\svm\_base.py:947: ConvergenceWarning: Liblinear failed to converge, increase the number of iterations.
+  "the number of iterations.", ConvergenceWarning)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\linear_model\_logistic.py:940: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  extra_warning_msg=_LOGISTIC_SOLVER_CONVERGENCE_MSG)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\svm\_base.py:947: ConvergenceWarning: Liblinear failed to converge, increase the number of iterations.
+  "the number of iterations.", ConvergenceWarning)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\linear_model\_logistic.py:940: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  extra_warning_msg=_LOGISTIC_SOLVER_CONVERGENCE_MSG)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\svm\_base.py:947: ConvergenceWarning: Liblinear failed to converge, increase the number of iterations.
+  "the number of iterations.", ConvergenceWarning)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\linear_model\_logistic.py:940: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  extra_warning_msg=_LOGISTIC_SOLVER_CONVERGENCE_MSG)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\svm\_base.py:947: ConvergenceWarning: Liblinear failed to converge, increase the number of iterations.
+  "the number of iterations.", ConvergenceWarning)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\linear_model\_logistic.py:940: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  extra_warning_msg=_LOGISTIC_SOLVER_CONVERGENCE_MSG)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\svm\_base.py:947: ConvergenceWarning: Liblinear failed to converge, increase the number of iterations.
+  "the number of iterations.", ConvergenceWarning)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\linear_model\_logistic.py:940: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  extra_warning_msg=_LOGISTIC_SOLVER_CONVERGENCE_MSG)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\svm\_base.py:947: ConvergenceWarning: Liblinear failed to converge, increase the number of iterations.
+  "the number of iterations.", ConvergenceWarning)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\linear_model\_logistic.py:940: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  extra_warning_msg=_LOGISTIC_SOLVER_CONVERGENCE_MSG)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\svm\_base.py:947: ConvergenceWarning: Liblinear failed to converge, increase the number of iterations.
+  "the number of iterations.", ConvergenceWarning)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\linear_model\_logistic.py:940: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  extra_warning_msg=_LOGISTIC_SOLVER_CONVERGENCE_MSG)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\svm\_base.py:947: ConvergenceWarning: Liblinear failed to converge, increase the number of iterations.
+  "the number of iterations.", ConvergenceWarning)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\linear_model\_logistic.py:940: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  extra_warning_msg=_LOGISTIC_SOLVER_CONVERGENCE_MSG)
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\svm\_base.py:947: ConvergenceWarning: Liblinear failed to converge, increase the number of iterations.
+  "the number of iterations.", ConvergenceWarning)
+EXAMPLE OF THE EVALUATION RESULTS PANDAS DATAFRAME
+   Method  Accuracy  Number of features  Train size  Test size Classifier  variance thershold  kbest  top_n
+0  BOW+NB    0.6989               14539        3229       1591         NB                 NaN    NaN    NaN
+1  BOW+LR    0.7461               14539        3229       1591         LR                 NaN    NaN    NaN
++--------------------------+----------+--------------------+------------+-----------+--------------------------------+
+|          Method          | Accuracy | Number of features | Train size | Test size |            Details             |
++--------------------------+----------+--------------------+------------+-----------+--------------------------------+
+| Graph-of-docs Classifier |  0.7649  |        N/A         |    N/A     |    1591   |                                |
+|      TOPN+NN100x50       |  0.7542  |        6404        |    3229    |    1591   |         {'top_n': 250}         |
+|      TOPN+NN100x50       |  0.7536  |        2064        |    3229    |    1591   |         {'top_n': 15}          |
+|         TOPN+LR          |  0.7517  |        2598        |    3229    |    1591   |         {'top_n': 20}          |
+|      TOPN+NN100x50       |  0.7511  |        2598        |    3229    |    1591   |         {'top_n': 20}          |
+|         TOPN+LR          |  0.7511  |        5595        |    3229    |    1591   |         {'top_n': 100}         |
+|         TOPN+LR          |  0.7511  |        4424        |    3229    |    1591   |         {'top_n': 50}          |
+|      TOPN+NN100x50       |  0.7486  |        6654        |    3229    |    1591   |         {'top_n': 500}         |
+|      TOPN+NN100x50       |  0.7473  |        5595        |    3229    |    1591   |         {'top_n': 100}         |
+|         TOPN+LR          |  0.7473  |        3045        |    3229    |    1591   |         {'top_n': 25}          |
+|         TOPN+LR          |  0.7467  |        2064        |    3229    |    1591   |         {'top_n': 15}          |
+|      META+NN100x50       |  0.7467  |        2942        |    3229    |    1591   |               {}               |
+|         META+LR          |  0.7461  |        2942        |    3229    |    1591   |               {}               |
+|         KBEST+LR         |  0.7461  |        6000        |    3229    |    1591   |        {'kbest': 6000}         |
+|          BOW+LR          |  0.7461  |       14539        |    3229    |    1591   |               {}               |
+|         KBEST+LR         |  0.7454  |       10000        |    3229    |    1591   |        {'kbest': 10000}        |
+|         TOPN+LR          |  0.7448  |        6404        |    3229    |    1591   |         {'top_n': 250}         |
+|         LVAR+LR          |  0.7442  |        9706        |    3229    |    1591   | {'variance thershold': 0.0005} |
+|      TOPN+NN100x50       |  0.7436  |        4424        |    3229    |    1591   |         {'top_n': 50}          |
+|         TOPN+LR          |  0.7436  |        6654        |    3229    |    1591   |         {'top_n': 500}         |
+|         KBEST+LR         |  0.7436  |       14000        |    3229    |    1591   |        {'kbest': 14000}        |
+|      KBEST+NN100x50      |  0.7423  |       10000        |    3229    |    1591   |        {'kbest': 10000}        |
+|      TOPN+NN100x50       |  0.7417  |        1533        |    3229    |    1591   |         {'top_n': 10}          |
+|       BOW+NN100x50       |  0.741   |       14539        |    3229    |    1591   |               {}               |
+|         LVAR+LR          |  0.7404  |        8221        |    3229    |    1591   | {'variance thershold': 0.001}  |
+|      LVAR+NN100x50       |  0.7398  |        6489        |    3229    |    1591   | {'variance thershold': 0.0015} |
+|         TOPN+LR          |  0.7392  |        1533        |    3229    |    1591   |         {'top_n': 10}          |
+|      LVAR+NN100x50       |  0.7385  |        4821        |    3229    |    1591   | {'variance thershold': 0.003}  |
+|      LVAR+NN100x50       |  0.7379  |        9706        |    3229    |    1591   | {'variance thershold': 0.0005} |
+|         LVAR+LR          |  0.7373  |        5833        |    3229    |    1591   | {'variance thershold': 0.002}  |
+|         LVAR+LR          |  0.736   |        6489        |    3229    |    1591   | {'variance thershold': 0.0015} |
+|         KBEST+LR         |  0.7354  |        7000        |    3229    |    1591   |        {'kbest': 7000}         |
+|        TOPN+LSVM         |  0.7348  |        3045        |    3229    |    1591   |         {'top_n': 25}          |
+|      LVAR+NN100x50       |  0.7348  |        8221        |    3229    |    1591   | {'variance thershold': 0.001}  |
+|      KBEST+NN100x50      |  0.7341  |        6000        |    3229    |    1591   |        {'kbest': 6000}         |
+|         TOPN+LR          |  0.7335  |        905         |    3229    |    1591   |          {'top_n': 5}          |
+|      KBEST+NN100x50      |  0.7335  |       14000        |    3229    |    1591   |        {'kbest': 14000}        |
+|         LVAR+LR          |  0.7322  |        4450        |    3229    |    1591   | {'variance thershold': 0.004}  |
+|        TOPN+LSVM         |  0.7316  |        4424        |    3229    |    1591   |         {'top_n': 50}          |
+|         LVAR+LR          |  0.7316  |        4821        |    3229    |    1591   | {'variance thershold': 0.003}  |
+|         LVAR+LR          |  0.7316  |        3766        |    3229    |    1591   | {'variance thershold': 0.005}  |
+|        META+LSVM         |  0.731   |        2942        |    3229    |    1591   |               {}               |
+|        TOPN+LSVM         |  0.7304  |        6404        |    3229    |    1591   |         {'top_n': 250}         |
+|      LVAR+NN100x50       |  0.7304  |        5833        |    3229    |    1591   | {'variance thershold': 0.002}  |
+|      LVAR+NN100x50       |  0.7304  |        4450        |    3229    |    1591   | {'variance thershold': 0.004}  |
+|         KBEST+LR         |  0.7304  |        5000        |    3229    |    1591   |        {'kbest': 5000}         |
+|         BOW+LSVM         |  0.7304  |       14539        |    3229    |    1591   |               {}               |
+|         LVAR+LR          |  0.7297  |        2771        |    3229    |    1591   |  {'variance thershold': 0.01}  |
+|        TOPN+LSVM         |  0.7291  |        6654        |    3229    |    1591   |         {'top_n': 500}         |
+|      LVAR+NN100x50       |  0.7291  |        3766        |    3229    |    1591   | {'variance thershold': 0.005}  |
+|        LVAR+LSVM         |  0.7291  |        9706        |    3229    |    1591   | {'variance thershold': 0.0005} |
+|         KBEST+LR         |  0.7291  |        4000        |    3229    |    1591   |        {'kbest': 4000}         |
+|        TOPN+LSVM         |  0.7285  |        2064        |    3229    |    1591   |         {'top_n': 15}          |
+|        TOPN+LSVM         |  0.7285  |        1533        |    3229    |    1591   |         {'top_n': 10}          |
+|      LVAR+NN100x50       |  0.7285  |        2771        |    3229    |    1591   |  {'variance thershold': 0.01}  |
+|      TOPN+NN100x50       |  0.7278  |        905         |    3229    |    1591   |          {'top_n': 5}          |
+|        TOPN+LSVM         |  0.7278  |        2598        |    3229    |    1591   |         {'top_n': 20}          |
+|      KBEST+NN100x50      |  0.7278  |        4000        |    3229    |    1591   |        {'kbest': 4000}         |
+|        TOPN+LSVM         |  0.7272  |        5595        |    3229    |    1591   |         {'top_n': 100}         |
+|        KBEST+LSVM        |  0.7253  |        6000        |    3229    |    1591   |        {'kbest': 6000}         |
+|      TOPN+NN100x50       |  0.7234  |        3045        |    3229    |    1591   |         {'top_n': 25}          |
+|      KBEST+NN100x50      |  0.7234  |        5000        |    3229    |    1591   |        {'kbest': 5000}         |
+|        KBEST+LSVM        |  0.7222  |       14000        |    3229    |    1591   |        {'kbest': 14000}        |
+|        KBEST+LSVM        |  0.7209  |        5000        |    3229    |    1591   |        {'kbest': 5000}         |
+|        LVAR+LSVM         |  0.7197  |        8221        |    3229    |    1591   | {'variance thershold': 0.001}  |
+|        TOPN+LSVM         |  0.719   |        905         |    3229    |    1591   |          {'top_n': 5}          |
+|        LVAR+LSVM         |  0.719   |        5833        |    3229    |    1591   | {'variance thershold': 0.002}  |
+|        LVAR+LSVM         |  0.719   |        3766        |    3229    |    1591   | {'variance thershold': 0.005}  |
+|         KBEST+LR         |  0.7184  |        3000        |    3229    |    1591   |        {'kbest': 3000}         |
+|        LVAR+LSVM         |  0.7178  |        6489        |    3229    |    1591   | {'variance thershold': 0.0015} |
+|        LVAR+LSVM         |  0.7165  |        4450        |    3229    |    1591   | {'variance thershold': 0.004}  |
+|      KBEST+NN100x50      |  0.7165  |        3000        |    3229    |    1591   |        {'kbest': 3000}         |
+|        KBEST+LSVM        |  0.7146  |        7000        |    3229    |    1591   |        {'kbest': 7000}         |
+|        LVAR+LSVM         |  0.7134  |        2771        |    3229    |    1591   |  {'variance thershold': 0.01}  |
+|        KBEST+LSVM        |  0.7134  |        4000        |    3229    |    1591   |        {'kbest': 4000}         |
+|        LVAR+LSVM         |  0.7128  |        4821        |    3229    |    1591   | {'variance thershold': 0.003}  |
+|        KBEST+LSVM        |  0.7128  |       10000        |    3229    |    1591   |        {'kbest': 10000}        |
+|         KBEST+LR         |  0.709   |        2000        |    3229    |    1591   |        {'kbest': 2000}         |
+|      KBEST+NN100x50      |  0.7046  |        2000        |    3229    |    1591   |        {'kbest': 2000}         |
+|        KBEST+LSVM        |  0.7046  |        3000        |    3229    |    1591   |        {'kbest': 3000}         |
+|      KBEST+NN100x50      |  0.704   |        7000        |    3229    |    1591   |        {'kbest': 7000}         |
+|        KBEST+LSVM        |  0.7002  |        2000        |    3229    |    1591   |        {'kbest': 2000}         |
+|         META+NB          |  0.6989  |        2942        |    3229    |    1591   |               {}               |
+|          BOW+NB          |  0.6989  |       14539        |    3229    |    1591   |               {}               |
+|         TOPN+NB          |  0.6958  |        6654        |    3229    |    1591   |         {'top_n': 500}         |
+|         TOPN+NB          |  0.6958  |        6404        |    3229    |    1591   |         {'top_n': 250}         |
+|         TOPN+NB          |  0.6958  |        4424        |    3229    |    1591   |         {'top_n': 50}          |
+|         KBEST+NB         |  0.6952  |       14000        |    3229    |    1591   |        {'kbest': 14000}        |
+|         TOPN+NB          |  0.6945  |        2064        |    3229    |    1591   |         {'top_n': 15}          |
+|         TOPN+NB          |  0.6933  |        3045        |    3229    |    1591   |         {'top_n': 25}          |
+|         TOPN+NB          |  0.6933  |        1533        |    3229    |    1591   |         {'top_n': 10}          |
+|         LVAR+NB          |  0.6933  |        9706        |    3229    |    1591   | {'variance thershold': 0.0005} |
+|         TOPN+NB          |  0.692   |        2598        |    3229    |    1591   |         {'top_n': 20}          |
+|         TOPN+NB          |  0.6914  |        5595        |    3229    |    1591   |         {'top_n': 100}         |
+|         KBEST+NB         |  0.6914  |       10000        |    3229    |    1591   |        {'kbest': 10000}        |
+|         KBEST+NB         |  0.6914  |        7000        |    3229    |    1591   |        {'kbest': 7000}         |
+|         KBEST+NB         |  0.6901  |        6000        |    3229    |    1591   |        {'kbest': 6000}         |
+|         LVAR+NB          |  0.6895  |        8221        |    3229    |    1591   | {'variance thershold': 0.001}  |
+|         LVAR+NB          |  0.6889  |        5833        |    3229    |    1591   | {'variance thershold': 0.002}  |
+|         LVAR+NB          |  0.6882  |        6489        |    3229    |    1591   | {'variance thershold': 0.0015} |
+|         TOPN+NB          |  0.687   |        905         |    3229    |    1591   |          {'top_n': 5}          |
+|         LVAR+NB          |  0.6857  |        4821        |    3229    |    1591   | {'variance thershold': 0.003}  |
+|         TOPN+2NN         |  0.6826  |        2064        |    3229    |    1591   |         {'top_n': 15}          |
+|         TOPN+5NN         |  0.682   |        905         |    3229    |    1591   |          {'top_n': 5}          |
+|        TOPN+1KNN         |  0.682   |        2064        |    3229    |    1591   |         {'top_n': 15}          |
+|         KBEST+NB         |  0.682   |        5000        |    3229    |    1591   |        {'kbest': 5000}         |
+|        TOPN+1KNN         |  0.6807  |        2598        |    3229    |    1591   |         {'top_n': 20}          |
+|         LVAR+NB          |  0.6801  |        4450        |    3229    |    1591   | {'variance thershold': 0.004}  |
+|         TOPN+2NN         |  0.6794  |        2598        |    3229    |    1591   |         {'top_n': 20}          |
+|        TOPN+1KNN         |  0.6788  |        3045        |    3229    |    1591   |         {'top_n': 25}          |
+|        TOPN+1KNN         |  0.6782  |        4424        |    3229    |    1591   |         {'top_n': 50}          |
+|         KBEST+LR         |  0.6776  |        1000        |    3229    |    1591   |        {'kbest': 1000}         |
+|         TOPN+2NN         |  0.6763  |        3045        |    3229    |    1591   |         {'top_n': 25}          |
+|        TOPN+1KNN         |  0.6763  |        5595        |    3229    |    1591   |         {'top_n': 100}         |
+|         KBEST+NB         |  0.6763  |        4000        |    3229    |    1591   |        {'kbest': 4000}         |
+|         TOPN+2NN         |  0.6757  |        1533        |    3229    |    1591   |         {'top_n': 10}          |
+|        TOPN+1KNN         |  0.675   |        1533        |    3229    |    1591   |         {'top_n': 10}          |
+|        KBEST+LSVM        |  0.675   |        1000        |    3229    |    1591   |        {'kbest': 1000}         |
+|         TOPN+2NN         |  0.6744  |        5595        |    3229    |    1591   |         {'top_n': 100}         |
+|        TOPN+1KNN         |  0.6744  |        905         |    3229    |    1591   |          {'top_n': 5}          |
+|        TOPN+1KNN         |  0.6738  |        6404        |    3229    |    1591   |         {'top_n': 250}         |
+|         TOPN+2NN         |  0.6725  |        6654        |    3229    |    1591   |         {'top_n': 500}         |
+|         TOPN+2NN         |  0.6725  |        6404        |    3229    |    1591   |         {'top_n': 250}         |
+|      KBEST+NN100x50      |  0.6725  |        1000        |    3229    |    1591   |        {'kbest': 1000}         |
+|         LVAR+NB          |  0.6719  |        3766        |    3229    |    1591   | {'variance thershold': 0.005}  |
+|         KBEST+NB         |  0.6719  |        2000        |    3229    |    1591   |        {'kbest': 2000}         |
+|         LVAR+NB          |  0.6713  |        2771        |    3229    |    1591   |  {'variance thershold': 0.01}  |
+|        TOPN+1KNN         |  0.6706  |        6654        |    3229    |    1591   |         {'top_n': 500}         |
+|         TOPN+2NN         |  0.6694  |        4424        |    3229    |    1591   |         {'top_n': 50}          |
+|        META+1KNN         |  0.6688  |        2942        |    3229    |    1591   |               {}               |
+|         TOPN+2NN         |  0.6675  |        905         |    3229    |    1591   |          {'top_n': 5}          |
+|        KBEST+2NN         |  0.6675  |       14000        |    3229    |    1591   |        {'kbest': 14000}        |
+|        LVAR+1KNN         |  0.6669  |        4821        |    3229    |    1591   | {'variance thershold': 0.003}  |
+|         TOPN+5NN         |  0.6662  |        1533        |    3229    |    1591   |         {'top_n': 10}          |
+|         META+2NN         |  0.6662  |        2942        |    3229    |    1591   |               {}               |
+|        KBEST+2NN         |  0.6662  |       10000        |    3229    |    1591   |        {'kbest': 10000}        |
+|         TOPN+5NN         |  0.6656  |        2598        |    3229    |    1591   |         {'top_n': 20}          |
+|        LVAR+1KNN         |  0.6656  |        4450        |    3229    |    1591   | {'variance thershold': 0.004}  |
+|         LVAR+2NN         |  0.6644  |        8221        |    3229    |    1591   | {'variance thershold': 0.001}  |
+|         LVAR+2NN         |  0.6644  |        4450        |    3229    |    1591   | {'variance thershold': 0.004}  |
+|        KBEST+5NN         |  0.6644  |        4000        |    3229    |    1591   |        {'kbest': 4000}         |
+|        KBEST+2NN         |  0.6644  |        5000        |    3229    |    1591   |        {'kbest': 5000}         |
+|         BOW+2NN          |  0.6644  |       14539        |    3229    |    1591   |               {}               |
+|         LVAR+2NN         |  0.6637  |        4821        |    3229    |    1591   | {'variance thershold': 0.003}  |
+|         BOW+1KNN         |  0.6637  |       14539        |    3229    |    1591   |               {}               |
+|        KBEST+1KNN        |  0.6631  |       10000        |    3229    |    1591   |        {'kbest': 10000}        |
+|        KBEST+1KNN        |  0.6631  |        5000        |    3229    |    1591   |        {'kbest': 5000}         |
+|         KBEST+NB         |  0.6625  |        3000        |    3229    |    1591   |        {'kbest': 3000}         |
+|         LVAR+2NN         |  0.6618  |        5833        |    3229    |    1591   | {'variance thershold': 0.002}  |
+|        KBEST+2NN         |  0.6606  |        6000        |    3229    |    1591   |        {'kbest': 6000}         |
+|        KBEST+1KNN        |  0.6606  |        6000        |    3229    |    1591   |        {'kbest': 6000}         |
+|         LVAR+2NN         |  0.6593  |        9706        |    3229    |    1591   | {'variance thershold': 0.0005} |
+|        KBEST+1KNN        |  0.6593  |       14000        |    3229    |    1591   |        {'kbest': 14000}        |
+|         TOPN+5NN         |  0.6574  |        2064        |    3229    |    1591   |         {'top_n': 15}          |
+|         LVAR+2NN         |  0.6574  |        6489        |    3229    |    1591   | {'variance thershold': 0.0015} |
+|        LVAR+1KNN         |  0.6574  |        5833        |    3229    |    1591   | {'variance thershold': 0.002}  |
+|        KBEST+5NN         |  0.6568  |        5000        |    3229    |    1591   |        {'kbest': 5000}         |
+|        LVAR+1KNN         |  0.6562  |        8221        |    3229    |    1591   | {'variance thershold': 0.001}  |
+|        KBEST+2NN         |  0.6562  |        7000        |    3229    |    1591   |        {'kbest': 7000}         |
+|        KBEST+2NN         |  0.6562  |        4000        |    3229    |    1591   |        {'kbest': 4000}         |
+|        KBEST+1KNN        |  0.6562  |        7000        |    3229    |    1591   |        {'kbest': 7000}         |
+|        KBEST+1KNN        |  0.6556  |        4000        |    3229    |    1591   |        {'kbest': 4000}         |
+|         TOPN+5NN         |  0.6549  |        3045        |    3229    |    1591   |         {'top_n': 25}          |
+|        LVAR+1KNN         |  0.6543  |        6489        |    3229    |    1591   | {'variance thershold': 0.0015} |
+|        LVAR+1KNN         |  0.6537  |        3766        |    3229    |    1591   | {'variance thershold': 0.005}  |
+|        KBEST+5NN         |  0.6518  |        6000        |    3229    |    1591   |        {'kbest': 6000}         |
+|        LVAR+1KNN         |  0.6512  |        9706        |    3229    |    1591   | {'variance thershold': 0.0005} |
+|         LVAR+2NN         |  0.6499  |        3766        |    3229    |    1591   | {'variance thershold': 0.005}  |
+|        KBEST+1KNN        |  0.6499  |        3000        |    3229    |    1591   |        {'kbest': 3000}         |
+|         LVAR+5NN         |  0.6493  |        2771        |    3229    |    1591   |  {'variance thershold': 0.01}  |
+|        KBEST+2NN         |  0.6493  |        2000        |    3229    |    1591   |        {'kbest': 2000}         |
+|         BOW+5NN          |  0.6486  |       14539        |    3229    |    1591   |               {}               |
+|        KBEST+2NN         |  0.648   |        3000        |    3229    |    1591   |        {'kbest': 3000}         |
+|        LVAR+1KNN         |  0.6474  |        2771        |    3229    |    1591   |  {'variance thershold': 0.01}  |
+|        KBEST+1KNN        |  0.6474  |        2000        |    3229    |    1591   |        {'kbest': 2000}         |
+|         TOPN+5NN         |  0.6468  |        4424        |    3229    |    1591   |         {'top_n': 50}          |
+|         LVAR+5NN         |  0.6455  |        4821        |    3229    |    1591   | {'variance thershold': 0.003}  |
+|        KBEST+5NN         |  0.6455  |       10000        |    3229    |    1591   |        {'kbest': 10000}        |
+|         TOPN+5NN         |  0.6449  |        6404        |    3229    |    1591   |         {'top_n': 250}         |
+|         LVAR+2NN         |  0.6449  |        2771        |    3229    |    1591   |  {'variance thershold': 0.01}  |
+|        KBEST+5NN         |  0.6449  |       14000        |    3229    |    1591   |        {'kbest': 14000}        |
+|        KBEST+5NN         |  0.6449  |        3000        |    3229    |    1591   |        {'kbest': 3000}         |
+|        KBEST+5NN         |  0.6449  |        2000        |    3229    |    1591   |        {'kbest': 2000}         |
+|         TOPN+5NN         |  0.643   |        5595        |    3229    |    1591   |         {'top_n': 100}         |
+|        KBEST+5NN         |  0.643   |        7000        |    3229    |    1591   |        {'kbest': 7000}         |
+|         TOPN+5NN         |  0.6417  |        6654        |    3229    |    1591   |         {'top_n': 500}         |
+|         LVAR+5NN         |  0.6411  |        9706        |    3229    |    1591   | {'variance thershold': 0.0005} |
+|         LVAR+5NN         |  0.6386  |        8221        |    3229    |    1591   | {'variance thershold': 0.001}  |
+|        KBEST+2NN         |  0.638   |        1000        |    3229    |    1591   |        {'kbest': 1000}         |
+|         LVAR+5NN         |  0.6354  |        4450        |    3229    |    1591   | {'variance thershold': 0.004}  |
+|         LVAR+5NN         |  0.6354  |        3766        |    3229    |    1591   | {'variance thershold': 0.005}  |
+|         META+5NN         |  0.6329  |        2942        |    3229    |    1591   |               {}               |
+|         LVAR+5NN         |  0.6279  |        6489        |    3229    |    1591   | {'variance thershold': 0.0015} |
+|         LVAR+5NN         |  0.6273  |        5833        |    3229    |    1591   | {'variance thershold': 0.002}  |
+|        KBEST+1KNN        |  0.6273  |        1000        |    3229    |    1591   |        {'kbest': 1000}         |
+|         KBEST+NB         |  0.6235  |        1000        |    3229    |    1591   |        {'kbest': 1000}         |
+|        KBEST+5NN         |  0.616   |        1000        |    3229    |    1591   |        {'kbest': 1000}         |
++--------------------------+----------+--------------------+------------+-----------+--------------------------------+
+Execution time: 1539.0853284
+!END OF THE EXPERIMENT!
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
