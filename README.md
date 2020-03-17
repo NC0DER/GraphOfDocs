@@ -1,8 +1,8 @@
 # Graph-of-docs text representation
 
 This repository hosts code for the papers:
-* [On a novel representation of multiple textual documents in a single graph (KES-IDT 2020) - master_idt_2020 branch]()
-* [An innovative graph-based approach to advance feature selection from multiple textual documents (AIAI 2020)]()
+* [On a novel representation of multiple textual documents in a single graph (KES-IDT 2020)](https://github.com/NC0DER/GraphOfDocs/tree/785c32db1b55ff3684a980757f54c127f821c6db) - [Download](https://github.com/NC0DER/GraphOfDocs/releases/tag/KES-IDT-2020)
+* [An innovative graph-based approach to advance feature selection from multiple textual documents (AIAI 2020)](https://github.com/NC0DER/GraphOfDocs) - [Download](https://github.com/NC0DER/GraphOfDocs/archive/master.zip)
 
 ![image1](https://github.com/NC0DER/GraphOfDocs/blob/master/GraphOfDocs/images/GraphofDocs.jpg)
 
