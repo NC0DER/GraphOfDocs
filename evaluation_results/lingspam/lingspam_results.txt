@@ -1,0 +1,224 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+!START OF THE EXPERIMENT!
+DATASET DIR PATH: C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\datasets\lingspam
+MIN NUMBER OF DOCUMENTS PER SELECTED COMMUNITY: 2
+VARIANCE THRESHOLD: [0.0005, 0.001, 0.0015, 0.002, 0.003, 0.004, 0.005, 0.01]
+SELECT KBEST K: [1000, 2000, 3000, 4000, 5000, 6000, 7000, 10000, 14000]
+TOP N SELECTED COMMUNITY TERMS: [5, 10, 15, 20, 25, 50, 100, 250, 500]
+Number of selected documents: 816
+EXAMPLE OF THE PANDAS DATAFRAME
+              identifier class  class_number                                               text
+1530  msg_9-1191msg1.txt   msg             0  workshop embodied conversational characters ca...
+1769   msg_9-159msg2.txt   msg             0  evaluation parsing systems evaluation parsing ...
+Number of unique classes: 2
+Number of features in BOWEvaluator:16695
+C:\Users\USER\source\repos\GraphOfDocs\GraphOfDocs\Virtual Environment\lib\site-packages\sklearn\svm\_base.py:947: ConvergenceWarning: Liblinear failed to converge, increase the number of iterations.
+  "the number of iterations.", ConvergenceWarning)
+EXAMPLE OF THE EVALUATION RESULTS PANDAS DATAFRAME
+   Method  Accuracy  Number of features  Train size  Test size Classifier  variance thershold  kbest  top_n
+0  BOW+NB    0.9963               16695         546        270         NB                 NaN    NaN    NaN
+1  BOW+LR    1.0000               16695         546        270         LR                 NaN    NaN    NaN
++--------------------------+----------+--------------------+------------+-----------+--------------------------------+
+|          Method          | Accuracy | Number of features | Train size | Test size |            Details             |
++--------------------------+----------+--------------------+------------+-----------+--------------------------------+
+|      TOPN+NN100x50       |   1.0    |        8975        |    546     |    270    |         {'top_n': 250}         |
+|      TOPN+NN100x50       |   1.0    |        2274        |    546     |    270    |         {'top_n': 50}          |
+|      TOPN+NN100x50       |   1.0    |        995         |    546     |    270    |         {'top_n': 25}          |
+|      TOPN+NN100x50       |   1.0    |        758         |    546     |    270    |         {'top_n': 20}          |
+|         TOPN+LR          |   1.0    |       12104        |    546     |    270    |         {'top_n': 500}         |
+|         TOPN+LR          |   1.0    |        8975        |    546     |    270    |         {'top_n': 250}         |
+|         TOPN+LR          |   1.0    |        4443        |    546     |    270    |         {'top_n': 100}         |
+|         TOPN+LR          |   1.0    |        2274        |    546     |    270    |         {'top_n': 50}          |
+|         TOPN+LR          |   1.0    |        995         |    546     |    270    |         {'top_n': 25}          |
+|         TOPN+LR          |   1.0    |        758         |    546     |    270    |         {'top_n': 20}          |
+|         TOPN+LR          |   1.0    |        526         |    546     |    270    |         {'top_n': 15}          |
+|         TOPN+LR          |   1.0    |        296         |    546     |    270    |         {'top_n': 10}          |
+|         TOPN+LR          |   1.0    |        120         |    546     |    270    |          {'top_n': 5}          |
+|      META+NN100x50       |   1.0    |        2509        |    546     |    270    |               {}               |
+|        META+LSVM         |   1.0    |        2509        |    546     |    270    |               {}               |
+|         META+LR          |   1.0    |        2509        |    546     |    270    |               {}               |
+|      LVAR+NN100x50       |   1.0    |       11058        |    546     |    270    | {'variance thershold': 0.003}  |
+|      LVAR+NN100x50       |   1.0    |       11058        |    546     |    270    | {'variance thershold': 0.002}  |
+|        LVAR+LSVM         |   1.0    |       16695        |    546     |    270    | {'variance thershold': 0.001}  |
+|        LVAR+LSVM         |   1.0    |       16695        |    546     |    270    | {'variance thershold': 0.0015} |
+|        LVAR+LSVM         |   1.0    |       16695        |    546     |    270    | {'variance thershold': 0.0005} |
+|         LVAR+LR          |   1.0    |       16695        |    546     |    270    | {'variance thershold': 0.001}  |
+|         LVAR+LR          |   1.0    |       16695        |    546     |    270    | {'variance thershold': 0.0015} |
+|         LVAR+LR          |   1.0    |       16695        |    546     |    270    | {'variance thershold': 0.0005} |
+|         LVAR+LR          |   1.0    |       11058        |    546     |    270    | {'variance thershold': 0.003}  |
+|         LVAR+LR          |   1.0    |       11058        |    546     |    270    | {'variance thershold': 0.002}  |
+|         LVAR+LR          |   1.0    |        8234        |    546     |    270    | {'variance thershold': 0.005}  |
+|         LVAR+LR          |   1.0    |        8234        |    546     |    270    | {'variance thershold': 0.004}  |
+|      KBEST+NN100x50      |   1.0    |        1000        |    546     |    270    |        {'kbest': 1000}         |
+|        KBEST+LSVM        |   1.0    |        1000        |    546     |    270    |        {'kbest': 1000}         |
+|         KBEST+LR         |   1.0    |       14000        |    546     |    270    |        {'kbest': 14000}        |
+|         KBEST+LR         |   1.0    |       10000        |    546     |    270    |        {'kbest': 10000}        |
+|         KBEST+LR         |   1.0    |        1000        |    546     |    270    |        {'kbest': 1000}         |
+| Graph-of-docs Classifier |   1.0    |        N/A         |    N/A     |    270    |                                |
+|         BOW+LSVM         |   1.0    |       16695        |    546     |    270    |               {}               |
+|          BOW+LR          |   1.0    |       16695        |    546     |    270    |               {}               |
+|      TOPN+NN100x50       |  0.9963  |       12104        |    546     |    270    |         {'top_n': 500}         |
+|      TOPN+NN100x50       |  0.9963  |        4443        |    546     |    270    |         {'top_n': 100}         |
+|      TOPN+NN100x50       |  0.9963  |        120         |    546     |    270    |          {'top_n': 5}          |
+|         TOPN+NB          |  0.9963  |       12104        |    546     |    270    |         {'top_n': 500}         |
+|         TOPN+NB          |  0.9963  |        8975        |    546     |    270    |         {'top_n': 250}         |
+|         TOPN+NB          |  0.9963  |        4443        |    546     |    270    |         {'top_n': 100}         |
+|         TOPN+NB          |  0.9963  |        2274        |    546     |    270    |         {'top_n': 50}          |
+|        TOPN+LSVM         |  0.9963  |       12104        |    546     |    270    |         {'top_n': 500}         |
+|        TOPN+LSVM         |  0.9963  |        8975        |    546     |    270    |         {'top_n': 250}         |
+|        TOPN+LSVM         |  0.9963  |        4443        |    546     |    270    |         {'top_n': 100}         |
+|        TOPN+LSVM         |  0.9963  |        2274        |    546     |    270    |         {'top_n': 50}          |
+|        TOPN+LSVM         |  0.9963  |        995         |    546     |    270    |         {'top_n': 25}          |
+|        TOPN+LSVM         |  0.9963  |        758         |    546     |    270    |         {'top_n': 20}          |
+|        TOPN+LSVM         |  0.9963  |        526         |    546     |    270    |         {'top_n': 15}          |
+|        TOPN+LSVM         |  0.9963  |        296         |    546     |    270    |         {'top_n': 10}          |
+|        TOPN+LSVM         |  0.9963  |        120         |    546     |    270    |          {'top_n': 5}          |
+|         META+NB          |  0.9963  |        2509        |    546     |    270    |               {}               |
+|      LVAR+NN100x50       |  0.9963  |       16695        |    546     |    270    | {'variance thershold': 0.001}  |
+|      LVAR+NN100x50       |  0.9963  |       16695        |    546     |    270    | {'variance thershold': 0.0015} |
+|      LVAR+NN100x50       |  0.9963  |       16695        |    546     |    270    | {'variance thershold': 0.0005} |
+|      LVAR+NN100x50       |  0.9963  |        8234        |    546     |    270    | {'variance thershold': 0.005}  |
+|      LVAR+NN100x50       |  0.9963  |        8234        |    546     |    270    | {'variance thershold': 0.004}  |
+|      LVAR+NN100x50       |  0.9963  |        5464        |    546     |    270    |  {'variance thershold': 0.01}  |
+|         LVAR+NB          |  0.9963  |       16695        |    546     |    270    | {'variance thershold': 0.001}  |
+|         LVAR+NB          |  0.9963  |       16695        |    546     |    270    | {'variance thershold': 0.0015} |
+|         LVAR+NB          |  0.9963  |       16695        |    546     |    270    | {'variance thershold': 0.0005} |
+|         LVAR+NB          |  0.9963  |       11058        |    546     |    270    | {'variance thershold': 0.003}  |
+|         LVAR+NB          |  0.9963  |       11058        |    546     |    270    | {'variance thershold': 0.002}  |
+|         LVAR+NB          |  0.9963  |        8234        |    546     |    270    | {'variance thershold': 0.005}  |
+|         LVAR+NB          |  0.9963  |        8234        |    546     |    270    | {'variance thershold': 0.004}  |
+|        LVAR+LSVM         |  0.9963  |       11058        |    546     |    270    | {'variance thershold': 0.003}  |
+|        LVAR+LSVM         |  0.9963  |       11058        |    546     |    270    | {'variance thershold': 0.002}  |
+|        LVAR+LSVM         |  0.9963  |        8234        |    546     |    270    | {'variance thershold': 0.005}  |
+|        LVAR+LSVM         |  0.9963  |        8234        |    546     |    270    | {'variance thershold': 0.004}  |
+|        LVAR+LSVM         |  0.9963  |        5464        |    546     |    270    |  {'variance thershold': 0.01}  |
+|         LVAR+LR          |  0.9963  |        5464        |    546     |    270    |  {'variance thershold': 0.01}  |
+|      KBEST+NN100x50      |  0.9963  |       14000        |    546     |    270    |        {'kbest': 14000}        |
+|      KBEST+NN100x50      |  0.9963  |       10000        |    546     |    270    |        {'kbest': 10000}        |
+|      KBEST+NN100x50      |  0.9963  |        2000        |    546     |    270    |        {'kbest': 2000}         |
+|         KBEST+NB         |  0.9963  |       14000        |    546     |    270    |        {'kbest': 14000}        |
+|         KBEST+NB         |  0.9963  |       10000        |    546     |    270    |        {'kbest': 10000}        |
+|         KBEST+NB         |  0.9963  |        7000        |    546     |    270    |        {'kbest': 7000}         |
+|         KBEST+NB         |  0.9963  |        6000        |    546     |    270    |        {'kbest': 6000}         |
+|         KBEST+NB         |  0.9963  |        5000        |    546     |    270    |        {'kbest': 5000}         |
+|         KBEST+NB         |  0.9963  |        4000        |    546     |    270    |        {'kbest': 4000}         |
+|         KBEST+NB         |  0.9963  |        3000        |    546     |    270    |        {'kbest': 3000}         |
+|        KBEST+LSVM        |  0.9963  |       14000        |    546     |    270    |        {'kbest': 14000}        |
+|        KBEST+LSVM        |  0.9963  |       10000        |    546     |    270    |        {'kbest': 10000}        |
+|        KBEST+LSVM        |  0.9963  |        7000        |    546     |    270    |        {'kbest': 7000}         |
+|        KBEST+LSVM        |  0.9963  |        6000        |    546     |    270    |        {'kbest': 6000}         |
+|        KBEST+LSVM        |  0.9963  |        5000        |    546     |    270    |        {'kbest': 5000}         |
+|        KBEST+LSVM        |  0.9963  |        4000        |    546     |    270    |        {'kbest': 4000}         |
+|        KBEST+LSVM        |  0.9963  |        3000        |    546     |    270    |        {'kbest': 3000}         |
+|        KBEST+LSVM        |  0.9963  |        2000        |    546     |    270    |        {'kbest': 2000}         |
+|         KBEST+LR         |  0.9963  |        7000        |    546     |    270    |        {'kbest': 7000}         |
+|         KBEST+LR         |  0.9963  |        6000        |    546     |    270    |        {'kbest': 6000}         |
+|         KBEST+LR         |  0.9963  |        5000        |    546     |    270    |        {'kbest': 5000}         |
+|         KBEST+LR         |  0.9963  |        4000        |    546     |    270    |        {'kbest': 4000}         |
+|         KBEST+LR         |  0.9963  |        3000        |    546     |    270    |        {'kbest': 3000}         |
+|         KBEST+LR         |  0.9963  |        2000        |    546     |    270    |        {'kbest': 2000}         |
+|       BOW+NN100x50       |  0.9963  |       16695        |    546     |    270    |               {}               |
+|          BOW+NB          |  0.9963  |       16695        |    546     |    270    |               {}               |
+|      TOPN+NN100x50       |  0.9926  |        526         |    546     |    270    |         {'top_n': 15}          |
+|      TOPN+NN100x50       |  0.9926  |        296         |    546     |    270    |         {'top_n': 10}          |
+|         TOPN+5NN         |  0.9926  |        120         |    546     |    270    |          {'top_n': 5}          |
+|      KBEST+NN100x50      |  0.9926  |        7000        |    546     |    270    |        {'kbest': 7000}         |
+|      KBEST+NN100x50      |  0.9926  |        6000        |    546     |    270    |        {'kbest': 6000}         |
+|      KBEST+NN100x50      |  0.9926  |        5000        |    546     |    270    |        {'kbest': 5000}         |
+|      KBEST+NN100x50      |  0.9926  |        4000        |    546     |    270    |        {'kbest': 4000}         |
+|      KBEST+NN100x50      |  0.9926  |        3000        |    546     |    270    |        {'kbest': 3000}         |
+|        KBEST+1KNN        |  0.9889  |        3000        |    546     |    270    |        {'kbest': 3000}         |
+|         TOPN+2NN         |  0.9852  |        120         |    546     |    270    |          {'top_n': 5}          |
+|        TOPN+1KNN         |  0.9852  |        120         |    546     |    270    |          {'top_n': 5}          |
+|        KBEST+2NN         |  0.9852  |        4000        |    546     |    270    |        {'kbest': 4000}         |
+|        KBEST+1KNN        |  0.9852  |        4000        |    546     |    270    |        {'kbest': 4000}         |
+|         TOPN+NB          |  0.9815  |        526         |    546     |    270    |         {'top_n': 15}          |
+|         TOPN+NB          |  0.9815  |        120         |    546     |    270    |          {'top_n': 5}          |
+|         LVAR+NB          |  0.9815  |        5464        |    546     |    270    |  {'variance thershold': 0.01}  |
+|        KBEST+2NN         |  0.9815  |        3000        |    546     |    270    |        {'kbest': 3000}         |
+|        KBEST+2NN         |  0.9815  |        1000        |    546     |    270    |        {'kbest': 1000}         |
+|        KBEST+1KNN        |  0.9815  |        1000        |    546     |    270    |        {'kbest': 1000}         |
+|         TOPN+NB          |  0.9778  |        995         |    546     |    270    |         {'top_n': 25}          |
+|         TOPN+NB          |  0.9778  |        758         |    546     |    270    |         {'top_n': 20}          |
+|         TOPN+NB          |  0.9778  |        296         |    546     |    270    |         {'top_n': 10}          |
+|         KBEST+NB         |  0.9778  |        2000        |    546     |    270    |        {'kbest': 2000}         |
+|         KBEST+NB         |  0.9778  |        1000        |    546     |    270    |        {'kbest': 1000}         |
+|        KBEST+5NN         |  0.9778  |        5000        |    546     |    270    |        {'kbest': 5000}         |
+|        KBEST+5NN         |  0.9741  |        2000        |    546     |    270    |        {'kbest': 2000}         |
+|        KBEST+2NN         |  0.9741  |        5000        |    546     |    270    |        {'kbest': 5000}         |
+|        KBEST+2NN         |  0.9741  |        2000        |    546     |    270    |        {'kbest': 2000}         |
+|        KBEST+1KNN        |  0.9741  |        5000        |    546     |    270    |        {'kbest': 5000}         |
+|        KBEST+1KNN        |  0.9741  |        2000        |    546     |    270    |        {'kbest': 2000}         |
+|         TOPN+5NN         |  0.9704  |        296         |    546     |    270    |         {'top_n': 10}          |
+|         TOPN+2NN         |  0.9667  |        526         |    546     |    270    |         {'top_n': 15}          |
+|        TOPN+1KNN         |  0.9667  |        526         |    546     |    270    |         {'top_n': 15}          |
+|        KBEST+5NN         |  0.9667  |        6000        |    546     |    270    |        {'kbest': 6000}         |
+|        KBEST+5NN         |  0.9667  |        3000        |    546     |    270    |        {'kbest': 3000}         |
+|        KBEST+2NN         |  0.9667  |        6000        |    546     |    270    |        {'kbest': 6000}         |
+|        KBEST+1KNN        |  0.9667  |        6000        |    546     |    270    |        {'kbest': 6000}         |
+|        KBEST+5NN         |  0.963   |        4000        |    546     |    270    |        {'kbest': 4000}         |
+|        TOPN+1KNN         |  0.9593  |        296         |    546     |    270    |         {'top_n': 10}          |
+|        KBEST+5NN         |  0.9593  |        1000        |    546     |    270    |        {'kbest': 1000}         |
+|         TOPN+2NN         |  0.9556  |        296         |    546     |    270    |         {'top_n': 10}          |
+|        KBEST+2NN         |  0.9556  |        7000        |    546     |    270    |        {'kbest': 7000}         |
+|        KBEST+1KNN        |  0.9556  |        7000        |    546     |    270    |        {'kbest': 7000}         |
+|         TOPN+2NN         |  0.9519  |        995         |    546     |    270    |         {'top_n': 25}          |
+|         TOPN+2NN         |  0.9519  |        758         |    546     |    270    |         {'top_n': 20}          |
+|        TOPN+1KNN         |  0.9519  |        995         |    546     |    270    |         {'top_n': 25}          |
+|        TOPN+1KNN         |  0.9519  |        758         |    546     |    270    |         {'top_n': 20}          |
+|         TOPN+5NN         |  0.9481  |        526         |    546     |    270    |         {'top_n': 15}          |
+|        KBEST+5NN         |  0.9481  |        7000        |    546     |    270    |        {'kbest': 7000}         |
+|         TOPN+5NN         |  0.9407  |        758         |    546     |    270    |         {'top_n': 20}          |
+|         TOPN+2NN         |  0.9333  |        4443        |    546     |    270    |         {'top_n': 100}         |
+|         TOPN+2NN         |  0.9333  |        2274        |    546     |    270    |         {'top_n': 50}          |
+|        TOPN+1KNN         |  0.9333  |        4443        |    546     |    270    |         {'top_n': 100}         |
+|        TOPN+1KNN         |  0.9333  |        2274        |    546     |    270    |         {'top_n': 50}          |
+|         TOPN+5NN         |  0.9259  |        995         |    546     |    270    |         {'top_n': 25}          |
+|         TOPN+2NN         |  0.9259  |       12104        |    546     |    270    |         {'top_n': 500}         |
+|         TOPN+2NN         |  0.9259  |        8975        |    546     |    270    |         {'top_n': 250}         |
+|        TOPN+1KNN         |  0.9259  |       12104        |    546     |    270    |         {'top_n': 500}         |
+|        TOPN+1KNN         |  0.9259  |        8975        |    546     |    270    |         {'top_n': 250}         |
+|         META+2NN         |  0.9222  |        2509        |    546     |    270    |               {}               |
+|        META+1KNN         |  0.9222  |        2509        |    546     |    270    |               {}               |
+|         LVAR+2NN         |  0.9222  |        5464        |    546     |    270    |  {'variance thershold': 0.01}  |
+|        LVAR+1KNN         |  0.9222  |        5464        |    546     |    270    |  {'variance thershold': 0.01}  |
+|        KBEST+2NN         |  0.9222  |       14000        |    546     |    270    |        {'kbest': 14000}        |
+|        KBEST+2NN         |  0.9222  |       10000        |    546     |    270    |        {'kbest': 10000}        |
+|        KBEST+1KNN        |  0.9222  |       14000        |    546     |    270    |        {'kbest': 14000}        |
+|        KBEST+1KNN        |  0.9222  |       10000        |    546     |    270    |        {'kbest': 10000}        |
+|         LVAR+2NN         |  0.9185  |       11058        |    546     |    270    | {'variance thershold': 0.003}  |
+|         LVAR+2NN         |  0.9185  |       11058        |    546     |    270    | {'variance thershold': 0.002}  |
+|         LVAR+2NN         |  0.9185  |        8234        |    546     |    270    | {'variance thershold': 0.005}  |
+|         LVAR+2NN         |  0.9185  |        8234        |    546     |    270    | {'variance thershold': 0.004}  |
+|        LVAR+1KNN         |  0.9185  |       11058        |    546     |    270    | {'variance thershold': 0.003}  |
+|        LVAR+1KNN         |  0.9185  |       11058        |    546     |    270    | {'variance thershold': 0.002}  |
+|        LVAR+1KNN         |  0.9185  |        8234        |    546     |    270    | {'variance thershold': 0.005}  |
+|        LVAR+1KNN         |  0.9185  |        8234        |    546     |    270    | {'variance thershold': 0.004}  |
+|         LVAR+2NN         |  0.9074  |       16695        |    546     |    270    | {'variance thershold': 0.001}  |
+|         LVAR+2NN         |  0.9074  |       16695        |    546     |    270    | {'variance thershold': 0.0015} |
+|         LVAR+2NN         |  0.9074  |       16695        |    546     |    270    | {'variance thershold': 0.0005} |
+|        LVAR+1KNN         |  0.9074  |       16695        |    546     |    270    | {'variance thershold': 0.001}  |
+|        LVAR+1KNN         |  0.9074  |       16695        |    546     |    270    | {'variance thershold': 0.0015} |
+|        LVAR+1KNN         |  0.9074  |       16695        |    546     |    270    | {'variance thershold': 0.0005} |
+|         BOW+2NN          |  0.9074  |       16695        |    546     |    270    |               {}               |
+|         BOW+1KNN         |  0.9074  |       16695        |    546     |    270    |               {}               |
+|         TOPN+5NN         |  0.8926  |        2274        |    546     |    270    |         {'top_n': 50}          |
+|         LVAR+5NN         |  0.8926  |        5464        |    546     |    270    |  {'variance thershold': 0.01}  |
+|        KBEST+5NN         |  0.8889  |       10000        |    546     |    270    |        {'kbest': 10000}        |
+|         TOPN+5NN         |  0.8778  |        4443        |    546     |    270    |         {'top_n': 100}         |
+|         META+5NN         |  0.8704  |        2509        |    546     |    270    |               {}               |
+|         TOPN+5NN         |  0.8481  |        8975        |    546     |    270    |         {'top_n': 250}         |
+|         TOPN+5NN         |  0.8407  |       12104        |    546     |    270    |         {'top_n': 500}         |
+|         LVAR+5NN         |  0.837   |        8234        |    546     |    270    | {'variance thershold': 0.005}  |
+|         LVAR+5NN         |  0.837   |        8234        |    546     |    270    | {'variance thershold': 0.004}  |
+|        KBEST+5NN         |  0.837   |       14000        |    546     |    270    |        {'kbest': 14000}        |
+|         LVAR+5NN         |  0.8333  |       16695        |    546     |    270    | {'variance thershold': 0.001}  |
+|         LVAR+5NN         |  0.8333  |       16695        |    546     |    270    | {'variance thershold': 0.0015} |
+|         LVAR+5NN         |  0.8333  |       16695        |    546     |    270    | {'variance thershold': 0.0005} |
+|         BOW+5NN          |  0.8333  |       16695        |    546     |    270    |               {}               |
+|         LVAR+5NN         |  0.8296  |       11058        |    546     |    270    | {'variance thershold': 0.003}  |
+|         LVAR+5NN         |  0.8296  |       11058        |    546     |    270    | {'variance thershold': 0.002}  |
++--------------------------+----------+--------------------+------------+-----------+--------------------------------+
+Execution time: 263.13525189999996
+!END OF THE EXPERIMENT!
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
