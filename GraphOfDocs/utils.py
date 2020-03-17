@@ -2,12 +2,10 @@
 This script contains utility functions
 e.g to read files, preprocess text, etc.
 """
-import sys
-import platform
 from os import system
 from os import listdir
 from os.path import isfile, join
-from string import punctuation
+from string import punctuation, printable
 from nltk import pos_tag, sent_tokenize
 from nltk.corpus import wordnet, stopwords
 from nltk.stem.wordnet import WordNetLemmatizer
@@ -45,7 +43,7 @@ def get_wordnet_tag(tag):
     else: #default lemmatizer parameter
         return wordnet.NOUN
 
-def generate_words(text, extend_window = False, remove_stopwords = True, lemmatize = False, stemming = False):
+def generate_words(text, extend_window = False, insert_stopwords = False, lemmatize = False, stem = False):
     """
     Function that generates words from a text corpus and optionally lemmatizes them.
     Returns a set of unique tokens based on order of appearance in-text.
@@ -60,13 +58,13 @@ def generate_words(text, extend_window = False, remove_stopwords = True, lemmati
     # Also, by chaining the replace methods together, a slight amount of performance is achieved,
     # over other methods, that have the same output.
     if not extend_window:
-        text = text.replace('. ', ' e5 ')\
-                    .replace('! ', ' e5 ' )\
-                    .replace('? ', ' e5 ' )
+        text = text.replace('. ', ' e5c ')\
+                    .replace('! ', ' e5c ' )\
+                    .replace('? ', ' e5c ' )
     # Translate punctuation to space and lowercase the string.
     text = text.translate({ord(c): ' ' for c in punctuation}).lower()
     # We are cleaning the data from stopwords, numbers and leftover syllabes/letters.
-    if remove_stopwords:
+    if not insert_stopwords:
         tokens = [token for token in word_tokenize(text)
         if not token in stop_words and not token.isnumeric() and len(token) > 2]
     else:
@@ -75,7 +73,7 @@ def generate_words(text, extend_window = False, remove_stopwords = True, lemmati
         tokens_tags = pos_tag(tokens) # Create part-of-speech tags.
         # Overwrite the list with the lemmatized versions of tokens.
         tokens = [lemmatizer.lemmatize(token, get_wordnet_tag(tag)) for token, tag in tokens_tags]
-    if stemming:
+    if stem:
         # Overwrite the list with the stemmed versions of tokens.
         tokens = [stemmer.stem(token) for token in tokens]
     return tokens
@@ -84,14 +82,18 @@ def read_dataset(dirpath):
     """
     Function that gets a list of filenames in the directory specified by dirpath,
     then reading them in text mode, and appending them in a list which contains the file(name),
-    and its contents, which have newline characters removed.
+    and its contents, which have newline characters and non-printable characters removed.
     Handles newline endings of '\n' and '\r\n'.
     """
     data = []
+    # Add trailing slash to directory path, if not present.
+    dirpath = join(dirpath, '')
     files = [file for file in listdir(dirpath) if isfile(join(dirpath, file))]
     for file in files:
-        with open(''.join([dirpath, file]), 'rt', encoding = 'utf-8-sig') as fd:
-            data.append((file, fd.read().replace('\n', ' ').replace('\r', '')))  
+        with open(''.join([dirpath, file]), 'rt', encoding = 'utf-8-sig', errors = 'ignore') as fd:
+            text = fd.read().replace('\n', ' ').replace('\r', '')
+            text = ''.join(filter(lambda x: x in printable, text))
+            data.append((file, text))
     return data
 
 def clear_screen(current_system):

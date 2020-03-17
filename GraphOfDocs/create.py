@@ -5,6 +5,7 @@ create data in the Neo4j database.
 import platform
 from GraphOfDocs.utils import clear_screen
 from GraphOfDocs.algos import *
+from GraphOfDocs.select import get_communities_filenames, get_communities_tags
 
 # Initialize an empty set of edges.
 edges = {}
@@ -17,6 +18,14 @@ def create_graph_of_words(words, database, filename, window_size = 4):
     Function that creates a Graph of Words that contains all nodes from each document for easy comparison,
     inside the neo4j database, using the appropriate cypher queries.
     """
+
+    # Files that have word length < window size, are skipped.
+    # Window size ranges from 2 to 6.
+    length = len(words)
+    if (length < window_size):
+        # Early exit, we return the skipped filename
+        return filename
+
     # We are using a global set of edges to avoid creating duplicate edges between different graph of words.
     # Basically the co-occurences will be merged.
     global edges
@@ -30,22 +39,17 @@ def create_graph_of_words(words, database, filename, window_size = 4):
     for word in words:
         if word not in terms: 
             terms.append(word)
-
+    # Remove end-of-sentence token, so it doesn't get created.
+    if 'e5c' in terms:
+        terms.remove('e5c')
+    # If the word doesn't exist as a node, then create it.
     for word in terms:
-        # If the word doesn't exist as a node, then create it.
         if word not in nodes:
-            database.execute('CREATE (w:Word {key: "'+ word +'"})', 'w')
+            database.execute(f'CREATE (w:Word {{key: "{word}"}})', 'w')
             # Append word to the global node graph, to avoid duplicate creation.
             nodes.append(word)      
 
-    # Length should be greater than the window size at all times.
-    # Window size ranges from 2 to 6.
-    length = len(words)
-    try:
-        if (length < window_size):
-            raise ValueError('Word length should always be bigger than the window size!')
-    except ValueError as err:
-            print(repr(err))
+    
 
     # Create unique connections between existing nodes of the graph.
     for i, current in enumerate(words):
@@ -55,7 +59,7 @@ def create_graph_of_words(words, database, filename, window_size = 4):
         # If the current word is the end of sentence string,
         # we need to skip it, in order to go to the words of the next sentence,
         # without connecting words of different sentences, in the database.
-        if current == 'e5':
+        if current == 'e5c':
             continue
         # Connect the current element with the next elements of the window size.
         for j in range(1, window_size):
@@ -64,35 +68,35 @@ def create_graph_of_words(words, database, filename, window_size = 4):
             # We can't connect words of different sentences,
             # therefore we need to pick a new current word,
             # by going back out to the outer loop.
-            if next == 'e5':
+            if next == 'e5c':
                 break
             edge = (current, next)
             if edge in edges:
                 # If the edge, exists just update its weight.
                 edges[edge] = edges[edge] + 1
-                query = ('MATCH (w1:Word {key: "'+ current +'"})-[r:connects]-(w2:Word {key: "' + next + '"}) '
-                        'SET r.weight = '+ str(edges[edge]))
+                query = (f'MATCH (w1:Word {{key: "{current}"}})-[r:connects]-(w2:Word {{key: "{next}"}}) '
+                         f'SET r.weight = {edges[edge]}')
             else:
                 # Else, create it, with a starting weight of 1 meaning first co-occurence.
                 edges[edge] = 1
-                query = ('MATCH (w1:Word {key: "'+ current +'"}) '
-                        'MATCH (w2:Word {key: "' + next + '"}) '
-                        'MERGE (w1)-[r:connects {weight:' + str(edges[edge]) + '}]-(w2) ')
+                query = (f'MATCH (w1:Word {{key: "{current}"}}) '
+                         f'MATCH (w2:Word {{key: "{next}"}}) '
+                         f'MERGE (w1)-[r:connects {{weight: {edges[edge]}}}]-(w2)')
             # This line of code, is meant to be executed, in both cases of the if...else statement.
-            database.execute(' '.join(query.split()), 'w')
+            database.execute(query, 'w')
 
     # Create a parent node that represents the document itself.
     # This node is connected to all words of its own graph,
     # and will be used for similarity/comparison queries.
-    database.execute('CREATE (d:Document {filename: "'+ filename +'"})', 'w')
+    database.execute(f'CREATE (d:Document {{filename: "{filename}"}})', 'w')
     # Create a word list with comma separated, quoted strings for use in the Cypher query below.
-    word_list = ', '.join('"{0}"'.format(word) for word in set(words))
-    query = ('MATCH (w:Word) WHERE w.key IN [' + word_list + '] '
-            'WITH collect(w) as words '
-            'MATCH (d:Document {filename: "'+ filename +'"}) '
-            'UNWIND words as word '
-            'CREATE (d)-[:includes]->(word)')
-    database.execute(' '.join(query.split()), 'w')
+    #word_list = ', '.join(f'"{word}"' for word in terms)
+    query = (f'MATCH (w:Word) WHERE w.key IN {terms} '
+              'WITH collect(w) as words '
+             f'MATCH (d:Document {{filename: "{filename}"}}) '
+              'UNWIND words as word '
+              'CREATE (d)-[:includes]->(word)')
+    database.execute(query, 'w')
     return
 
 def run_initial_algorithms(database):
@@ -132,22 +136,6 @@ def create_similarity_graph(database):
     print('Similarity graph created.')
     return
 
-def generate_community_tags_scores(database, community):
-    """
-    This function generates the most important terms that describe
-    a community of similar documents, alongside their pagerank and in-degree scores.
-    """
-    # Get all intersecting nodes of the speficied community, 
-    # ranked by their in-degree (which shows to how many documents they belong to).
-    # and pagerank score in descending order.
-    query = ('MATCH p=((d:Document {community: '+ str(community) +'})-[:includes]->(w:Word)) '
-             'WITH w, count(p) as degree '
-             'WHERE degree > 1 '
-             'RETURN w.key, w.pagerank as pagerank, degree '
-             'ORDER BY degree DESC, pagerank DESC')
-    tags_scores = database.execute(' '.join(query.split()), 'r')
-    return tags_scores
-
 def create_clustering_tags(database, top_terms = 25):
     """
     This functions creates, in the Neo4j database, 
@@ -162,11 +150,7 @@ def create_clustering_tags(database, top_terms = 25):
 
     # Get all id numbers from communities and all their assosiated file(name)s.
     print('Loading all community ids and their filenames...')
-    query = ('MATCH (d:Document) RETURN d.community, '
-            'collect(d.filename) AS files, '
-            'count(d.filename) AS file_count '
-            'ORDER BY file_count DESC')
-    results = database.execute(' '.join(query.split()), 'r')
+    results = get_communities_filenames(database)
 
     # The communities are ordered by filecount, which means that after the first one found,
     # with 1 file all the rest have the same amount of documents.
@@ -185,22 +169,26 @@ def create_clustering_tags(database, top_terms = 25):
     count = 1
     total_count = len(results)
 
-    for [community, filenames, filecount] in results:
+    # Get all top tags for each community.
+    top_tags = get_communities_tags(database, top_terms)
+
+    for [community, filenames, _] in results:
         # Print the number of the currently processed community.
-        print('Processing ' + str(count) + ' out of ' + str(total_count) + ' communities...' )
-        tags_scores = generate_community_tags_scores(database, community)
-        # Get the top 25 tags from the tags and scores list.
-        top_tags = [tag[0] for tag in tags_scores[:top_terms]]
+        print(f'Processing {count} out of {total_count} communities...' )
+        try:
+            tags = top_tags[community]
+        except KeyError:
+            print('\t* Error: Community key should exist in dictionary!')
 
         # Connect filenames of a specific community with all their associated tags.
         # Tags are considered to be important words that describe that community,
         # and which already exist in the graphofdocs model.
-        query = ('UNWIND ' + str(filenames) +' AS filename '
-                'MATCH (d:Document {filename: filename}) '
-                'UNWIND ' + str(top_tags) +' AS tag '
-                'MATCH (w:Word {key: tag}) '
-                'CREATE (d)-[r:has_tag]->(w) ')
-        database.execute(' '.join(query.split()), 'w')
+        query = (f'UNWIND {filenames} AS filename '
+                  'MATCH (d:Document {filename: filename}) '
+                 f'UNWIND {tags} AS tag '
+                  'MATCH (w:Word {key: tag}) '
+                  'CREATE (d)-[r:has_tag]->(w)')
+        database.execute(query, 'w')
 
         # Update the progress counter.
         count = count + 1
