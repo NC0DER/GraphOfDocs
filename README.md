@@ -4,7 +4,7 @@ This repository hosts code for the papers:
 * [On a novel representation of multiple textual documents in a single graph (KES-IDT 2020) - master_idt_2020 branch]()
 * [An innovative graph-based approach to advance feature selection from multiple textual documents (AIAI 2020)]()
 
-![image1](https://github.com/NC0DER/GraphOfDocs/blob/develop/GraphOfDocs/images/GraphofDocs.jpg)
+![image1](https://github.com/NC0DER/GraphOfDocs/blob/master/GraphOfDocs/images/GraphofDocs.jpg)
 
 ## Test Results
 Run `jupyter notebook experiments.ipynb` 
@@ -42,7 +42,7 @@ pip3 install -r requirements.txt
 Create a new database from the `Neo4j` desktop app using 3.5.12 as the min. version.  
 Update your memory settings to match the following values,  
 and install the following extra plugins as depicted in the image.
-![image2](https://github.com/NC0DER/GraphOfDocs/blob/develop/GraphOfDocs/images/settings.jpg)
+![image2](https://github.com/NC0DER/GraphOfDocs/blob/master/GraphOfDocs/images/settings.jpg)
 *Hint: if you use a dedicated server that only runs `Neo4j`, you could increase these values, 
 accordingly as specified in the comments of these parameters.*
 
