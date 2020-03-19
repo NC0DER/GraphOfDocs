@@ -1,10 +1,12 @@
 import warnings
 warnings.warn = lambda *args, **kwards: None # Supress warnings.
 
+import sys
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 from sklearn.utils import shuffle
+from neo4j import ServiceUnavailable
 from GraphOfDocs.neo4j_wrapper import Neo4jDatabase
 from GraphOfDocs import utils
 from GraphOfDocs import select
@@ -35,7 +37,15 @@ print('TOP N SELECTED COMMUNITY TERMS: '
       f'{config_experiments.TOP_N_SELECTED_COMMUNITY_TERMS}')
 
 # Connect to database.
-database = Neo4jDatabase('bolt://localhost:7687', 'neo4j', '123')
+try:
+    database = Neo4jDatabase('bolt://localhost:7687', 'neo4j', '123')
+    # Neo4j server is unavailable.
+    # This client app cannot open a connection.
+except ServiceUnavailable as error:
+    print('\t* Neo4j database is unavailable.')
+    print('\t* Please check the database connection before running this app.')
+    input('\t* Press any key to exit the app...')
+    sys.exit(1)
 # Retrieve the communities of documents and their filenames.
 doc_communities = select.get_communities_filenames(database)
 # Keep only the communities with more than one documents.

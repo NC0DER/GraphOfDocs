@@ -8,15 +8,13 @@ from GraphOfDocs.parse_args import parser
 
 def graphofdocs(create, initialize, dirpath, window_size, 
     extend_window, remove_stopwords, lemmatize, stem):
-    uri = 'bolt://localhost:7687'
-    username = 'neo4j'
-    password = '123'
+
     # List that retains the skipped filenames.
     skipped = []
     current_system = platform.system()
     # Open the database.
     try:
-        database = Neo4jDatabase(uri, username, password)
+        database = Neo4jDatabase('bolt://localhost:7687', 'neo4j', '123')
         # Neo4j server is unavailable.
         # This client app cannot open a connection.
     except ServiceUnavailable as error:

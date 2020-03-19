@@ -6,11 +6,11 @@ This repository hosts code for the papers:
 
 ![image1](https://github.com/NC0DER/GraphOfDocs/blob/master/GraphOfDocs/images/feature_selection.jpg)
 
-## Test Results
-Run `experiments.py` 
-
 ## Datasets
 Available in [this link](https://drive.google.com/drive/folders/1xWcnP-D0rf7OWktXcHzw35D2mRNapHjj)
+
+## Test Results
+Edit `GraphOfdocs/config_experiments.py` to setup the experiments and run `experiments.py`.
 
 ## Installation
 **Prequisites:**
