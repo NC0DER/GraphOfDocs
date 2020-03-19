@@ -39,12 +39,12 @@ def generate_plots(df, show_only = True, output_dir = '', plots_prefix = 'plot')
             plt.show()
         else:
             lineplot(df_tmp)
-            plt.savefig('%s/%s_%s.png' % (output_dir, plots_prefix, clf), dpi = 2000)
+            plt.savefig(f'{output_dir}/{plots_prefix}_{clf}.png', dpi = 100)
             plt.clf()
 
             lineplot(df_tmp)
             plt.ylim(0, 1)
-            plt.savefig('%s/%s_%s_0_1.png' % (output_dir, plots_prefix, clf), dpi = 2000)
+            plt.savefig(f'{output_dir}/{plots_prefix}_{clf}_0_1.png', dpi = 100)
             plt.clf()
 
 class GraphOfDocsClassifier:
@@ -122,7 +122,7 @@ class BOWEvaluator(Evaluator):
                                   random_state = self._random_state)
         cv = CountVectorizer()
         x_train_transformed = cv.fit_transform(x_train)
-        print('Number of features in BOWEvaluator:%s' % (x_train_transformed.shape[1]))
+        print(f'Number of features in BOWEvaluator: {x_train_transformed.shape[1]}')
         x_test_transformed = cv.transform(x_test)
 
         results_table = kwargs['results_table']
@@ -397,5 +397,5 @@ class GraphOfDocsBigramsExtractionEvaluator(Evaluator):
         prefix = 'TOP_N' if self.__top_n else 'MIN_WEIGHT'
         return self._collect_evaluation_results(
             train_transformed, y_train, test_transformed, 
-            y_test, results_table, classifiers, 'GOD+BI %s+' % prefix, 
-            extra_details=extra_details)
+            y_test, results_table, classifiers, f'GOD+BI {prefix}+', 
+            extra_details = extra_details)

@@ -3,8 +3,8 @@ import platform
 from neo4j import ServiceUnavailable
 from GraphOfDocs.neo4j_wrapper import Neo4jDatabase
 from GraphOfDocs.utils import generate_words, read_dataset, clear_screen
-from GraphOfDocs.create import *
 from GraphOfDocs.parse_args import parser
+from GraphOfDocs.create import *
 
 def graphofdocs(create, initialize, dirpath, window_size, 
     extend_window, remove_stopwords, lemmatize, stem):
