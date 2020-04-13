@@ -7,7 +7,7 @@ This repository hosts code for the papers:
 ![image1](https://github.com/NC0DER/GraphOfDocs/blob/master/GraphOfDocs/images/feature_selection.jpg)
 
 ## Datasets
-Available in [this link](https://drive.google.com/drive/folders/1xWcnP-D0rf7OWktXcHzw35D2mRNapHjj)
+Available in [this link](https://github.com/imis-lab/aiai-2020-datasets)
 
 ## Test Results
 Edit `GraphOfdocs/config_experiments.py` to setup the experiments and run `experiments.py`.
