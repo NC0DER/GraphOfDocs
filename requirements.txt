@@ -6,7 +6,7 @@ neo4j==1.7.6
 neobolt==1.7.16
 neotime==1.7.4
 nltk==3.4.5
-numpy==1.18.1
+numpy==1.22.0
 pandas==1.0.1
 pip==21.1
 prettytable==0.7.2
